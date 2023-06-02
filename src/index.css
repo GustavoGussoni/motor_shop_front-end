@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    *{
+        @apply box-border
+    }
+    main{
+        @apply flex flex-col gap-5 px-[8%] py-5
+    }
+}
+
+@layer components{
+    /* .select2-dropdown {
+        @apply rounded-b-lg shadow-md;
+      } */
+}
