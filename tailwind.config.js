@@ -7,7 +7,7 @@ export default {
     },
     extend: {
       colors: {
-        "brand-1": "##4529E6",
+        "brand-1": "#4529E6",
         "brand-2": "#5126EA",
         "brand-3": "#B0A6F0",
         "brand-4": "#EDEAFD",
