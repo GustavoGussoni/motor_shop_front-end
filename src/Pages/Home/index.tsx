@@ -1,9 +1,10 @@
 import React from "react";
+import { Card } from "../../Components/Card";
 
 export const Home = () => {
-  return (
-    <React.Fragment>
-      <h1>Home</h1>
-    </React.Fragment>
-  );
+    return (
+        <React.Fragment>
+            <Card />
+        </React.Fragment>
+    );
 };
