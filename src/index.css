@@ -12,7 +12,47 @@
 }
 
 @layer components{
-    /* .select2-dropdown {
-        @apply rounded-b-lg shadow-md;
-      } */
-}
+    /* button pequeno tem font-body-2 e px-5 */
+    .button-grey-1{
+        @apply py-3 px-7 bg-grey-1 rounded-1 text-body-1 font-600 text-white-fixed hover:bg-grey-2
+    }
+    .button-grey-6{
+        @apply py-3 px-7 bg-grey-1 rounded-1 text-body-1 font-600 text-grey-2 hover:bg-grey-5
+    }
+    .button-grey-5{
+        @apply py-3 px-7 bg-brand-1 rounded-1 text-body-1 font-600 text-white-fixed
+    }
+    .button-brand-1{
+        @apply py-3 px-7 bg-brand-1 rounded-1 text-body-1 font-600 text-white-fixed hover:bg-brand-2
+    }
+    .button-brand-4{
+        @apply py-3 px-7 bg-brand-4 rounded-1 text-body-1 font-600 text-brand-1 hover:bg-brand-3
+    }
+    .button-disable-white{
+        @apply py-3 px-7 bg-grey-10 rounded-1 text-body-1 font-600 text-grey-1 hover:bg-white-fixed
+    }
+    .button-outline-1{
+        @apply py-3 px-7 bg-white-fixed rounded-1 text-body-1 font-600 text-grey-0 border-[1.5px] border-grey-0 hover:bg-grey-0 text-grey-10
+    }
+    .button-outline-2{
+        @apply py-3 px-7 bg-white-fixed rounded-1 text-body-1 font-600 text-grey-0 border-[1.5px] border-grey-4 hover:bg-grey-0 text-grey-10
+    }
+    .button-outline-brand-1{
+        @apply py-3 px-7 bg-white-fixed rounded-1 text-body-1 font-600 text-brand-1 border-[1.5px] border-brand-1 hover:bg-brand-4
+    }
+    .button-link{
+        @apply py-3 px-7 bg-white-fixed rounded-1 text-body-1 font-600 text-brand-1 hover:bg-grey-8
+    }
+
+    .button-alert{
+        @apply py-3 px-7 bg-alert-3 rounded-1 text-body-1 font-600 text-alert-1 hover:bg-alert-2
+    }
+
+    .button-sucess{
+        @apply py-3 px-7 bg-random-8 rounded-1 text-body-1 font-600 text-random-9 hover:bg-random-7    }
+
+    .button-brand-disable{
+        @apply py-3 px-7 bg-brand-3 rounded-1 text-body-1 font-600 text-grey-1   }
+
+    }   
+
