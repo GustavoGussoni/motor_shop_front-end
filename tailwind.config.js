@@ -11,7 +11,7 @@ export default {
         "brand-2": "#5126EA",
         "brand-3": "#B0A6F0",
         "brand-4": "#EDEAFD",
-        "grey-0": "##0B0D0D",
+        "grey-0": "#0B0D0D",
         "grey-1": "#212529",
         "grey-2": "#495057",
         "grey-3": "#868E96",

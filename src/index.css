@@ -6,13 +6,18 @@
     * {
         @apply box-border;
     }
-    /* main {
-        @apply flex flex-col gap-5 px-[8%] py-5;
-    } */
+    main{
+        @apply flex flex-col gap-5 px-[8%] py-5
+    }
+
 }
 
-@layer components {
-    /* .select2-dropdown {
-        @apply rounded-b-lg shadow-md;
-      } */
-}
+@layer components{
+    .button-medium{
+        @apply py-1 px-4 text-body-2 rounded-1 font-600 hover:ease-in duration-300
+    }
+    .button-big{
+        @apply  py-2 px-5 text-body-2 rounded-1 font-600 hover:ease-in duration-300
+    }
+    }   
+
