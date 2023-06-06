@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 @layer base {
-    *{
-        @apply box-border
+    * {
+        @apply box-border;
     }
     main{
         @apply flex flex-col gap-5 px-[8%] py-5
