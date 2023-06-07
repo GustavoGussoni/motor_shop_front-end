@@ -4,7 +4,9 @@ import { Card } from "../../Components/Card";
 export const Home = () => {
     return (
         <React.Fragment>
-            <Card />
+            <div className='flex'>
+                <Card />
+            </div>
         </React.Fragment>
     );
 };

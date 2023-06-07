@@ -1,9 +1,9 @@
 const Card = () => {
     return (
-        <li className='mx-auto max-w-2xl pt-2 px-2 m-16 sm:px-2 sm:py-2 list-none w-80 h-96'>
-            <div className='relative'>
+        <li className='pt-2 px-2 sm:px-2 sm:py-2 list-none min-w-[312px] max-w-[300px] ml-1'>
+            <div className='relative w-[296px] h-[160px]'>
                 <img
-                    className='border-2 hover:border-brand-1'
+                    className='border-2 hover:border-brand-1 w-[296px] h-[160px] object-cover'
                     src='../../../src/Assets/default-car.jpg'
                     alt=''
                 />
