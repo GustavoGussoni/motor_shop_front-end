@@ -12,7 +12,7 @@ const Card = () => {
                 </div>
             </div>
             <div className='mt-2 mb-4'>
-                <h2 className='mb-2 text-gray-1'>Porsche</h2>
+                <h2 className='mb-2 text-grey-1'>Porsche</h2>
                 <span className='text-grey-2'>
                     Lorem ipsum dolor, sit amet consectetur adipisicing elit. Similique iure
                 </span>
