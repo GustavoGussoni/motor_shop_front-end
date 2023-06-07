@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { HeadingText } from "../../../Style/HeadingText";
-import { InputNumber } from "../InputNumber";
+import { InputNumber } from "./InputNumber";
 
 const AsideFilter = ({ className }: any) => {
   const [filter, setFilter] = useState<string | null>(null);
