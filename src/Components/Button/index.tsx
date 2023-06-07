@@ -2,6 +2,7 @@ interface iButton {
   variant: keyof typeof variantStyle;
   text: string;
   size: keyof typeof sizeStyle;
+  onClick?: (e: any) => void;
 }
 
 const sizeStyle = {
