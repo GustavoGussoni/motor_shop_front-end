@@ -11,9 +11,6 @@ export const Home = () => {
     <React.Fragment>
       <Header />
       <main className="flex flex-col container justify-center items-center sm:mx-auto sm:justify-between sm:w-full">
-        <div className="bg-[url('./src/Assets/carBG.svg')] bg-auto bg-fixed">
-          <div className="bg-black h-full w-full"></div>
-        </div>
         <div className="flex flex-row sm:justify-between sm:w-full">
           <AsideFilter className="hidden sm:flex " />
           <ul className="flex flex-nowrap flex-row gap-4 overflow-x-auto max-w-sm sm:w-full sm:gap-2 sm:max-w-5xl sm:h-full sm:items-start sm:justify-start sm:flex-wrap sm:overflow-x-hidden">
