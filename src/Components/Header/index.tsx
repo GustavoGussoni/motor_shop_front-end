@@ -10,7 +10,9 @@ export const Header = () => {
         <img className="py-4" src={imgLogo}></img>
 
         <div className="pl-16 py-4 border-l border-grey-6 gap-12 hidden sm:flex duration-150">
-          <button className="bg-none text-grey-2">Fazer login</button>
+          <button className="bg-none text-grey-2 hover:text-brand-1">
+            Fazer login
+          </button>
           <Button variant="outline2" size="medium" text="Cadastrar"></Button>
         </div>
         <div className="flex sm:hidden duration-150">
