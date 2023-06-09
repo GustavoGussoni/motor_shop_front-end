@@ -1,11 +1,12 @@
 export const CardComents = ({ user }: any) => {
+
   const GetFirstLetterOfEachWord = (username: string) => {
     const words = username.split(' ');
     const firstWords = words.map((word) => word.charAt(0));
     return firstWords.join('');
   };
 
-  function calculateElapsedTime(publicationDate: Date): string {
+  const calculateElapsedTime = (publicationDate: Date): string => {
     const currentDate = new Date();
     const differenceInMilliseconds = currentDate.getTime() - publicationDate.getTime();
 
