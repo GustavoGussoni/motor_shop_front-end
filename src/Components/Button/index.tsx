@@ -2,6 +2,7 @@ interface iButton {
   variant: keyof typeof variantStyle;
   text: string;
   size: keyof typeof sizeStyle;
+  className?: string;
   onClick?: (e: any) => void;
 }
 
@@ -29,9 +30,11 @@ const variantStyle = {
   brandDisable: "bg-brand-3  text-grey-1",
 };
 
-export const Button = ({ variant, text, size }: iButton) => {
+export const Button = ({ variant, text, size, className }: iButton) => {
   return (
-    <button className={`${variantStyle[variant]} ${sizeStyle[size]}`}>
+    <button
+      className={`${className} ${variantStyle[variant]} ${sizeStyle[size]}`}
+    >
       {text}
     </button>
   );
