@@ -9,22 +9,25 @@ import { TitleProduct } from "../../Components/TitleProduct";
 
 export const Product = () => {
   return (
-    <React.Fragment>
+    <div className="bg-gray-100 h-[100vh]">
       <Header />
-      <main className="flex items-center justify-center sm:justify-between flex-col sm:flex-row">
-        <section className="sm:w-[70%] self-center">
-          <ImageProduct />
-          <TitleProduct />
-          <DescriptionProduct />
+      <div className="bg-brand-1 h-[35rem]" />
+      <div className="absolute top-[78px] w-full">
+        <main className="px-14 w-full flex items-center justify-center sm:justify-between flex-col sm:flex-row">
+          <section className="flex flex-col sm:w-[60%] gap-5 self-center ">
+            <ImageProduct />
+            <TitleProduct />
+            <DescriptionProduct />
+          </section>
+          <section className="sm:w-full sm:max-w-[40%]">
+            <AsideProfile />
+          </section>
+        </main>
+        <section className="bg-gray-100 px-14">
+          <Coments />
         </section>
-        <section className="sm:w-full sm:max-w-7xl">
-          <AsideProfile />
-        </section>
-      </main>
-      <section>
-        <Coments />
-      </section>
-      <Footer />
-    </React.Fragment>
+        <Footer />
+      </div>
+    </div>
   );
 };

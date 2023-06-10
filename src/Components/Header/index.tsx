@@ -1,11 +1,10 @@
 import { Button } from "../Button";
-import img from "../../Assets/embargo_23_01_bst_15_july_2020_911_turbo_rear_three_quarter-removebg.png";
 import { Menu, Transition } from "@headlessui/react";
 import imgLogo from "../../Assets/Motors shop.png";
 
 export const Header = () => {
   return (
-    <header>
+    <header className="bg-white-fixed">
       <div className="flex px-14 items-center justify-between w-full">
         <img className="py-4" src={imgLogo}></img>
 
@@ -61,9 +60,9 @@ export const Header = () => {
           </Menu>
         </div>
       </div>
-      <div className="bg-gradient-to-b from-brand-4 to-grey-0 to-90% h-1/3">
+      {/* <div className="bg-gradient-to-b from-brand-4 to-grey-0 to-90% h-1/3">
         <img src={img} alt="Imagem carro" className="bg-contain" />
-      </div>
+      </div> */}
     </header>
   );
 };
