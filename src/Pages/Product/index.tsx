@@ -18,11 +18,11 @@ export const Product = () => {
             <TitleProduct />
             <DescriptionProduct />
           </section>
-          <section className="z-[1] sm:w-full sm:max-w-[40%]">
+          <section className="flex justify-end z-[1] sm:w-full sm:max-w-[40%]">
             <AsideProfile />
           </section>
         </main>
-        <section className="bg-gray-100 px-14">
+        <section className="bg-gray-100 w-full px-14">
           <Coments />
         </section>
         <Footer />
