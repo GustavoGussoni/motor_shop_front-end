@@ -1,6 +1,7 @@
 import { Header } from "../../Components/Header";
 import { Footer } from "../../Components/Footer";
 import { AsideProfile } from "../../Components/Aside/Profile";
+import { CarImages } from "../../Components/Aside/CarImages";
 import { DescriptionProduct } from "../../Components/DescriptionProduct";
 import { Coments } from "../../Components/Coments";
 import { ImageProduct } from "../../Components/ImageProduct";
@@ -18,7 +19,8 @@ export const Product = () => {
             <TitleProduct />
             <DescriptionProduct />
           </section>
-          <section className="flex justify-end z-[1] sm:w-full sm:max-w-[40%]">
+          <section className="flex gap-8 flex-col justify-end z-[1] sm:w-full sm:max-w-[40%]">
+            <CarImages />
             <AsideProfile />
           </section>
         </main>
