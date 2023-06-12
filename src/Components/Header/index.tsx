@@ -14,7 +14,7 @@ export const Header = () => {
           </button>
           <Button variant="outline2" size="medium" text="Cadastrar"></Button>
         </div>
-        <div className="flex sm:hidden duration-150">
+        <div className="flex z-[2] sm:hidden duration-150">
           <Menu>
             <Menu.Button>
               <svg
@@ -60,9 +60,6 @@ export const Header = () => {
           </Menu>
         </div>
       </div>
-      {/* <div className="bg-gradient-to-b from-brand-4 to-grey-0 to-90% h-1/3">
-        <img src={img} alt="Imagem carro" className="bg-contain" />
-      </div> */}
     </header>
   );
 };
