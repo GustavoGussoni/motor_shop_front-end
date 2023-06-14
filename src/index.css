@@ -6,13 +6,20 @@
   * {
     @apply box-border;
   }
-  main{
-        @apply flex flex-col gap-5 px-[8%] py-5
-    }
+  main {
+    @apply flex flex-col gap-5 px-[8%] py-5;
+  }
   input::-webkit-outer-spin-button,
   input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
+  }
+  input[type="radio"] {
+    /* display: none; */
+    position: absolute;
+    width: 100px;
+    cursor: pointer;
+    z-index: 1;
   }
 }
 
