@@ -1,5 +1,5 @@
 import { CardComents } from "../CardComents";
-import { FormComents } from "../FormComents";
+import { FormComents } from "../Form/FormComents";
 
 const user = {
   username: "Adriano Souza",
