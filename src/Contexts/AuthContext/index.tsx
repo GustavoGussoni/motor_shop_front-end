@@ -1,13 +1,10 @@
-import { createContext, useState } from "react";
-import {
-  iAuthContext,
-  iAuthProviderProps,
-  iCepProps,
-  iUserProps,
-} from "./@types";
-import { useNavigate } from "react-router-dom";
-import { api } from "../../Services";
-import { iRegisterFormValues } from "../../Components/Form/FormRegister/@types";
+import { createContext, useState } from 'react';
+import { iAuthContext, iAuthProviderProps, iCepProps, iUserProps } from './@types';
+import { useNavigate } from 'react-router-dom';
+import { api } from '../../Services';
+import { iRegisterFormValues } from '../../Components/Form/FormRegister/@types';
+import { iLogin } from '../../Components/Form/FormLogin/loginSchema';
+import { toast } from 'react-toastify';
 
 export const AuthContext = createContext({} as iAuthContext);
 export const AuthProvider = ({ children }: iAuthProviderProps) => {
@@ -16,14 +13,11 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
   const [globalLoading, setGlobalLoading] = useState(false);
   const navigate = useNavigate();
 
-  const userRegister = async (
-    data: iRegisterFormValues,
-    setLoading: React.Dispatch<React.SetStateAction<boolean>>
-  ) => {
+  const userRegister = async (data: iRegisterFormValues, setLoading: React.Dispatch<React.SetStateAction<boolean>>) => {
     try {
       setLoading(true);
-      const request = await api.post("users", data);
-      navigate("");
+      const request = await api.post('users', data);
+      navigate('');
       return request.data;
     } catch (error) {
       console.log(error);
@@ -31,6 +25,20 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
       setLoading(false);
     }
   };
+
+  const userLogin = async (data: iLogin) => {
+    const id = toast.loading('Please wait...');
+    try {
+      const request = await api.post('login', data);
+
+      if (request) {
+        toast.update(id, { render: 'Login realizado com sucesso!', type: 'success', isLoading: false });
+      }
+    } catch (error) {
+      toast.update(id, { render: 'Informações invalidas', type: 'error', isLoading: false });
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -39,6 +47,7 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
         user,
         setUser,
         userRegister,
+        userLogin,
       }}
     >
       {children}

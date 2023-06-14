@@ -5,7 +5,7 @@ interface iButton {
   className?: string;
   type?: "button" | "submit" | "reset" | undefined;
   disabled?: boolean;
-  onClick?: (e: any) => void;
+  onClick?: () => void;
 }
 
 const sizeStyle = {
@@ -19,7 +19,7 @@ const variantStyle = {
   greyDisable: "bg-grey-5  text-white-fixed",
   brand1: "bg-brand-1 hover:bg-brand-2 text-white-fixed",
   brand4: "bg-brand-4 hover:bg-brand-3 text-brand-1",
-  light: "bg-grey-10 hover:bg-white-fixed text-grey-1",
+  light: "bg-grey-10 hover:border-brand-1 border text-grey-1",
   outline1:
     "bg-white-fixed hover:bg-grey-0 text-grey-1 hover:text-grey-10 border-[1.5px] border-grey-0",
   outline2:
@@ -39,12 +39,14 @@ export const Button = ({
   className,
   type,
   disabled,
+  onClick
 }: iButton) => {
   return (
     <button
       className={`${className} ${variantStyle[variant]} ${sizeStyle[size]}`}
       type={type}
       disabled={disabled}
+      onClick={onClick}
     >
       {text}
     </button>
