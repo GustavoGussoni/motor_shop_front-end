@@ -1,5 +1,6 @@
-import { iLogin } from '../../Components/Form/FormLogin/loginSchema';
-import { iRegisterFormValues } from '../../Components/Form/FormRegister/@types';
+import { NavigateFunction } from "react-router-dom";
+import { iLogin } from "../../Components/Form/FormLogin/loginSchema";
+import { iRegisterFormValues } from "../../Components/Form/FormRegister/@types";
 
 export interface iAuthProviderProps {
   children: React.ReactNode;
@@ -44,6 +45,11 @@ export interface iAuthContext {
   setCep: React.Dispatch<React.SetStateAction<iCepProps | null>>;
   user: iUserProps | null;
   setUser: React.Dispatch<React.SetStateAction<iUserProps | null>>;
-  userRegister: (data: iRegisterFormValues, setLoading: React.Dispatch<React.SetStateAction<boolean>>) => void;
+  userRegister: (
+    data: iRegisterFormValues,
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>
+  ) => void;
   userLogin: (data: iLogin) => void;
+  navigate: NavigateFunction;
+  getUserData: unknown;
 }
