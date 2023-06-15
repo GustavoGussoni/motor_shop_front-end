@@ -2,13 +2,12 @@ export interface iRegisterFormValues {
   name: string;
   email: string;
   password: string;
-  confirmPassword: string;
+  confirmPassword?: string;
   cpf: string;
   cellphone: string;
   birthdate: string;
   description: string;
-
-  is_advertiser: boolean;
+  is_advertiser: boolean | string;
   address: iAddressProps;
 }
 
