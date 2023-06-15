@@ -10,8 +10,8 @@ const user = {
 
 export const Coments = () => {
   return (
-    <section className="bg-transparent w-full rounded gap-6 pr-0 sm:pr-9 pl-0 px-9 flex flex-col">
-      <div className="flex flex-col gap-6 bg-grey-10 px-7 py-9 w-[100%] sm:w-[60%]">
+    <section className="bg-transparent w-full gap-6 pr-0 pl-0 px-9 flex mb-5 flex-col">
+      <div className="flex flex-col gap-6  rounded-2 bg-grey-10 px-7 py-9 w-[100%]">
         <h2 className="text-xl">Comentários</h2>
         <ul className="flex flex-col gap-7">
           <CardComents user={user} />
