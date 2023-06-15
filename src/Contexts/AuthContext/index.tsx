@@ -26,6 +26,7 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
       setLoading(true);
       const request = await api.post("users", data);
       setUser(request.data);
+      navigate("/login");
       return request.data;
     } catch (error) {
       console.log(error);
