@@ -10,6 +10,7 @@ import { api } from "../../Services";
 import { iRegisterFormValues } from "../../Components/Form/FormRegister/@types";
 import { iLogin } from "../../Components/Form/FormLogin/loginSchema";
 import { toast } from "react-toastify";
+import { parseCookies, setCookie } from "nookies";
 
 export const AuthContext = createContext({} as iAuthContext);
 export const AuthProvider = ({ children }: iAuthProviderProps) => {
@@ -17,6 +18,9 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
   const [user, setUser] = useState<iUserProps | null>(null);
   const [globalLoading, setGlobalLoading] = useState(false);
   const navigate = useNavigate();
+
+  const cookies = parseCookies();
+  const { user_token, user_email } = cookies;
 
   const userRegister = async (
     data: iRegisterFormValues,
@@ -46,6 +50,11 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
           type: "success",
           isLoading: false,
         });
+        setCookie(null, "user_token", request.data.token);
+        setCookie(null, "user_email", data.email);
+        await getUserData();
+
+        navigate("/profile/user");
       }
     } catch (error) {
       toast.update(id, {
@@ -53,6 +62,20 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
         type: "error",
         isLoading: false,
       });
+    }
+  };
+
+  const getUserData = async () => {
+    try {
+      const request = await api.get("users");
+
+      if (request) {
+        const data = request.data;
+        const find_user = data.filter((el) => el.email === user_email);
+        return setUser(find_user);
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -65,6 +88,8 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
         setUser,
         userRegister,
         userLogin,
+        navigate,
+        getUserData,
       }}
     >
       {children}
