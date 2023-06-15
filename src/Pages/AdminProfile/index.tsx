@@ -2,6 +2,9 @@ import { Header } from "../../Components/Header";
 import { HeadingText } from "../../Style/HeadingText";
 import { HeadingTextBody } from "../../Style/HeadingBodyText";
 import { Footer } from "../../Components/Footer";
+import { Button } from "../../Components/Button";
+import { useState } from "react";
+import { FormRegisterAnnouncement } from "../../Components/FormRegisterAnnouncement";
 
 export const AdminProfile = () => {
   const userTest = {
@@ -11,6 +14,9 @@ export const AdminProfile = () => {
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's",
     profileImage: null,
   };
+
+  const [open, setOpen] = useState<boolean>(false);
+
   return (
     <div className="bg-gray-100 max-h-full">
       <Header />
@@ -36,11 +42,17 @@ export const AdminProfile = () => {
             >
               {userTest.description}
             </HeadingTextBody>
+            <Button
+              onClick={() => setOpen(true)}
+              text="Criar anúncio"
+              size="big"
+              variant="brand1"
+            ></Button>
           </div>
         </main>
-
         <Footer />
       </div>
+      <FormRegisterAnnouncement open={open} setOpen={setOpen} />
     </div>
   );
 };
