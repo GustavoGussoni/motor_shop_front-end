@@ -67,10 +67,12 @@ export const UserProfile = () => {
         </main>
         <div className="flex bg-gray-100 flex-col sm:justify-between sm:w-full">
           <div className="flex px-14 items-center justify-between w-full">
-            <h1 className="text-heading-5 600 font-sans leading-8">Anúncios</h1>
+            <h1 className="text-heading-5 font-600 font-sans leading-8">
+              Anúncios
+            </h1>
           </div>
           <main>
-            <ul className="flex flex-nowrap flex-row gap-4 overflow-x-auto max-w-sm sm:w-full sm:gap-2 sm:max-w-5xl sm:h-full sm:items-start sm:justify-start sm:flex-wrap sm:overflow-x-hidden">
+            <ul className="flex flex-nowrap justify-between flex-row gap-4 overflow-x-auto sm:w-full sm:gap-2 sm:max-w-full sm:h-full sm:items-start sm:flex-wrap sm:overflow-x-hidden">
               <Card />
               <Card />
               <Card />
