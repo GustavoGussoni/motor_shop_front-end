@@ -52,8 +52,6 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
         });
         setCookie(null, "user_token", request.data.token);
         setCookie(null, "user_email", data.email);
-        await getUserData();
-
         navigate("/profile/user");
       }
     } catch (error) {
@@ -69,13 +67,12 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
     try {
       const request = await api.get("users");
 
-      if (request) {
-        const data = request.data;
-        const find_user = data.filter((el) => el.email === user_email);
-        return setUser(find_user);
-      }
+      const data = await request.data;
+      const find_user = data.filter((el) => el.email === user_email);
+
+      setUser(find_user);
     } catch (error) {
-      console.log(error);
+      console.log("erro catch getUser", error);
     }
   };
 
