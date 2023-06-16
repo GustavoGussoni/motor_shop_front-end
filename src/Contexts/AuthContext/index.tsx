@@ -1,10 +1,16 @@
-import { createContext, useState } from 'react';
-import { iAuthContext, iAuthProviderProps, iCepProps, iUserProps } from './@types';
-import { useNavigate } from 'react-router-dom';
-import { api } from '../../Services';
-import { iRegisterFormValues } from '../../Components/Form/FormRegister/@types';
-import { iLogin } from '../../Components/Form/FormLogin/loginSchema';
-import { toast } from 'react-toastify';
+import { createContext, useState } from "react";
+import {
+  iAuthContext,
+  iAuthProviderProps,
+  iCepProps,
+  iUserProps,
+} from "./@types";
+import { useNavigate } from "react-router-dom";
+import { api } from "../../Services";
+import { iRegisterFormValues } from "../../Components/Form/FormRegister/@types";
+import { iLogin } from "../../Components/Form/FormLogin/loginSchema";
+import { toast } from "react-toastify";
+import { parseCookies, setCookie } from "nookies";
 
 export const AuthContext = createContext({} as iAuthContext);
 export const AuthProvider = ({ children }: iAuthProviderProps) => {
@@ -13,11 +19,18 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
   const [globalLoading, setGlobalLoading] = useState(false);
   const navigate = useNavigate();
 
-  const userRegister = async (data: iRegisterFormValues, setLoading: React.Dispatch<React.SetStateAction<boolean>>) => {
+  const cookies = parseCookies();
+  const { user_token, user_email } = cookies;
+
+  const userRegister = async (
+    data: iRegisterFormValues,
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>
+  ) => {
     try {
       setLoading(true);
-      const request = await api.post('users', data);
-      navigate('');
+      const request = await api.post("users", data);
+      setUser(request.data);
+      navigate("/login");
       return request.data;
     } catch (error) {
       console.log(error);
@@ -29,22 +42,37 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
   const userLogin = async (data: iLogin) => {
     const id = toast.loading('Verificando dados...');
     try {
-      const request = await api.post('login', data);
+      const request = await api.post("login", data);
 
       if (request) {
         toast.update(id, {
-          render: 'Login realizado com sucesso! 👌',
-          type: 'success',
+          render: "Login realizado com sucesso!",
+          type: "success",
           isLoading: false,
-          autoClose: 1500,
         });
-        setTimeout(() => {
-          navigate('');
-          localStorage.setItem('@User', request.data.token);
-        }, 1600);
+        setCookie(null, "user_token", request.data.token);
+        setCookie(null, "user_email", data.email);
+        navigate("/profile/user");
       }
     } catch (error) {
-      toast.update(id, { render: 'Informações invalidas! 🤯', type: 'error', isLoading: false, autoClose: 1500 });
+      toast.update(id, {
+        render: "Informações invalidas",
+        type: "error",
+        isLoading: false,
+      });
+    }
+  };
+
+  const getUserData = async () => {
+    try {
+      const request = await api.get("users");
+
+      const data = await request.data;
+      const find_user = data.filter((el) => el.email === user_email);
+
+      setUser(find_user);
+    } catch (error) {
+      console.log("erro catch getUser", error);
     }
   };
 
@@ -58,6 +86,7 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
         userRegister,
         userLogin,
         navigate,
+        getUserData,
       }}
     >
       {children}

@@ -23,13 +23,25 @@ export const FormRegister = () => {
     resolver: zodResolver(RegisterSchema),
   });
   const submit: SubmitHandler<iRegisterFormValues> = (data) => {
+    delete data.confirmPassword;
+    if (data.is_advertiser === "true") {
+      data["is_advertiser"] = true;
+    }
+
+    if (data.is_advertiser === "false") {
+      data["is_advertiser"] = false;
+    }
+    if (typeof data.address.number === "string") {
+      const newValue = data.address.number;
+      data.address.number = Number(newValue);
+    }
     console.log(data);
-    // userRegister(data, setLoading);
+    userRegister(data, setLoading);
   };
 
-  const handleChoices = (choice: boolean) => {
-    setAdvertiser(choice);
-  };
+  // const handleChoices = (choice: boolean) => {
+  //   setAdvertiser(choice);
+  // };
 
   return (
     <form className="flex flex-col gap-y-6 " onSubmit={handleSubmit(submit)}>
@@ -149,22 +161,6 @@ export const FormRegister = () => {
       </div>
       <HeadingTextBody tag="body-2-600">Tipo de conta</HeadingTextBody>
       <div className="flex gap-[11px] justify-between">
-        {/* <label>
-          <input
-            type="radio"
-            value="opcao1"
-            {...register("is_advertiser", { required: true })}
-          />
-          Opção 1
-        </label>
-        <label>
-          <input
-            type="radio"
-            value="opcao1"
-            {...register("is_advertiser", { required: true })}
-          />
-          Opção 1
-        </label> */}
         <InputRadio
           id="advertiserFalse"
           value="false"
