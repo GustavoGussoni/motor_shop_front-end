@@ -8,6 +8,7 @@ export const Input = ({
   label,
   register,
   value,
+  onBlur,
 }: iInputForm) => {
   return (
     <fieldset className="flex flex-col gap-y-2.5">
@@ -18,7 +19,8 @@ export const Input = ({
         disabled={disabled}
         {...register}
         value={value}
-        className="px-4 h-[48px] max-w-[315px] w-full border-[1.5px] border-grey-7 outline-none rounded"
+        className="px-4 h-[48px] max-w-[315px] w-full border-[1.5px] border-grey-7 outline-none rounded text-grey-3"
+        onBlur={onBlur}
       />
     </fieldset>
   );

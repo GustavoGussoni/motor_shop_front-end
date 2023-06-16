@@ -22,6 +22,11 @@ export const HeadingTextBody = ({
           {children}
         </span>
       )}
+      {tag === "body-2-500" && (
+        <span className={`text-body-2 fontWeight-500 ${className}`}>
+          {children}
+        </span>
+      )}
       {tag === "body-2-400" && (
         <span className={`text-body-2 font-normal ${className}`}>
           {children}

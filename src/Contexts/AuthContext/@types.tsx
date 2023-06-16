@@ -52,4 +52,7 @@ export interface iAuthContext {
   userLogin: (data: iLogin) => void;
   navigate: NavigateFunction;
   getUserData: unknown;
+  authCep: (value: string) => void;
+  filter: string | null;
+  setFilter: React.Dispatch<React.SetStateAction<string | null>>;
 }

@@ -4,10 +4,13 @@ import { Footer } from "../../Components/Footer";
 import { HeadingText } from "../../Style/HeadingText";
 import { Card } from "../../Components/Card";
 import { Header } from "../../Components/Header";
-import { Button } from "../../Components/Button";
+import { useContext } from "react";
 import img from "../../Assets/embargo_23_01_bst_15_july_2020_911_turbo_rear_three_quarter-removebg.png";
+import { AuthContext } from "../../Contexts/AuthContext";
+import { Button } from "../../Components/Button";
 
 export const Home = () => {
+  const { setFilter } = useContext(AuthContext);
   return (
     <React.Fragment>
       <Header />
@@ -26,12 +29,6 @@ export const Home = () => {
             <Card />
           </ul>
         </div>
-        <Button
-          variant="brand1"
-          size="medium"
-          text="Filtro"
-          onClick={(e) => console.log(e.target)}
-        />
         <div className="flex flex-col self-center sm:flex-row gap-10 mb-11 mt-12">
           <div className="flex self-center">
             <HeadingText
@@ -44,6 +41,13 @@ export const Home = () => {
               de 1
             </HeadingText>
           </div>
+          <Button
+            variant="brand1"
+            size="medium"
+            text="Filtro"
+            // onClick={() => ())
+            className="w-[279px] sm:hidden"
+          />
           {/* <HeadingText tag="heading-5-600" className="text-brand-2">
             {"Seguinte >"}
           </HeadingText> */}

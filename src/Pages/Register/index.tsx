@@ -9,7 +9,7 @@ export const Register = () => {
     <div className="w-screen bg-grey-8 flex flex-col justify-between">
       <Header />
       <main className="flex items-center">
-        <div className="max-w-[411px] w-full bg-grey-10 px-[48px] py-[44px]">
+        <div className="max-w-[411px] w-full bg-grey-10 px-[48px] py-[44px] flex flex-col gap-[32px]">
           <HeadingText tag="heading-5-500">Cadastro</HeadingText>
           <FormRegister />
         </div>
