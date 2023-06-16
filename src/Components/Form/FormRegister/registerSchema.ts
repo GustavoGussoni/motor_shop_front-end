@@ -1,7 +1,11 @@
 import * as z from "zod";
 
 const addressSchema = z.object({
-  cep: z.string().nonempty("CEP é obrigatório").max(10, "Insira um CEP válido"),
+  cep: z
+    .string()
+    .nonempty("CEP é obrigatório")
+    .min(8, "Insira um CEP válido")
+    .max(9, "Insira um CEP válido"),
   state: z.string().nonempty("UF é obrigatório").max(2, "Insira um UF válido"),
   city: z
     .string()
@@ -9,7 +13,10 @@ const addressSchema = z.object({
     .max(50, "Insira um nome de cidade válido"),
   number: z.string().nonempty("Numero é obrigatório"),
   addOn: z.string().nullish(),
-  street: z.string().nonempty("Rua é obrigatória").max(255, "Insira uma rua de endereço válida"),
+  street: z
+    .string()
+    .nonempty("Rua é obrigatória")
+    .max(255, "Insira uma rua de endereço válida"),
 });
 
 export const RegisterSchema = z

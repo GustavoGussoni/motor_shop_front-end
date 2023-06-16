@@ -1,6 +1,10 @@
 import { iBasedHeadingProps } from "./@types";
 
-export const HeadingText = ({ children, tag, className }: iBasedHeadingProps) => {
+export const HeadingText = ({
+  children,
+  tag,
+  className,
+}: iBasedHeadingProps) => {
   return (
     <>
       {tag === "heading-1-700" && (

@@ -5,11 +5,9 @@ import { LoginSchema, iLogin } from './loginSchema';
 import { Button } from '../../Button';
 import { AuthContext } from '../../../Contexts/AuthContext';
 import { useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 export const FormLogin = () => {
-    const navigate = useNavigate()
-  const { userLogin } = useContext(AuthContext);
+  const { userLogin, navigate } = useContext(AuthContext);
   const {
     register,
     handleSubmit,

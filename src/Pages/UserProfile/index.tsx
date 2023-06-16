@@ -2,42 +2,86 @@ import { Header } from "../../Components/Header";
 import { HeadingText } from "../../Style/HeadingText";
 import { HeadingTextBody } from "../../Style/HeadingBodyText";
 import { Footer } from "../../Components/Footer";
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../Contexts/AuthContext";
+import { Card } from "../../Components/Card";
 
 export const UserProfile = () => {
-  const userTest = {
-    name: "Joselito",
-    lastName: "Michael",
-    description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's",
-    profileImage: null,
+  const { getUserData, user } = useContext(AuthContext);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        await getUserData();
+        setIsLoading(false);
+      } catch (error) {
+        setIsLoading(false);
+        return error;
+      }
+    };
+    getUser();
+  }, []);
+
+  const GetFirstLetterOfEachWord = (username: string) => {
+    const words = username.split(" ");
+    const firstWords = words.map((word) => word.charAt(0));
+    return firstWords.join("");
   };
+  if (isLoading) {
+    return (
+      <div className="bg-gray-100 max-h-full">
+        <Header />
+        <div className="relative z-[1] bg-brand-1 h-[17rem]" />
+        <div className="bg-gray-100 absolute top-[78px] h-[100vh] w-full">
+          <main>
+            <HeadingText className="z-[2] text-white" tag="heading-6-600">
+              Carregando...
+            </HeadingText>
+          </main>
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="bg-gray-100 max-h-full">
       <Header />
       <div className="relative z-[1] bg-brand-1 h-[17rem]" />
       <div className="bg-gray-100 absolute top-[78px] h-[100vh] w-full">
-        <main>
+        <main className="bg-gray-100">
           <div className="bg-white z-[2] flex flex-col items-start gap-8 w-full py-[40px] px-[28px] sm:px-[44px] sm:py-[36px] h-auto sm:flex sm:justify-center">
             <div className="w-[104px] h-[104px] flex items-center justify-center rounded-full bg-brand-1 text-3xl text-white-fixed">
-              {userTest.profileImage
-                ? userTest.profileImage
-                : userTest.name[0].toUpperCase() +
-                  userTest.lastName[0].toUpperCase()}
+              {GetFirstLetterOfEachWord(user[0]?.name)}
             </div>
             <div>
-              <HeadingText tag="heading-6-600">
-                {userTest.name + " " + userTest.lastName}
-              </HeadingText>
+              <HeadingText tag="heading-6-600">{user[0]?.name}</HeadingText>
             </div>
 
             <HeadingTextBody
               tag="body-1-400"
               className="w-[100%] text-start text-grey-2 sm:max-w-[352px]"
             >
-              {userTest.description}
+              {user[0]?.description}
             </HeadingTextBody>
           </div>
         </main>
+        <div className="flex bg-gray-100 flex-col sm:justify-between sm:w-full">
+          <div className="flex px-14 items-center justify-between w-full">
+            <h1 className="text-heading-5 font-600 font-sans leading-8">
+              Anúncios
+            </h1>
+          </div>
+          <main>
+            <ul className="flex flex-nowrap justify-between flex-row gap-4 overflow-x-auto sm:w-full sm:gap-2 sm:max-w-full sm:h-full sm:items-start sm:flex-wrap sm:overflow-x-hidden">
+              <Card />
+              <Card />
+              <Card />
+              <Card />
+              <Card />
+              <Card />
+            </ul>
+          </main>
+        </div>
 
         <Footer />
       </div>

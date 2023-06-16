@@ -7,4 +7,5 @@ export interface iInputForm {
   register: object;
   value?: any;
   className?: string;
+  onBlur?: (e: any) => void;
 }
