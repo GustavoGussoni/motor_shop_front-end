@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useContext } from "react";
 import { HeadingText } from "../../../Style/HeadingText";
 import { InputNumber } from "./InputNumber";
+import { AuthContext } from "../../../Contexts/AuthContext";
 
 const AsideFilter = ({ className }: any) => {
-  const [filter, setFilter] = useState<string | null>(null);
+  const { filter, setFilter } = useContext(AuthContext);
 
   return (
     <section>

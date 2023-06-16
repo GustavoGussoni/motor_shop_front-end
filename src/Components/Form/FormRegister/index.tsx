@@ -13,6 +13,7 @@ import { InputRadio } from "../InputRadio";
 export const FormRegister = () => {
   const [loading, setLoading] = useState(false);
   const [advertiser, setAdvertiser] = useState(false);
+  const { authCep, cep } = useContext(AuthContext);
   const { userRegister } = useContext(AuthContext);
   const {
     register,
@@ -35,17 +36,12 @@ export const FormRegister = () => {
       const newValue = data.address.number;
       data.address.number = Number(newValue);
     }
-    console.log(data);
     userRegister(data, setLoading);
   };
 
-  // const handleChoices = (choice: boolean) => {
-  //   setAdvertiser(choice);
-  // };
-
   return (
     <form className="flex flex-col gap-y-6 " onSubmit={handleSubmit(submit)}>
-      <HeadingTextBody tag="body-2-600">Infomações pessoais</HeadingTextBody>
+      <HeadingTextBody tag="body-2-500">Infomações pessoais</HeadingTextBody>
       <Input
         id="name"
         label="Nome"
@@ -100,7 +96,7 @@ export const FormRegister = () => {
         disabled={loading}
       />
       {errors.description && <span>{errors.description.message}</span>}
-      <HeadingTextBody tag="body-2-600">Infomações de endereço</HeadingTextBody>
+      <HeadingTextBody tag="body-2-500">Infomações de endereço</HeadingTextBody>
       <Input
         id="cep"
         label="CEP"
@@ -108,6 +104,7 @@ export const FormRegister = () => {
         placeholder="00000.000"
         register={register("address.cep")}
         disabled={loading}
+        onBlur={(e) => authCep(e.target.value)}
       />
       {errors.address?.cep && <span>{errors.address.cep.message}</span>}
       <div className="flex gap-[11px]">
@@ -118,6 +115,7 @@ export const FormRegister = () => {
           placeholder="Digite estado"
           register={register("address.state")}
           disabled={loading}
+          value={cep?.uf}
         />
         {errors.address?.state && <span>{errors.address.state.message}</span>}
         <Input
@@ -127,6 +125,7 @@ export const FormRegister = () => {
           placeholder="Digitar cidade"
           register={register("address.city")}
           disabled={loading}
+          value={cep?.localidade}
         />
         {errors.address?.city && <span>{errors.address.city.message}</span>}
       </div>
@@ -137,9 +136,10 @@ export const FormRegister = () => {
         placeholder="Digitar sua rua"
         register={register("address.street")}
         disabled={loading}
+        value={cep?.logradouro}
       />
       {errors.address?.street && <span>{errors.address.street.message}</span>}
-      <div>
+      <div className="flex gap-[11px]">
         <Input
           id="number"
           label="Número"
@@ -159,7 +159,7 @@ export const FormRegister = () => {
         />
         {errors.address?.addOn && <span>{errors.address.addOn.message}</span>}
       </div>
-      <HeadingTextBody tag="body-2-600">Tipo de conta</HeadingTextBody>
+      <HeadingTextBody tag="body-2-500">Tipo de conta</HeadingTextBody>
       <div className="flex gap-[11px] justify-between">
         <InputRadio
           id="advertiserFalse"
