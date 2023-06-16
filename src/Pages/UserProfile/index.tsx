@@ -2,14 +2,24 @@ import { Header } from "../../Components/Header";
 import { HeadingText } from "../../Style/HeadingText";
 import { HeadingTextBody } from "../../Style/HeadingBodyText";
 import { Footer } from "../../Components/Footer";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Contexts/AuthContext";
 
 export const UserProfile = () => {
   const { getUserData, user } = useContext(AuthContext);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    getUserData();
+    const getUser = async () => {
+      try {
+        await getUserData();
+        setIsLoading(false);
+      } catch (error) {
+        setIsLoading(false);
+        return error;
+      }
+    };
+    getUser();
   }, []);
 
   const GetFirstLetterOfEachWord = (username: string) => {
@@ -17,14 +27,21 @@ export const UserProfile = () => {
     const firstWords = words.map((word) => word.charAt(0));
     return firstWords.join("");
   };
-
-  const userTest = {
-    name: "Joselito",
-    lastName: "Michael",
-    description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's",
-    profileImage: null,
-  };
+  if (isLoading) {
+    return (
+      <div className="bg-gray-100 max-h-full">
+        <Header />
+        <div className="relative z-[1] bg-brand-1 h-[17rem]" />
+        <div className="bg-gray-100 absolute top-[78px] h-[100vh] w-full">
+          <main>
+            <HeadingText className="z-[2] text-white" tag="heading-6-600">
+              Carregando...
+            </HeadingText>
+          </main>
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="bg-gray-100 max-h-full">
       <Header />
