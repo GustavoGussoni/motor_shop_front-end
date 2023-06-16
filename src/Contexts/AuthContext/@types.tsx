@@ -1,6 +1,6 @@
-import { NavigateFunction } from "react-router-dom";
-import { iLogin } from "../../Components/Form/FormLogin/loginSchema";
-import { iRegisterFormValues } from "../../Components/Form/FormRegister/@types";
+import { NavigateFunction } from 'react-router-dom';
+import { iLogin } from '../../Components/Form/FormLogin/loginSchema';
+import { iRegisterFormValues } from '../../Components/Form/FormRegister/@types';
 
 export interface iAuthProviderProps {
   children: React.ReactNode;

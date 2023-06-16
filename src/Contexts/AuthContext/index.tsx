@@ -40,7 +40,7 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
   };
 
   const userLogin = async (data: iLogin) => {
-    const id = toast.loading("Please wait...");
+    const id = toast.loading('Verificando dados...');
     try {
       const request = await api.post("login", data);
 
