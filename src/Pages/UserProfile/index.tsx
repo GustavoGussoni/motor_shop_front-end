@@ -4,6 +4,7 @@ import { HeadingTextBody } from "../../Style/HeadingBodyText";
 import { Footer } from "../../Components/Footer";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Contexts/AuthContext";
+import { Card } from "../../Components/Card";
 
 export const UserProfile = () => {
   const { getUserData, user } = useContext(AuthContext);
@@ -47,7 +48,7 @@ export const UserProfile = () => {
       <Header />
       <div className="relative z-[1] bg-brand-1 h-[17rem]" />
       <div className="bg-gray-100 absolute top-[78px] h-[100vh] w-full">
-        <main>
+        <main className="bg-gray-100">
           <div className="bg-white z-[2] flex flex-col items-start gap-8 w-full py-[40px] px-[28px] sm:px-[44px] sm:py-[36px] h-auto sm:flex sm:justify-center">
             <div className="w-[104px] h-[104px] flex items-center justify-center rounded-full bg-brand-1 text-3xl text-white-fixed">
               {GetFirstLetterOfEachWord(user[0]?.name)}
@@ -64,6 +65,21 @@ export const UserProfile = () => {
             </HeadingTextBody>
           </div>
         </main>
+        <div className="flex bg-gray-100 flex-col sm:justify-between sm:w-full">
+          <div className="flex px-14 items-center justify-between w-full">
+            <h1 className="text-heading-5 600 font-sans leading-8">Anúncios</h1>
+          </div>
+          <main>
+            <ul className="flex flex-nowrap flex-row gap-4 overflow-x-auto max-w-sm sm:w-full sm:gap-2 sm:max-w-5xl sm:h-full sm:items-start sm:justify-start sm:flex-wrap sm:overflow-x-hidden">
+              <Card />
+              <Card />
+              <Card />
+              <Card />
+              <Card />
+              <Card />
+            </ul>
+          </main>
+        </div>
 
         <Footer />
       </div>
