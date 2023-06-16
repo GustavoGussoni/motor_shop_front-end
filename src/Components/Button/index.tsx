@@ -29,7 +29,7 @@ const variantStyle = {
   link: "bg-white-fixed hover:bg-grey-8 text-brand-1",
   alert: "bg-alert-3 hover:bg-alert-2 text-alert-1",
   success: "bg-random-8 hover:bg-random-7 text-random-9",
-  brandDisable: "bg-brand-3  text-grey-1",
+  brandDisable: "bg-brand-3 text-white-fixed",
 };
 
 export const Button = ({
@@ -39,7 +39,7 @@ export const Button = ({
   className,
   type,
   disabled,
-  onClick
+  onClick,
 }: iButton) => {
   return (
     <button
