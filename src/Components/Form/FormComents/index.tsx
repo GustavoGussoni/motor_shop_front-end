@@ -22,12 +22,10 @@ export const FormComents = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // Faça o que precisa ser feito com o comentário e a opção selecionada
     console.log('Comentário:', comment);
     console.log('Opção selecionada:', selectedOption);
   };
 
-  // Atualizar o estado do botão de envio ao alterar o campo de comentário ou a opção selecionada
   useEffect(updateSubmitButton, [comment, selectedOption]);
 
   return (

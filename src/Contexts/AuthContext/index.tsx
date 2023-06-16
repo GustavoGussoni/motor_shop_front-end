@@ -27,15 +27,24 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
   };
 
   const userLogin = async (data: iLogin) => {
-    const id = toast.loading('Please wait...');
+    const id = toast.loading('Verificando dados...');
     try {
       const request = await api.post('login', data);
 
       if (request) {
-        toast.update(id, { render: 'Login realizado com sucesso!', type: 'success', isLoading: false });
+        toast.update(id, {
+          render: 'Login realizado com sucesso! 👌',
+          type: 'success',
+          isLoading: false,
+          autoClose: 1500,
+        });
+        setTimeout(() => {
+          navigate('');
+          localStorage.setItem('@User', request.data.token);
+        }, 1600);
       }
     } catch (error) {
-      toast.update(id, { render: 'Informações invalidas', type: 'error', isLoading: false });
+      toast.update(id, { render: 'Informações invalidas! 🤯', type: 'error', isLoading: false, autoClose: 1500 });
     }
   };
 
@@ -48,6 +57,7 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
         setUser,
         userRegister,
         userLogin,
+        navigate,
       }}
     >
       {children}
