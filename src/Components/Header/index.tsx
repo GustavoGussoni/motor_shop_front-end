@@ -6,10 +6,10 @@ import { useContext } from "react";
 import { parseCookies } from "nookies";
 
 export const Header = () => {
-  const { navigate, getUserData, user } = useContext(AuthContext);
+  const { navigate, user, userLogout } = useContext(AuthContext);
 
   const cookies = parseCookies();
-  const { user_token, user_email } = cookies;
+  const { user_token } = cookies;
 
   const handleLogin = () => {
     navigate("/login");
@@ -59,7 +59,7 @@ export const Header = () => {
                       className={`rounded-full w-8 h-8 ${randomColorClass} flex items-center justify-center`}
                     >
                       <p className="text-center text-white font-medium text-sm flex items-center justify-center">
-                        {GetFirstLetterOfEachWord(user[0]?.name)}
+                        {GetFirstLetterOfEachWord(user.name)}
                       </p>
                     </div>
                   </Menu.Button>
@@ -76,6 +76,7 @@ export const Header = () => {
                         <>
                           <Menu.Item>
                             <Button
+                              onClick={() => userLogout()}
                               variant="outline2"
                               size="medium"
                               text="Sair"
@@ -87,9 +88,7 @@ export const Header = () => {
                   </Transition>
                 </Menu>
 
-                <h2 className="text-grey-1 text-sm font-medium">
-                  {user[0]?.name}
-                </h2>
+                <h2 className="text-grey-1 text-sm font-medium">{user.name}</h2>
               </div>
             </>
           ) : (
@@ -140,6 +139,7 @@ export const Header = () => {
                   <>
                     <Menu.Item>
                       <Button
+                        onClick={() => userLogout()}
                         variant="outline2"
                         size="medium"
                         text="Sair"
@@ -150,6 +150,7 @@ export const Header = () => {
                   <>
                     <Menu.Item>
                       <Button
+                        onClick={() => handleLogin()}
                         variant="outline2"
                         size="medium"
                         text="Login"
@@ -157,6 +158,7 @@ export const Header = () => {
                     </Menu.Item>
                     <Menu.Item>
                       <Button
+                        onClick={() => handleRegister()}
                         variant="outline2"
                         size="medium"
                         text="Cadastrar"
