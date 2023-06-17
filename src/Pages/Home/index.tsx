@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { AsideFilter } from "../../Components/Aside/Filter";
 import { Footer } from "../../Components/Footer";
 import { HeadingText } from "../../Style/HeadingText";
@@ -10,7 +10,22 @@ import { AuthContext } from "../../Contexts/AuthContext";
 import { Button } from "../../Components/Button";
 
 export const Home = () => {
-  const { setFilter } = useContext(AuthContext);
+  const { setFilter, user, getAllAnnouncement, allAnnouncements } =
+    useContext(AuthContext);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const getAnnoucements = async () => {
+      try {
+        await getAllAnnouncement();
+        setIsLoading(false);
+      } catch (error) {
+        setIsLoading(false);
+        console.log(error);
+      }
+    };
+    getAnnoucements();
+  }, []);
   return (
     <React.Fragment>
       <Header />
@@ -21,12 +36,13 @@ export const Home = () => {
         <div className="flex flex-row sm:justify-between sm:w-full">
           <AsideFilter className="hidden sm:flex " />
           <ul className="flex flex-nowrap flex-row gap-4 overflow-x-auto max-w-sm sm:w-full sm:gap-2 sm:max-w-5xl sm:h-full sm:items-start sm:justify-start sm:flex-wrap sm:overflow-x-hidden">
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
+            {!isLoading ? (
+              allAnnouncements.map((an) => {
+                return <Card key={an.id} data={an} />;
+              })
+            ) : (
+              <h1>Carreggando dados...</h1>
+            )}
           </ul>
         </div>
         <div className="flex flex-col self-center sm:flex-row gap-10 mb-11 mt-12">
