@@ -40,7 +40,7 @@ export const FormRegisterAnnouncement = ({
       <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
 
       <div className="fixed inset-0 overflow-y-auto">
-        <div className="min-h-full overflow-y-auto flex items-center justify-center p-4">
+        <div className="min-h-full overflow-y-auto flex items-center justify-center px-5 py-10">
           <Dialog.Panel className=" flex flex-col gap-6 p-7 bg-white-fixed rounded-2 max-w-[520px]">
             <Dialog.Title className="relative right-2 text-heading-7 font-500">
               Criar Anúncio
@@ -49,7 +49,7 @@ export const FormRegisterAnnouncement = ({
               Informações do veículo
             </Dialog.Description>
             <form
-              className="flex flex-col items-center gap-5 justify-center"
+              className="flex flex-col items-center gap-6 justify-center"
               onSubmit={handleSubmit(onSubmit)}
             >
               <Input
@@ -61,84 +61,127 @@ export const FormRegisterAnnouncement = ({
                 disabled={false}
                 className="max-w-full"
               />
-              {errors.name_car && <span>{errors.name_car.message}</span>}
+              {errors.name_car && (
+                <span className="text-body-2 text-random-2">
+                  {errors.name_car.message}
+                </span>
+              )}
               <Input
-                id="brand"
+                id="model"
                 label="Modelo"
                 type="text"
                 placeholder="A 200 CGI ADVANCE SEDAN"
-                register={register("brand")}
+                register={register("model")}
                 disabled={false}
                 className="max-w-full"
               />
-              {errors.brand && <span>{errors.brand.message}</span>}
+              {errors.model && (
+                <span className="text-body-2 text-random-2">
+                  {errors.model.message}
+                </span>
+              )}
 
               <div className="flex gap-3">
-                <Input
-                  id="year"
-                  label="Ano"
-                  type="text"
-                  placeholder="2018"
-                  register={register("year")}
-                  disabled={false}
-                  className="max-w-full"
-                />
-                <Input
-                  id="fuel"
-                  label="Combustível"
-                  type="text"
-                  placeholder="2018"
-                  register={register("fuel")}
-                  disabled={false}
-                  className="max-w-full"
-                />
-                {errors.fuel && <span>{errors.fuel.message}</span>}
+                <div className="flex flex-col">
+                  <Input
+                    id="year"
+                    label="Ano"
+                    type="text"
+                    placeholder="2018"
+                    register={register("year")}
+                    disabled={false}
+                    className="max-w-full"
+                  />
+                  {errors.year && (
+                    <span className="text-body-2 text-random-2">
+                      {errors.year.message}
+                    </span>
+                  )}
+                </div>
+                <div className="flex flex-col">
+                  <Input
+                    id="fuel"
+                    label="Combustível"
+                    type="text"
+                    placeholder="disel"
+                    register={register("fuel")}
+                    disabled={false}
+                    className="max-w-full"
+                  />
+                  {errors.fuel && (
+                    <span className="text-body-2 text-random-2">
+                      {errors.fuel.message}
+                    </span>
+                  )}
+                </div>
               </div>
               <div className="flex gap-3">
-                <Input
-                  id="kilometers"
-                  label="Quilometragem"
-                  type="text"
-                  placeholder="30.000"
-                  register={register("kilometers")}
-                  disabled={false}
-                  className="max-w-full"
-                />
-                {errors.kilometers && <span>{errors.kilometers.message}</span>}
-
-                <Input
-                  id="color"
-                  label="Cor"
-                  type="text"
-                  placeholder="Branco"
-                  register={register("color")}
-                  disabled={false}
-                  className="max-w-full"
-                />
-                {errors.color && <span>{errors.color.message}</span>}
+                <div className="flex flex-col">
+                  <Input
+                    id="kilometers"
+                    label="Quilometragem"
+                    type="text"
+                    placeholder="30.000"
+                    register={register("kilometers")}
+                    disabled={false}
+                    className="max-w-full"
+                  />
+                  {errors.kilometers && (
+                    <span className="text-body-2 text-random-2">
+                      {errors.kilometers.message}
+                    </span>
+                  )}
+                </div>
+                <div className="flex flex-col">
+                  <Input
+                    id="color"
+                    label="Cor"
+                    type="text"
+                    placeholder="Branco"
+                    register={register("color")}
+                    disabled={false}
+                    className="max-w-full"
+                  />
+                  {errors.color && (
+                    <span className="text-body-2 text-random-2">
+                      {errors.color.message}
+                    </span>
+                  )}
+                </div>
               </div>
               <div className="flex gap-3">
-                <Input
-                  id="price_fipe"
-                  label="Preço tabela FIPE"
-                  type="text"
-                  placeholder="R$ 48.000,00"
-                  register={register("price_fipe")}
-                  disabled={false}
-                  className="max-w-full"
-                />
-                {errors.price_fipe && <span>{errors.price_fipe.message}</span>}
-
-                <Input
-                  id="price"
-                  label="Preço"
-                  type="text"
-                  placeholder="Ex: Nome Sobrenome"
-                  register={register("price")}
-                  disabled={false}
-                  className="max-w-full"
-                />
-                {errors.price && <span>{errors.price.message}</span>}
+                <div className="flex flex-col">
+                  <Input
+                    id="price_fipe"
+                    label="Preço tabela FIPE"
+                    type="text"
+                    placeholder="R$ 48.000,00"
+                    register={register("price_fipe")}
+                    disabled={false}
+                    className="max-w-full"
+                  />
+                  {errors.price_fipe && (
+                    <span className="text-body-2 text-random-2">
+                      {errors.price_fipe.message}
+                    </span>
+                  )}
+                </div>
+                <div className="flex flex-col">
+                  <Input
+                    id="price"
+                    label="Preço"
+                    type="text"
+                    placeholder="Ex: Nome Sobrenome"
+                    register={register("price")}
+                    disabled={false}
+                    className="max-w-full"
+                  />
+                  {errors.price && (
+                    <span className="text-body-2 text-random-2">
+                      {errors.price.message}
+                    </span>
+                  )}
+                </div>
               </div>
 
               <Input
@@ -150,7 +193,11 @@ export const FormRegisterAnnouncement = ({
                 disabled={false}
                 className="max-w-full"
               />
-              {errors.description && <span>{errors.description.message}</span>}
+              {errors.description && (
+                <span className="text-body-2 text-random-2">
+                  {errors.description.message}
+                </span>
+              )}
 
               <Input
                 id="cover_image"
@@ -161,7 +208,11 @@ export const FormRegisterAnnouncement = ({
                 disabled={false}
                 className="max-w-full"
               />
-              {errors.cover_image && <span>{errors.cover_image.message}</span>}
+              {errors.cover_image && (
+                <span className="text-body-2 text-random-2">
+                  {errors.cover_image.message}
+                </span>
+              )}
 
               {image.map((elem) => (
                 <React.Fragment>
@@ -176,7 +227,9 @@ export const FormRegisterAnnouncement = ({
                     className="max-w-full"
                   />
                   {errors.image_gallery && (
-                    <span>{errors.image_gallery.message}</span>
+                    <span className="text-body-2 text-random-2">
+                      {errors.image_gallery.message}
+                    </span>
                   )}
                 </React.Fragment>
               ))}
@@ -187,7 +240,7 @@ export const FormRegisterAnnouncement = ({
                 variant="brand1"
                 onClick={() => setImage((array) => [...array, array.length])}
               ></Button>
-              <div className="flex gap-3">
+              <div className="flex gap-3 self-end">
                 <Button
                   onClick={() => setOpen(false)}
                   text="Cancelar"
@@ -198,7 +251,8 @@ export const FormRegisterAnnouncement = ({
                   onClick={() => handleSubmit(onSubmit)}
                   text="Criar anúncio"
                   size="medium"
-                  variant="brandDisable"
+                  variant={isValid ? "brand1" : "brandDisable"}
+                  disabled={!isValid}
                 ></Button>
               </div>
             </form>

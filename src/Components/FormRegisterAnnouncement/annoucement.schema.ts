@@ -11,10 +11,9 @@ export const AnnoucementSchema = z.object({
   fuel: z.string().nonempty("O combustível é obrigatório"),
   kilometers: z.string().nonempty("A quilometragem é obrigatório"),
   color: z.string().max(20).nonempty("O cor é obrigatória"),
-  price_fipe: z.number().min(1, "O preço da tabela FIPE é obrigatória"),
-  price: z.number().min(1, "O preço é obrigatório"),
+  price_fipe: z.string().nonempty("O preço da tabela FIPE é obrigatória"),
+  price: z.string().nonempty("O preço é obrigatório"),
   description: z.string(),
   cover_image: z.string().nonempty("A imagem de capa é obrigatória"),
-  is_activate: z.boolean(),
   image_gallery: z.array(z.string()),
 });

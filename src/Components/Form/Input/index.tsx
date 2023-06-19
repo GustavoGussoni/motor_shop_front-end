@@ -22,7 +22,7 @@ export const Input = ({
         disabled={disabled}
         {...register}
         value={value}
-        className={`px-4 h-[48px] max-w-[315px] w-full border-[1.5px] border-grey-7 outline-none rounded text-grey-3 placeholder-grey-3 ${className}`}
+        className={`px-4 h-[48px] max-w-[315px] w-full border-[1.5px] border-grey-7 outline-none rounded text-grey-1 placeholder-grey-3 ${className}`}
         onBlur={onBlur}
       />
     </fieldset>
