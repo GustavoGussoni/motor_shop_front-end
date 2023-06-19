@@ -2,7 +2,7 @@ import { Dialog } from "@headlessui/react";
 import { Input } from "../Form/Input";
 import { Button } from "../Button";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import React, { useState } from "react";
 import { iFormAnnoucement } from "./@types";
 import { AnnoucementSchema } from "./annoucement.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -71,6 +71,8 @@ export const FormRegisterAnnouncement = ({
                 disabled={false}
                 className="max-w-full"
               />
+              {errors.brand && <span>{errors.brand.message}</span>}
+
               <div className="flex gap-3">
                 <Input
                   id="year"
@@ -90,6 +92,7 @@ export const FormRegisterAnnouncement = ({
                   disabled={false}
                   className="max-w-full"
                 />
+                {errors.fuel && <span>{errors.fuel.message}</span>}
               </div>
               <div className="flex gap-3">
                 <Input
@@ -101,6 +104,8 @@ export const FormRegisterAnnouncement = ({
                   disabled={false}
                   className="max-w-full"
                 />
+                {errors.kilometers && <span>{errors.kilometers.message}</span>}
+
                 <Input
                   id="color"
                   label="Cor"
@@ -110,6 +115,7 @@ export const FormRegisterAnnouncement = ({
                   disabled={false}
                   className="max-w-full"
                 />
+                {errors.color && <span>{errors.color.message}</span>}
               </div>
               <div className="flex gap-3">
                 <Input
@@ -121,6 +127,8 @@ export const FormRegisterAnnouncement = ({
                   disabled={false}
                   className="max-w-full"
                 />
+                {errors.price_fipe && <span>{errors.price_fipe.message}</span>}
+
                 <Input
                   id="price"
                   label="Preço"
@@ -130,6 +138,7 @@ export const FormRegisterAnnouncement = ({
                   disabled={false}
                   className="max-w-full"
                 />
+                {errors.price && <span>{errors.price.message}</span>}
               </div>
 
               <Input
@@ -141,6 +150,8 @@ export const FormRegisterAnnouncement = ({
                 disabled={false}
                 className="max-w-full"
               />
+              {errors.description && <span>{errors.description.message}</span>}
+
               <Input
                 id="cover_image"
                 label="Imagem de capa"
@@ -150,18 +161,24 @@ export const FormRegisterAnnouncement = ({
                 disabled={false}
                 className="max-w-full"
               />
+              {errors.cover_image && <span>{errors.cover_image.message}</span>}
 
               {image.map((elem) => (
-                <Input
-                  id="image_gallery"
-                  key={elem}
-                  label={`${elem + 1}º imagem da galeria`}
-                  type="text"
-                  placeholder="https://image.com"
-                  register={register(`image_gallery.${elem}`)}
-                  disabled={false}
-                  className="max-w-full"
-                />
+                <React.Fragment>
+                  <Input
+                    id="image_gallery"
+                    key={elem}
+                    label={`${elem + 1}º imagem da galeria`}
+                    type="text"
+                    placeholder="https://image.com"
+                    register={register(`image_gallery.${elem}`)}
+                    disabled={false}
+                    className="max-w-full"
+                  />
+                  {errors.image_gallery && (
+                    <span>{errors.image_gallery.message}</span>
+                  )}
+                </React.Fragment>
               ))}
 
               <Button
