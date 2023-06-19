@@ -53,16 +53,6 @@ export const Header = () => {
           {user_token && user ? (
             <>
               <div className="flex items-center gap-3">
-                <div
-                  className={`rounded-full w-8 h-8 ${randomColorClass} flex items-center justify-center`}
-                >
-                  <p className="text-center text-white font-medium text-sm flex items-center justify-center">
-                    {/* {GetFirstLetterOfEachWord(user[0]?.name)} */}
-                  </p>
-                </div>
-                <h2 className="text-grey-1 text-sm font-medium">
-                  {/* {user[0]?.name} */}
-                </h2>
                 <Menu>
                   <Menu.Button>
                     <div
