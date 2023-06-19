@@ -41,6 +41,7 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
       if (request.statusText === "Created") {
         setUser(request.data);
         setIsOpen(true);
+        navigate("/login");
       }
       return request.data;
     } catch (error) {
@@ -100,9 +101,8 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
       await getUserAnnouncement();
       if (find_user[0].is_admin) {
         navigate("/profile/admin");
-      } else {
-        navigate("/profile/user");
       }
+      navigate("/profile/user");
     } catch (error) {
       console.log("erro catch getUser", error);
     }
