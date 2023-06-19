@@ -40,6 +40,23 @@ export interface iAddressProps {
   add_on: string;
 }
 
+export interface iAnnouncementProps {
+  id: string;
+  name_car: string;
+  brand: string;
+  year: string;
+  fuel: number;
+  kilometers: number;
+  color: string;
+  price_fipe: number;
+  price: number;
+  description: string;
+  cover_image: string;
+  is_activate: boolean;
+  userId: string;
+  user: { name: string };
+}
+
 export interface iAuthContext {
   cep: iCepProps | null;
   setCep: React.Dispatch<React.SetStateAction<iCepProps | null>>;
@@ -57,4 +74,9 @@ export interface iAuthContext {
   setFilter: React.Dispatch<React.SetStateAction<string | null>>;
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  userLogout: () => void;
+  getUserAnnouncement: () => Promise<void>;
+  userAnnouncements: iAnnouncementProps[];
+  getAllAnnouncement: () => Promise<void>;
+  allAnnouncements: [] | iAnnouncementProps[];
 }
