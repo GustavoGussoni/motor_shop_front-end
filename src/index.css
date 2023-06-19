@@ -14,12 +14,16 @@
     -webkit-appearance: none;
     margin: 0;
   }
+  #radios label {
+    position: relative;
+  }
+
   input[type="radio"] {
-    /* display: none; */
     position: absolute;
-    width: 100px;
+    opacity: 0;
     cursor: pointer;
-    z-index: 1;
+    width: 150px;
+    height: 48px;
   }
 }
 
