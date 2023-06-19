@@ -5,6 +5,7 @@ import { Footer } from "../../Components/Footer";
 import { Button } from "../../Components/Button";
 import { useState } from "react";
 import { FormRegisterAnnouncement } from "../../Components/FormRegisterAnnouncement";
+import { ModalDefault } from "../../Components/ModalDefault";
 
 export const AdminProfile = () => {
   const userTest = {
@@ -52,7 +53,9 @@ export const AdminProfile = () => {
         </main>
         <Footer />
       </div>
-      <FormRegisterAnnouncement open={open} setOpen={setOpen} />
+      <ModalDefault open={open} setOpen={setOpen}>
+        <FormRegisterAnnouncement open={open} setOpen={setOpen} />
+      </ModalDefault>
     </div>
   );
 };
