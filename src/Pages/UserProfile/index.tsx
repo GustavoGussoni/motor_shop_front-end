@@ -78,7 +78,7 @@ export const UserProfile = () => {
             <ul className="flex flex-nowrap justify-between flex-row gap-4 overflow-x-auto sm:w-full sm:gap-2 sm:max-w-full sm:h-full sm:items-start sm:flex-wrap sm:overflow-x-hidden">
               {userAnnouncements ? (
                 userAnnouncements.map((an) => {
-                  return <Card key={an.id} data={an} user={user} />;
+                  return <Card key={an.id} data={an} />;
                 })
               ) : (
                 <li>Sem anúncios cadastrados</li>
