@@ -24,6 +24,7 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
     iAnnouncementProps[] | []
   >([]);
   const [filter, setFilter] = useState<string | null>(null);
+  const [isOpen, setIsOpen] = useState(false);
   const [globalLoading, setGlobalLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -37,8 +38,10 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
     try {
       setLoading(true);
       const request = await api.post("users", data);
-      setUser(request.data);
-      navigate("/login");
+      if (request.statusText === "Created") {
+        setUser(request.data);
+        setIsOpen(true);
+      }
       return request.data;
     } catch (error) {
       console.log(error);
@@ -159,6 +162,8 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
         authCep,
         filter,
         setFilter,
+        isOpen,
+        setIsOpen,
         userLogout,
         getUserAnnouncement,
         userAnnouncements,

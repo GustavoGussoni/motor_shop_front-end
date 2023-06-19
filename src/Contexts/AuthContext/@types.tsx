@@ -72,6 +72,8 @@ export interface iAuthContext {
   authCep: (value: string) => void;
   filter: string | null;
   setFilter: React.Dispatch<React.SetStateAction<string | null>>;
+  isOpen: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   userLogout: () => void;
   getUserAnnouncement: () => Promise<void>;
   userAnnouncements: iAnnouncementProps[];

@@ -12,9 +12,7 @@ import { InputRadio } from "../InputRadio";
 
 export const FormRegister = () => {
   const [loading, setLoading] = useState(false);
-  const [advertiser, setAdvertiser] = useState(false);
-  const { authCep, cep } = useContext(AuthContext);
-  const { userRegister } = useContext(AuthContext);
+  const { authCep, cep, userRegister, setIsOpen } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
@@ -24,6 +22,7 @@ export const FormRegister = () => {
     resolver: zodResolver(RegisterSchema),
   });
   const submit: SubmitHandler<iRegisterFormValues> = (data) => {
+    console.log(data);
     delete data.confirmPassword;
     if (data.is_advertiser === "true") {
       data["is_advertiser"] = true;
@@ -208,6 +207,7 @@ export const FormRegister = () => {
         type="submit"
         className="self-center max-w-[315px] w-full"
         disabled={!isValid}
+        onClick={() => setIsOpen(false)}
       />
     </form>
   );
