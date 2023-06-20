@@ -36,6 +36,10 @@ export const Header = () => {
     navigate("");
   };
 
+  const handleProfileAdmin = () => {
+    navigate("/profile/admin");
+  };
+
   const GetFirstLetterOfEachWord = (username: string) => {
     const words = username.split(" ");
     const firstWords = words.map((word) => word.charAt(0));
@@ -70,7 +74,7 @@ export const Header = () => {
           src={imgLogo}
         ></img>
 
-        <div className="pl-16 py-4 border-l z-[2] border-grey-6 gap-12 hidden sm:flex duration-150">
+        <div className="pl-16 py-4 border-l z-[3] border-grey-6 gap-12 hidden sm:flex duration-150">
           {user_token && user ? (
             <>
               <div className="flex items-center gap-3">
@@ -95,6 +99,14 @@ export const Header = () => {
                     <Menu.Items className="origin-bottom-right flex flex-col absolute top-5 right-5 gap-2 bg-transparent rounded-md">
                       {
                         <>
+                          <Menu.Item>
+                            <Button
+                              onClick={() => handleProfileAdmin()}
+                              variant="outline2"
+                              size="medium"
+                              text="Perfil"
+                            ></Button>
+                          </Menu.Item>
                           <Menu.Item>
                             <Button
                               onClick={() => userLogout()}
@@ -129,7 +141,7 @@ export const Header = () => {
             </>
           )}
         </div>
-        <div className="flex z-[2] sm:hidden duration-150">
+        <div className="flex z-[3] sm:hidden duration-150">
           <Menu>
             <Menu.Button>
               <svg
@@ -158,6 +170,14 @@ export const Header = () => {
               <Menu.Items className="origin-bottom-right flex flex-col absolute top-5 right-5 gap-2 bg-transparent rounded-md">
                 {user_token && user ? (
                   <>
+                    <Menu.Item>
+                      <Button
+                        onClick={() => handleProfileAdmin()}
+                        variant="outline2"
+                        size="medium"
+                        text="Perfil"
+                      ></Button>
+                    </Menu.Item>
                     <Menu.Item>
                       <Button
                         onClick={() => userLogout()}

@@ -80,9 +80,9 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
 
   const userLogout = () => {
     const id = toast.loading("Verificando dados...");
+    setUser(null);
     destroyCookie(null, "user_token");
     destroyCookie(null, "user_email");
-    setUser(null);
     toast.update(id, {
       render: "Volte sempre!",
       type: "success",
@@ -110,6 +110,7 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
 
       const data = await request.data;
       const find_user_announcements = data.filter((el) => {
+        console.log("aqui", el === userId);
         return el.userId === userId;
       });
       setUserAnnouncements(find_user_announcements);

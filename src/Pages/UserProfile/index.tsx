@@ -79,7 +79,7 @@ export const UserProfile = () => {
             </h1>
           </div>
           <main>
-            <ul className="flex flex-nowrap justify-between flex-row gap-4 overflow-x-auto sm:w-full sm:gap-2 sm:max-w-full sm:h-full sm:items-start sm:flex-wrap sm:overflow-x-hidden">
+            <ul className="flex flex-nowrap flex-row gap-[46px] overflow-x-auto sm:w-full sm:gap-2 sm:max-w-full sm:h-full sm:items-start sm:flex-wrap sm:overflow-x-hidden">
               {userAnnouncements ? (
                 userAnnouncements.map((an) => {
                   console.log(userAnnouncements);
