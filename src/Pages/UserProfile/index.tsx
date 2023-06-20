@@ -7,17 +7,14 @@ import { AuthContext } from "../../Contexts/AuthContext";
 import { Card } from "../../Components/Card";
 
 export const UserProfile = () => {
-  const { getUserData, user, getAnnouncement, userAnnouncements } =
-    useContext(AuthContext);
+  const { getUserData, user, userAnnouncements } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const getUser = async () => {
       try {
         await getUserData();
-
         setIsLoading(false);
-        console.log(userAnnouncements);
       } catch (error) {
         setIsLoading(false);
         return error;
@@ -31,7 +28,7 @@ export const UserProfile = () => {
     const firstWords = words.map((word) => word.charAt(0));
     return firstWords.join("");
   };
-  if (isLoading || !user) {
+  if (isLoading || !userAnnouncements) {
     return (
       <div className="bg-gray-100 max-h-full">
         <Header />
@@ -54,17 +51,24 @@ export const UserProfile = () => {
         <main className="bg-gray-100">
           <div className="bg-white z-[2] flex flex-col items-start gap-8 w-full py-[40px] px-[28px] sm:px-[44px] sm:py-[36px] h-auto sm:flex sm:justify-center">
             <div className="w-[104px] h-[104px] flex items-center justify-center rounded-full bg-brand-1 text-3xl text-white-fixed">
-              {GetFirstLetterOfEachWord(user.name)}
+              {GetFirstLetterOfEachWord(userAnnouncements[0].user.name)}
             </div>
-            <div>
-              <HeadingText tag="heading-6-600">{user.name}</HeadingText>
+            <div className="flex gap-3">
+              <HeadingText tag="heading-6-600">
+                {userAnnouncements[0].user.name}
+              </HeadingText>
+              {userAnnouncements[0].user.is_advertiser ? (
+                <p className="flex items-center bg-brand-4 px-2 py-1 text-brand-1 text-body-2 rounded font-medium">
+                  Anunciante
+                </p>
+              ) : null}
             </div>
 
             <HeadingTextBody
               tag="body-1-400"
               className="w-[100%] text-start text-grey-2 sm:max-w-[352px]"
             >
-              {user.description}
+              {userAnnouncements[0].user.description}
             </HeadingTextBody>
           </div>
         </main>
@@ -78,10 +82,11 @@ export const UserProfile = () => {
             <ul className="flex flex-nowrap justify-between flex-row gap-4 overflow-x-auto sm:w-full sm:gap-2 sm:max-w-full sm:h-full sm:items-start sm:flex-wrap sm:overflow-x-hidden">
               {userAnnouncements ? (
                 userAnnouncements.map((an) => {
+                  console.log(userAnnouncements);
                   return <Card key={an.id} data={an} />;
                 })
               ) : (
-                <li>Sem anúncios cadastrados</li>
+                <p>Sem anúncios cadastrados</p>
               )}
             </ul>
           </main>

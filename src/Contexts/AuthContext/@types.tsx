@@ -54,7 +54,7 @@ export interface iAnnouncementProps {
   cover_image: string;
   is_activate: boolean;
   userId: string;
-  user: { name: string };
+  user: { name: string; description: string; is_advertiser: boolean };
 }
 
 export interface iAuthContext {
@@ -79,4 +79,5 @@ export interface iAuthContext {
   userAnnouncements: iAnnouncementProps[];
   getAllAnnouncement: () => Promise<void>;
   allAnnouncements: [] | iAnnouncementProps[];
+  getAnnouncement:
 }
