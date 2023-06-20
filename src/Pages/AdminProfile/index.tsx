@@ -3,16 +3,15 @@ import { HeadingText } from "../../Style/HeadingText";
 import { HeadingTextBody } from "../../Style/HeadingBodyText";
 import { Footer } from "../../Components/Footer";
 import { useContext, useEffect, useState } from "react";
-import { Card } from "../../Components/Card";
 import { AuthContext } from "../../Contexts/AuthContext";
+import { CardAdmin } from "../../Components/CardAdmin";
 
 export const AdminProfile = () => {
   const {
     getUserData,
     user,
-    getAnnouncement,
-    getAllAnnouncement,
-    allAnnouncements,
+    getUserAnnouncement,
+
     userAnnouncements,
   } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(true);
@@ -21,10 +20,10 @@ export const AdminProfile = () => {
     const getUser = async () => {
       try {
         await getUserData();
-        await getAllAnnouncement();
+        await getUserAnnouncement(user.id);
+        console.log(userAnnouncements);
 
         setIsLoading(false);
-        console.log(userAnnouncements);
       } catch (error) {
         setIsLoading(false);
         return error;
@@ -63,8 +62,13 @@ export const AdminProfile = () => {
             <div className="w-[104px] h-[104px] flex items-center justify-center rounded-full bg-brand-1 text-3xl text-white-fixed">
               {GetFirstLetterOfEachWord(user.name)}
             </div>
-            <div>
+            <div className="flex gap-3">
               <HeadingText tag="heading-6-600">{user.name}</HeadingText>
+              {user.is_advertiser ? (
+                <p className="flex items-center bg-brand-4 px-2 py-1 text-brand-1 text-body-2 rounded font-medium">
+                  Anunciante
+                </p>
+              ) : null}
             </div>
 
             <HeadingTextBody
@@ -82,11 +86,15 @@ export const AdminProfile = () => {
             </h1>
           </div>
           <main>
-            <ul className="flex flex-nowrap justify-between flex-row gap-4 overflow-x-auto sm:w-full sm:gap-2 sm:max-w-full sm:h-full sm:items-start sm:flex-wrap sm:overflow-x-hidden">
-              {!isLoading ? (
-                allAnnouncements.map((an) => {
-                  return <Card key={an.id} data={an} />;
-                })
+            <ul className="flex flex-nowrap flex-row gap-[46px] overflow-x-auto sm:w-full sm:gap-2 sm:max-w-full sm:h-full sm:items-start sm:flex-wrap sm:overflow-x-hidden">
+              {userAnnouncements ? (
+                userAnnouncements.length === 0 ? (
+                  <p>Sem anúncios cadastrados</p>
+                ) : (
+                  userAnnouncements.map((an) => {
+                    return <CardAdmin key={an.id} data={an} />;
+                  })
+                )
               ) : (
                 <p>Sem anúncios cadastrados</p>
               )}

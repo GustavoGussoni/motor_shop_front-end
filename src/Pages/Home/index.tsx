@@ -51,7 +51,7 @@ export const Home = () => {
       <main className="flex flex-col container justify-center items-center sm:mx-auto sm:justify-between sm:w-full">
         <div className="flex flex-row sm:justify-between sm:w-full">
           <AsideFilter className="hidden sm:flex " />
-          <ul className="flex flex-nowrap flex-row gap-4 overflow-x-auto max-w-sm sm:w-full sm:gap-2 sm:max-w-5xl sm:h-full sm:items-start sm:justify-start sm:flex-wrap sm:overflow-x-hidden">
+          <ul className="flex flex-nowrap flex-row gap-[46px] overflow-x-auto max-w-sm sm:w-full sm:gap-2 sm:max-w-5xl sm:h-full sm:items-start sm:justify-start sm:flex-wrap sm:overflow-x-hidden">
             {!isLoading ? (
               allAnnouncements.map((an) => {
                 return <Card key={an.id} data={an} />;
