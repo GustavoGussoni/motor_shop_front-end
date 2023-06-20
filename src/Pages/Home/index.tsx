@@ -26,6 +26,22 @@ export const Home = () => {
     };
     getAnnoucements();
   }, []);
+
+  if (isLoading || !allAnnouncements) {
+    return (
+      <div className="bg-gray-100 max-h-full">
+        <Header />
+        <div className="relative z-[1] bg-brand-1 h-[17rem]" />
+        <div className="bg-gray-100 absolute top-[78px] h-[100vh] w-full">
+          <main>
+            <HeadingText className="z-[2] text-white" tag="heading-6-600">
+              Carregando...
+            </HeadingText>
+          </main>
+        </div>
+      </div>
+    );
+  }
   return (
     <React.Fragment>
       <Header />

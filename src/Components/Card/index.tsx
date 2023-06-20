@@ -1,10 +1,13 @@
+import { useContext } from "react";
 import { iAnnouncementProps } from "../../Contexts/AuthContext/@types";
+import { AuthContext } from "../../Contexts/AuthContext";
 
 interface iCard {
   data: iAnnouncementProps;
 }
 
 const Card = ({ data }: iCard) => {
+  const { getUserAnnouncement, navigate } = useContext(AuthContext);
   const GetFirstLetterOfEachWord = (username: string) => {
     const words = username.split(" ");
     const firstWords = words.map((word) => word.charAt(0));
@@ -29,6 +32,12 @@ const Card = ({ data }: iCard) => {
   };
 
   const randomColorClass = getRandomColorClass();
+
+  const handleUser = async (userId: string) => {
+    await getUserAnnouncement(userId);
+    navigate("/profile/user");
+  };
+
   return (
     <li className="pt-2 px-2 sm:px-2 sm:py-2 list-none min-w-[312px] max-w-[300px] ml-1">
       <div className="relative w-[296px] h-[160px]">
@@ -54,7 +63,10 @@ const Card = ({ data }: iCard) => {
         <span className="text-grey-2">
           {data.description ? data.description : "Sem descrição"}
         </span>
-        <div className="flex items-center gap-2">
+        <div
+          onClick={() => handleUser(data.userId)}
+          className="flex items-center gap-2 hover:cursor-pointer hover:text-"
+        >
           <div
             className={`rounded-full w-8 h-8 ${randomColorClass} flex items-center justify-center`}
           >

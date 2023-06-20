@@ -65,6 +65,7 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
         });
         setCookie(null, "user_token", request.data.token);
         setCookie(null, "user_email", data.email);
+        navigate("");
         await getUserData();
       }
     } catch (error) {
@@ -97,24 +98,19 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
 
       const data = await request.data;
       const find_user = data.filter((el) => el.email === user_email);
-      setUser(find_user[0]);
-      await getUserAnnouncement();
-      if (find_user[0].is_admin) {
-        navigate("/profile/admin");
-      }
-      navigate("/profile/user");
+      return setUser(find_user[0]);
     } catch (error) {
       console.log("erro catch getUser", error);
     }
   };
 
-  const getUserAnnouncement = async () => {
+  const getUserAnnouncement = async (userId: string) => {
     try {
       const request = await api.get("announcement");
 
       const data = await request.data;
       const find_user_announcements = data.filter((el) => {
-        return el.userId === user.id;
+        return el.userId === userId;
       });
       setUserAnnouncements(find_user_announcements);
     } catch (error) {
