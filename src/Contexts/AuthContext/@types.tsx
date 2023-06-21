@@ -20,6 +20,7 @@ export interface iCepProps {
 }
 
 export interface iUserProps {
+  id: string;
   name: string;
   email: string;
   cpf: string;
@@ -54,7 +55,7 @@ export interface iAnnouncementProps {
   cover_image: string;
   is_activate: boolean;
   userId: string;
-  user: { name: string };
+  user: { name: string; description: string; is_advertiser: boolean };
 }
 
 export interface iAuthContext {
@@ -75,7 +76,7 @@ export interface iAuthContext {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   userLogout: () => void;
-  getUserAnnouncement: () => Promise<void>;
+  getUserAnnouncement: (userId: string) => Promise<void>;
   userAnnouncements: iAnnouncementProps[];
   getAllAnnouncement: () => Promise<void>;
   allAnnouncements: [] | iAnnouncementProps[];

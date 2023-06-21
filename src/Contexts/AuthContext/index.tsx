@@ -41,6 +41,7 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
       if (request.statusText === "Created") {
         setUser(request.data);
         setIsOpen(true);
+        navigate("/login");
       }
       return request.data;
     } catch (error) {
@@ -64,6 +65,7 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
         });
         setCookie(null, "user_token", request.data.token);
         setCookie(null, "user_email", data.email);
+        navigate("");
         await getUserData();
       }
     } catch (error) {
@@ -78,9 +80,9 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
 
   const userLogout = () => {
     const id = toast.loading("Verificando dados...");
+    setUser(null);
     destroyCookie(null, "user_token");
     destroyCookie(null, "user_email");
-    setUser(null);
     toast.update(id, {
       render: "Volte sempre!",
       type: "success",
@@ -96,25 +98,20 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
 
       const data = await request.data;
       const find_user = data.filter((el) => el.email === user_email);
-      setUser(find_user[0]);
-      await getUserAnnouncement();
-      if (find_user[0].is_admin) {
-        navigate("/profile/admin");
-      } else {
-        navigate("/profile/user");
-      }
+      return setUser(find_user[0]);
     } catch (error) {
       console.log("erro catch getUser", error);
     }
   };
 
-  const getUserAnnouncement = async () => {
+  const getUserAnnouncement = async (userId: string) => {
     try {
       const request = await api.get("announcement");
 
       const data = await request.data;
       const find_user_announcements = data.filter((el) => {
-        return el.userId === user.id;
+        console.log("aqui", el === userId);
+        return el.userId === userId;
       });
       setUserAnnouncements(find_user_announcements);
     } catch (error) {
