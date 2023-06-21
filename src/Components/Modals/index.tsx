@@ -1,12 +1,12 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useContext } from "react";
-import { AuthContext } from "../../../Contexts/AuthContext";
-import { Button } from "../../Button";
+import { AuthContext } from "../../Contexts/AuthContext";
+import { Button } from "../Button";
 import { useNavigate } from "react-router-dom";
+import { iModalProps } from "./@types";
 
-export const MyDialog = () => {
+export const Modal = ({ children }: iModalProps) => {
   const { isOpen, setIsOpen } = useContext(AuthContext);
-  const navigate = useNavigate();
 
   const closeModal = () => {
     setIsOpen(false);
@@ -43,35 +43,7 @@ export const MyDialog = () => {
               leaveTo="opacity-0 scale-95"
             >
               <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all relative top-10 flex flex-col gap-[20px]">
-                <Dialog.Title
-                  as="h3"
-                  className="text-lg font-medium leading-6 text-gray-900"
-                >
-                  Sucesso!
-                </Dialog.Title>
-                <Dialog.Title
-                  as="h3"
-                  className="text-lg font-600 leading-6 text-gray-900"
-                >
-                  Sua conta foi criada com sucesso!
-                </Dialog.Title>
-                <div className="mt-2">
-                  <p className="text-sm text-gray-500">
-                    Agora você poderá ver seus negócios crescendo em grande
-                    escala
-                  </p>
-                </div>
-
-                <div className="mt-4">
-                  <Button
-                    type="button"
-                    size="medium"
-                    variant="brand1"
-                    text="Ir para o login"
-                    className="outline-none px-[24px] py-[6px]"
-                    onClick={() => navigate("/login")}
-                  ></Button>
-                </div>
+                {children}
               </Dialog.Panel>
             </Transition.Child>
           </div>
