@@ -45,13 +45,29 @@ export const Home = () => {
   return (
     <React.Fragment>
       <Header />
-      <div className="bg-gradient-to-b from-brand-4 to-grey-0 to-90% h-1/3">
-        <img src={img} alt="Imagem carro" className="bg-contain" />
+      <div className="bg-gradient-to-b flex relative items-center justify-center  from-brand-4 to-grey-0 to-90% h-1/3">
+        <div className="absolute gap-2 flex w-full flex-col items-center justify-center">
+          <HeadingText
+            tag="heading-3-600"
+            className="text-brand-4  bg-gray-600 bg-opacity-[0.3] "
+          >
+            Motors Shop
+          </HeadingText>
+
+          <HeadingText
+            tag="heading-6-500"
+            className="text-gray-50 bg-gray-600 bg-opacity-[0.6] w-[80%] max-w-[475px] px-1 rounded-1 text-center"
+          >
+            A melhor plataforma de anúncios de carros do país
+          </HeadingText>
+        </div>
+
+        <img src={img} alt="Imagem carro" className="bg-contain " />
       </div>
       <main className="flex flex-col container justify-center items-center sm:mx-auto sm:justify-between sm:w-full">
-        <div className="flex flex-row sm:justify-between sm:w-full">
+        <div className="flex w-full flex-row sm:justify-between sm:w-full">
           <AsideFilter className="hidden sm:flex " />
-          <ul className="flex flex-nowrap flex-row gap-[46px] overflow-x-auto max-w-sm sm:w-full sm:gap-2 sm:max-w-5xl sm:h-full sm:items-start sm:justify-start sm:flex-wrap sm:overflow-x-hidden">
+          <ul className="flex flex-nowrap flex-row gap-[46px] overflow-x-auto max-w-full sm:w-full sm:gap-2 sm:max-w-5xl sm:h-full sm:items-start sm:justify-start sm:flex-wrap sm:overflow-x-hidden">
             {!isLoading ? (
               allAnnouncements.map((an) => {
                 return <Card key={an.id} data={an} />;
@@ -61,7 +77,7 @@ export const Home = () => {
             )}
           </ul>
         </div>
-        <div className="flex flex-col self-center sm:flex-row gap-10 mb-11 mt-12">
+        <div className="flex max-w-[279px] w-[100%] justify-center flex-col self-center sm:flex-row gap-10 mb-11 mt-12">
           <div className="flex self-center">
             <HeadingText
               tag="heading-5-600"
@@ -78,7 +94,7 @@ export const Home = () => {
             size="medium"
             text="Filtro"
             // onClick={() => ())
-            className="w-[279px] sm:hidden"
+            className="max-w-[279px] w-full  sm:hidden "
           />
           {/* <HeadingText tag="heading-5-600" className="text-brand-2">
             {"Seguinte >"}
