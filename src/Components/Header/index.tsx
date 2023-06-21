@@ -4,10 +4,12 @@ import imgLogo from "../../Assets/Motors shop.png";
 import { AuthContext } from "../../Contexts/AuthContext";
 import { useContext, useEffect, useState } from "react";
 import { parseCookies } from "nookies";
+import { ModalDefault } from "../ModalDefault";
 
 export const Header = () => {
   const { navigate, user, userLogout, getUserData } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(true);
+  const [openEditAddress, setOpenEditAddres] = useState(false);
 
   const cookies = parseCookies();
   const { user_token } = cookies;
@@ -96,6 +98,21 @@ export const Header = () => {
                     leaveFrom="transform scale-100 opacity-100"
                     leaveTo="transform scale-95 opacity-0"
                   >
+                    <ModalDefault
+                      open={openEditAddress}
+                      setOpen={setOpenEditAddres}
+                    >
+                      <EditAddress
+                        openEdit={openEditAddress}
+                        setOpenEdit={setOpenEditAddres}
+                      />
+                    </ModalDefault>
+                    <Button
+                      onClick={() => setOpenEditAddres(true)}
+                      variant="outline2"
+                      size="medium"
+                      text="Editar Endereço"
+                    ></Button>
                     <Menu.Items className="origin-bottom-right flex flex-col absolute top-5 right-5 gap-2 bg-transparent rounded-md">
                       {
                         <>
