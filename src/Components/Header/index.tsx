@@ -4,13 +4,22 @@ import imgLogo from "../../Assets/Motors shop.png";
 import { AuthContext } from "../../Contexts/AuthContext";
 import { useContext, useEffect, useState } from "react";
 import { parseCookies } from "nookies";
+import { ModalDefault } from "../ModalDefault";
+import { EditAddress } from "../Form/FormEditAddress";
 
 export const Header = () => {
+  const { navigate, user, userLogout } = useContext(AuthContext);
+  const [openEditAddress, setOpenEditAddres] = useState(false);
   const { navigate, user, userLogout, getUserData } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(true);
 
+
   const cookies = parseCookies();
   const { user_token } = cookies;
+
+  const handleLogin = () => {
+        navigate("/login");
+    };
 
   useEffect(() => {
     const getUser = async () => {
@@ -28,9 +37,17 @@ export const Header = () => {
     navigate("/login");
   };
 
-  const handleRegister = () => {
-    navigate("register");
-  };
+
+    const handleRegister = () => {
+        navigate("register");
+    };
+
+
+    const GetFirstLetterOfEachWord = (username: string) => {
+        const words = username.split(" ");
+        const firstWords = words.map((word) => word.charAt(0));
+        return firstWords.join("");
+    };
 
   const handleHome = () => {
     navigate("");
@@ -46,24 +63,25 @@ export const Header = () => {
     return firstWords.join("");
   };
 
-  const getRandomColorClass = (): string => {
-    const colors = [
-      "bg-red-500",
-      "bg-blue-500",
-      "bg-green-500",
-      "bg-yellow-500",
-      "bg-purple-500",
-      "bg-pink-500",
-      "bg-teal-500",
-      "bg-indigo-500",
-      "bg-gray-500",
-      "bg-orange-500",
-    ];
-    const randomIndex = Math.floor(Math.random() * colors.length);
-    return colors[randomIndex];
-  };
 
-  const randomColorClass = getRandomColorClass();
+    const getRandomColorClass = (): string => {
+        const colors = [
+            "bg-red-500",
+            "bg-blue-500",
+            "bg-green-500",
+            "bg-yellow-500",
+            "bg-purple-500",
+            "bg-pink-500",
+            "bg-teal-500",
+            "bg-indigo-500",
+            "bg-gray-500",
+            "bg-orange-500",
+        ];
+        const randomIndex = Math.floor(Math.random() * colors.length);
+        return colors[randomIndex];
+    };
+
+    const randomColorClass = getRandomColorClass();
 
   return (
     <header className="bg-white-fixed">
@@ -99,8 +117,74 @@ export const Header = () => {
                     <Menu.Items className="origin-bottom-right flex flex-col absolute top-5 right-5 gap-2 bg-transparent rounded-md">
                       {
                         <>
-                          <Menu.Item>
+                            <div className='flex items-center gap-3'>
+                                <Menu>
+                                    <Menu.Button>
+                                        <div
+                                            className={`rounded-full w-8 h-8 ${randomColorClass} flex items-center justify-center`}
+                                        >
+                                            <p className='text-center text-white font-medium text-sm flex items-center justify-center'>
+                                                {GetFirstLetterOfEachWord(user.name)}
+                                            </p>
+                                        </div>
+                                    </Menu.Button>
+                                    <Transition
+                                        enter='transition duration-100 ease-out'
+                                        enterFrom='transform scale-50 opacity-0'
+                                        enterTo='transform scale-100 opacity-100'
+                                        leave='transition duration-75 ease-out'
+                                        leaveFrom='transform scale-100 opacity-100'
+                                        leaveTo='transform scale-95 opacity-0'
+                                    >
+                                        <Menu.Items className='origin-bottom-right flex flex-col absolute top-5 right-5 gap-2 bg-transparent rounded-md'>
+                                            {
+                                                <>
+                                                    <Button
+                                                        onClick={() => setOpenEditAddres(true)}
+                                                        variant='outline2'
+                                                        size='medium'
+                                                        text='Editar Endereço'
+                                                    ></Button>
+
+                                                    <Menu.Item>
+                                                        <Button
+                                                            onClick={() => userLogout()}
+                                                            variant='outline2'
+                                                            size='medium'
+                                                            text='Sair'
+                                                        ></Button>
+                                                    </Menu.Item>
+                                                </>
+                                            }
+                                        </Menu.Items>
+                                    </Transition>
+                                    <ModalDefault
+                                        open={openEditAddress}
+                                        setOpen={setOpenEditAddres}
+                                    >
+                                        <EditAddress
+                                            openEdit={openEditAddress}
+                                            setOpenEdit={setOpenEditAddres}
+                                        />
+                                    </ModalDefault>
+                                </Menu>
+
+                                <h2 className='text-grey-1 text-sm font-medium'>{user.name}</h2>
+                            </div>
+                        </>
+                    ) : (
+                        <>
+                            <button
+                                onClick={() => handleLogin()}
+                                className='bg-none text-grey-2 hover:text-brand-1'
+                            >
+                                Fazer login
+                            </button>
                             <Button
+                                onClick={() => handleRegister()}
+                                variant='outline2'
+                                size='medium'
+                                text='Cadastrar'
                               onClick={() => handleProfileAdmin()}
                               variant="outline2"
                               size="medium"
@@ -114,8 +198,74 @@ export const Header = () => {
                               size="medium"
                               text="Sair"
                             ></Button>
-                          </Menu.Item>
                         </>
+                    )}
+                </div>
+                <div className='flex z-[2] sm:hidden duration-150'>
+                    <Menu>
+                        <Menu.Button>
+                            <svg
+                                xmlns='http://www.w3.org/2000/svg'
+                                fill='none'
+                                viewBox='0 0 24 24'
+                                stroke-width='1.5'
+                                stroke='currentColor'
+                                className='w-6 h-6'
+                            >
+                                <path
+                                    stroke-linecap='round'
+                                    stroke-linejoin='round'
+                                    d='M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5'
+                                />
+                            </svg>
+                        </Menu.Button>
+                        <Transition
+                            enter='transition duration-100 ease-out'
+                            enterFrom='transform scale-50 opacity-0'
+                            enterTo='transform scale-100 opacity-100'
+                            leave='transition duration-75 ease-out'
+                            leaveFrom='transform scale-100 opacity-100'
+                            leaveTo='transform scale-95 opacity-0'
+                        >
+                            <Menu.Items className='origin-bottom-right flex flex-col absolute top-5 right-5 gap-2 bg-transparent rounded-md'>
+                                {user_token && user ? (
+                                    <>
+                                        <Menu.Item>
+                                            <Button
+                                                onClick={() => userLogout()}
+                                                variant='outline2'
+                                                size='medium'
+                                                text='Sair'
+                                            ></Button>
+                                        </Menu.Item>
+                                    </>
+                                ) : (
+                                    <>
+                                        <Menu.Item>
+                                            <Button
+                                                onClick={() => handleLogin()}
+                                                variant='outline2'
+                                                size='medium'
+                                                text='Login'
+                                            ></Button>
+                                        </Menu.Item>
+                                        <Menu.Item>
+                                            <Button
+                                                onClick={() => handleRegister()}
+                                                variant='outline2'
+                                                size='medium'
+                                                text='Cadastrar'
+                                            ></Button>
+                                        </Menu.Item>
+                                    </>
+                                )}
+                            </Menu.Items>
+                        </Transition>
+                    </Menu>
+                </div>
+            </div>
+        </header>
+    );
                       }
                     </Menu.Items>
                   </Transition>
