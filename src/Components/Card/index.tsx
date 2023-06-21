@@ -1,10 +1,13 @@
+import { useContext } from "react";
 import { iAnnouncementProps } from "../../Contexts/AuthContext/@types";
+import { AuthContext } from "../../Contexts/AuthContext";
 
 interface iCard {
   data: iAnnouncementProps;
 }
 
 const Card = ({ data }: iCard) => {
+  const { getUserAnnouncement, navigate } = useContext(AuthContext);
   const GetFirstLetterOfEachWord = (username: string) => {
     const words = username.split(" ");
     const firstWords = words.map((word) => word.charAt(0));
@@ -29,11 +32,17 @@ const Card = ({ data }: iCard) => {
   };
 
   const randomColorClass = getRandomColorClass();
+
+  const handleUser = async (userId: string) => {
+    await getUserAnnouncement(userId);
+    navigate("/profile/user");
+  };
+
   return (
     <li className="pt-2 px-2 sm:px-2 sm:py-2 list-none min-w-[312px] max-w-[300px] ml-1">
       <div className="relative w-[296px] h-[160px]">
         <img
-          className="border-2 hover:border-brand-1 w-[296px] h-[160px] object-cover"
+          className="border-2 hover:cursor-pointer hover:border-brand-1 w-[296px] h-[160px] object-cover"
           src={data.cover_image}
           alt=""
         />
@@ -47,14 +56,17 @@ const Card = ({ data }: iCard) => {
           </div>
         )}
       </div>
-      <div className="mt-2 mb-4">
+      <div className="mt-2 flex flex-col mb-4 gap-[16px]">
         <h2 className="mb-2 text-grey-1">
           {data.brand} - {data.name_car}
         </h2>
         <span className="text-grey-2">
           {data.description ? data.description : "Sem descrição"}
         </span>
-        <div className="flex items-center gap-2">
+        <div
+          onClick={() => handleUser(data.userId)}
+          className="flex items-center gap-2 hover:cursor-pointer hover:text-"
+        >
           <div
             className={`rounded-full w-8 h-8 ${randomColorClass} flex items-center justify-center`}
           >
@@ -65,11 +77,13 @@ const Card = ({ data }: iCard) => {
           <h2 className="text-grey-1 text-sm font-medium">{data.user.name}</h2>
         </div>
         <div className="flex justify-between">
-          <div className="pt-2 pb-2 pl-2 pr-2 rounded-2 text-brand-1 bg-brand-4 font-500 flex items-center justify-center">
-            <span>{data.kilometers}KM</span>
-          </div>
-          <div className="pt-2 pb-2 pl-2 pr-2 rounded-2 text-brand-1 bg-brand-4 font-500 flex items-center justify-center">
-            <span>{data.year}</span>
+          <div className="flex gap-[16px]">
+            <div className="pt-2 pb-2 pl-2 pr-2 rounded-2 text-brand-1 bg-brand-4 font-500 flex items-center justify-center">
+              <span>{data.kilometers}KM</span>
+            </div>
+            <div className="pt-2 pb-2 pl-2 pr-2 rounded-2 text-brand-1 bg-brand-4 font-500 flex items-center justify-center">
+              <span>{data.year}</span>
+            </div>
           </div>
           <div className="pt-2 pb-2 pl-2 pr-2 rounded-2 font-500 flex items-center justify-center">
             <span>R${data.price}</span>

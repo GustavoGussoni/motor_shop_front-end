@@ -2,21 +2,42 @@ import { Button } from "../Button";
 import { Menu, Transition } from "@headlessui/react";
 import imgLogo from "../../Assets/Motors shop.png";
 import { AuthContext } from "../../Contexts/AuthContext";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { parseCookies } from "nookies";
 
 export const Header = () => {
-  const { navigate, user, userLogout } = useContext(AuthContext);
+  const { navigate, user, userLogout, getUserData } = useContext(AuthContext);
+  const [isLoading, setIsLoading] = useState(true);
 
   const cookies = parseCookies();
   const { user_token } = cookies;
 
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        await getUserData();
+        setIsLoading(false);
+      } catch (error) {
+        setIsLoading(false);
+        return error;
+      }
+    };
+    getUser();
+  }, []);
   const handleLogin = () => {
     navigate("/login");
   };
 
   const handleRegister = () => {
     navigate("register");
+  };
+
+  const handleHome = () => {
+    navigate("");
+  };
+
+  const handleProfileAdmin = () => {
+    navigate("/profile/admin");
   };
 
   const GetFirstLetterOfEachWord = (username: string) => {
@@ -47,9 +68,13 @@ export const Header = () => {
   return (
     <header className="bg-white-fixed">
       <div className="flex px-14 items-center justify-between w-full">
-        <img className="py-4" src={imgLogo}></img>
+        <img
+          onClick={() => handleHome()}
+          className="py-4 hover:cursor-pointer"
+          src={imgLogo}
+        ></img>
 
-        <div className="pl-16 py-4 border-l z-[2] border-grey-6 gap-12 hidden sm:flex duration-150">
+        <div className="pl-16 py-4 border-l z-[3] border-grey-6 gap-12 hidden sm:flex duration-150">
           {user_token && user ? (
             <>
               <div className="flex items-center gap-3">
@@ -74,6 +99,14 @@ export const Header = () => {
                     <Menu.Items className="origin-bottom-right flex flex-col absolute top-5 right-5 gap-2 bg-transparent rounded-md">
                       {
                         <>
+                          <Menu.Item>
+                            <Button
+                              onClick={() => handleProfileAdmin()}
+                              variant="outline2"
+                              size="medium"
+                              text="Perfil"
+                            ></Button>
+                          </Menu.Item>
                           <Menu.Item>
                             <Button
                               onClick={() => userLogout()}
@@ -108,7 +141,7 @@ export const Header = () => {
             </>
           )}
         </div>
-        <div className="flex z-[2] sm:hidden duration-150">
+        <div className="flex z-[3] sm:hidden duration-150">
           <Menu>
             <Menu.Button>
               <svg
@@ -137,6 +170,14 @@ export const Header = () => {
               <Menu.Items className="origin-bottom-right flex flex-col absolute top-5 right-5 gap-2 bg-transparent rounded-md">
                 {user_token && user ? (
                   <>
+                    <Menu.Item>
+                      <Button
+                        onClick={() => handleProfileAdmin()}
+                        variant="outline2"
+                        size="medium"
+                        text="Perfil"
+                      ></Button>
+                    </Menu.Item>
                     <Menu.Item>
                       <Button
                         onClick={() => userLogout()}
