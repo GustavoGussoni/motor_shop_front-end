@@ -58,7 +58,7 @@ export const UserProfile = () => {
                 {userAnnouncements[0].user.name}
               </HeadingText>
               {userAnnouncements[0].user.is_advertiser ? (
-                <p className="flex items-center bg-brand-4 px-2 py-1 text-brand-1 text-body-2 rounded font-medium">
+                <p className="flex items-center h-[32px] bg-brand-4 px-2 py-1 text-brand-1 text-body-2 rounded font-medium">
                   Anunciante
                 </p>
               ) : null}
