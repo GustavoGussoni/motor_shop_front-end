@@ -6,8 +6,10 @@ import { useContext, useEffect, useState } from "react";
 import { EditAddress } from "../Form/FormEditAddress";
 import { parseCookies } from "nookies";
 import { ModalDefault } from "../ModalDefault";
+import { Modal } from "../Modals";
 export const Header = () => {
-  const { navigate, user, userLogout, getUserData } = useContext(AuthContext);
+  const { navigate, user, userLogout, getUserData, isOpen, setIsOpen } =
+    useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(true);
   const cookies = parseCookies();
   const [openEditAddress, setOpenEditAddres] = useState(false);
@@ -70,15 +72,9 @@ export const Header = () => {
           {user_token && user ? (
             <>
               {openEditAddress && (
-                <ModalDefault
-                  open={openEditAddress}
-                  setOpen={setOpenEditAddres}
-                >
-                  <EditAddress
-                    openEdit={openEditAddress}
-                    setOpenEdit={setOpenEditAddres}
-                  />
-                </ModalDefault>
+                <Modal>
+                  <EditAddress />
+                </Modal>
               )}
               <div className="flex items-center gap-3">
                 <Menu>
@@ -111,7 +107,7 @@ export const Header = () => {
                             ></Button>
                           </Menu.Item>
                           <Button
-                            onClick={() => setOpenEditAddres(true)}
+                            onClick={() => setIsOpen(true)}
                             variant="outline2"
                             size="medium"
                             text="Editar Endereço"
