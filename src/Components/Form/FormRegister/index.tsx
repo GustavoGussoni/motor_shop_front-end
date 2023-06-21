@@ -36,6 +36,7 @@ export const FormRegister = () => {
       data.address.number = Number(newValue);
     }
     userRegister(data, setLoading);
+    setIsOpen(false);
   };
 
   return (
@@ -207,7 +208,6 @@ export const FormRegister = () => {
         type="submit"
         className="self-center max-w-[315px] w-full"
         disabled={!isValid}
-        onClick={() => setIsOpen(false)}
       />
     </form>
   );
