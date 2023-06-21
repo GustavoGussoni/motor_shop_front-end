@@ -2,9 +2,13 @@ import { Header } from "../../Components/Header";
 import { HeadingText } from "../../Style/HeadingText";
 import { HeadingTextBody } from "../../Style/HeadingBodyText";
 import { Footer } from "../../Components/Footer";
+import { Button } from "../../Components/Button";
+import { FormRegisterAnnouncement } from "../../Components/FormRegisterAnnouncement";
+import { ModalDefault } from "../../Components/ModalDefault";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Contexts/AuthContext";
 import { CardAdmin } from "../../Components/CardAdmin";
+
 
 export const AdminProfile = () => {
   const {
@@ -37,6 +41,8 @@ export const AdminProfile = () => {
     const firstWords = words.map((word) => word.charAt(0));
     return firstWords.join("");
   };
+
+  const [open, setOpen] = useState<boolean>(false);
   if (isLoading || !user || !userAnnouncements) {
     return (
       <div className="bg-gray-100 max-h-full">
@@ -52,6 +58,7 @@ export const AdminProfile = () => {
       </div>
     );
   }
+
   return (
     <div className="bg-gray-100 max-h-full">
       <Header />
@@ -77,6 +84,12 @@ export const AdminProfile = () => {
             >
               {user.description}
             </HeadingTextBody>
+            <Button
+              onClick={() => setOpen(true)}
+              text="Criar anúncio"
+              size="big"
+              variant="brand1"
+            ></Button>
           </div>
         </main>
         <div className="flex bg-gray-100 flex-col sm:justify-between sm:w-full">
@@ -101,9 +114,11 @@ export const AdminProfile = () => {
             </ul>
           </main>
         </div>
-
         <Footer />
       </div>
+      <ModalDefault open={open} setOpen={setOpen}>
+        <FormRegisterAnnouncement open={open} setOpen={setOpen} />
+      </ModalDefault>
     </div>
   );
 };

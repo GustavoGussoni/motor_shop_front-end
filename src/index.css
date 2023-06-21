@@ -32,6 +32,6 @@
     @apply w-fit py-1 px-4 text-body-2 rounded-1 font-600 hover:ease-in duration-300;
   }
   .button-big {
-    @apply w-fit py-2 px-5 text-body-2 rounded-1 font-600 hover:ease-in duration-300;
+    @apply w-fit py-2 px-5 text-body-1 rounded-1 font-600 hover:ease-in duration-300;
   }
 }
