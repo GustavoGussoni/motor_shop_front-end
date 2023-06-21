@@ -69,6 +69,17 @@ export const Header = () => {
         <div className="pl-16 py-4 border-l z-[3] border-grey-6 gap-12 hidden sm:flex duration-150">
           {user_token && user ? (
             <>
+              {openEditAddress && (
+                <ModalDefault
+                  open={openEditAddress}
+                  setOpen={setOpenEditAddres}
+                >
+                  <EditAddress
+                    openEdit={openEditAddress}
+                    setOpenEdit={setOpenEditAddres}
+                  />
+                </ModalDefault>
+              )}
               <div className="flex items-center gap-3">
                 <Menu>
                   <Menu.Button>
@@ -99,15 +110,6 @@ export const Header = () => {
                               text="Perfil"
                             ></Button>
                           </Menu.Item>
-                          <ModalDefault
-                            open={openEditAddress}
-                            setOpen={setOpenEditAddres}
-                          >
-                            <EditAddress
-                              openEdit={openEditAddress}
-                              setOpenEdit={setOpenEditAddres}
-                            />
-                          </ModalDefault>
                           <Button
                             onClick={() => setOpenEditAddres(true)}
                             variant="outline2"
