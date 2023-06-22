@@ -7,8 +7,8 @@ import {
   iUserProps,
 } from "./@types";
 import { useNavigate } from "react-router-dom";
-import { api, cepApi } from "../../Services";
 import { iRegisterFormValues } from "../../Components/Form/FormRegister/@types";
+import { api, cepApi } from "../../Services";
 import { iLogin } from "../../Components/Form/FormLogin/loginSchema";
 import { toast } from "react-toastify";
 import { destroyCookie, parseCookies, setCookie } from "nookies";
@@ -97,7 +97,9 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
       const request = await api.get("users");
 
       const data = await request.data;
-      const find_user = data.filter((el) => el.email === user_email);
+      const find_user = data.filter(
+        (el: iUserProps) => el.email === user_email
+      );
       return setUser(find_user[0]);
     } catch (error) {
       console.log("erro catch getUser", error);
@@ -109,8 +111,7 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
       const request = await api.get("announcement");
 
       const data = await request.data;
-      const find_user_announcements = data.filter((el) => {
-        console.log("aqui", el === userId);
+      const find_user_announcements = data.filter((el: iAnnouncementProps) => {
         return el.userId === userId;
       });
       setUserAnnouncements(find_user_announcements);

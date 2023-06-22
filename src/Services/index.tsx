@@ -9,3 +9,8 @@ export const cepApi = axios.create({
   baseURL: "https://viacep.com.br/ws/",
   timeout: 4000,
 });
+
+export const carsApi = axios.create({
+  baseURL: "https://kenzie-kars.herokuapp.com/",
+  timeout: 4000,
+});

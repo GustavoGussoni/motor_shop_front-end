@@ -1,10 +1,7 @@
 import * as z from "zod";
 
 export const AnnoucementSchema = z.object({
-  name_car: z
-    .string()
-    .max(20, "Insira uma marca válida")
-    .nonempty("O modelo é obrigatório"),
+
   brand: z.string().max(20, "Insina uma marca válida").nonempty(),
   model: z.string().nonempty("O modelo é obrigatório"),
   year: z.string().max(4).nonempty("O ano é obrigatório"),

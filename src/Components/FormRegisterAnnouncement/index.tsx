@@ -1,21 +1,34 @@
-import { Dialog } from "@headlessui/react";
+import { Dialog, Listbox } from "@headlessui/react";
 import { Input } from "../Form/Input";
 import { Button } from "../Button";
 import { useForm } from "react-hook-form";
-import React, { useState } from "react";
+import React, { Fragment, useContext, useEffect, useState } from "react";
 import { iFormAnnoucement } from "./@types";
 import { AnnoucementSchema } from "./annoucement.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { UserContext } from "../../Contexts/UserContext";
+import { CheckIcon } from "@heroicons/react/24/outline";
+import { MyListBox } from "../ListBox";
 
 interface iFormRegisterAnnouncement {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+interface iBrand {
+  name: string;
+}
+
 export const FormRegisterAnnouncement = ({
   open,
   setOpen,
 }: iFormRegisterAnnouncement) => {
+  const { cars, getCars } = useContext(UserContext);
+
+  const [brands, setBrands] = useState<string[]>([]);
+  const [brandSelected, setBrandSelected] = useState<string>("");
+  const [models, setmodels] = useState<iBrand[]>([]);
+
   const {
     register,
     handleSubmit,
@@ -25,6 +38,20 @@ export const FormRegisterAnnouncement = ({
     resolver: zodResolver(AnnoucementSchema),
   });
 
+  useEffect(() => {
+    const teste = () => {
+      try {
+        console.log("função executada");
+        getCars();
+        setBrands(Object.keys(cars));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    teste();
+  }, []);
+
   const onSubmit = (data: object) => {
     console.log(data);
   };
@@ -32,14 +59,6 @@ export const FormRegisterAnnouncement = ({
   const [image, setImage] = useState<number[]>([0, 1]);
 
   return (
-    // <Dialog
-    //   className="relative z-50"
-    //   open={open}
-    //   onClose={() => setOpen(false)}
-    // >
-    //   <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
-
-    //   <div className="fixed inset-0 overflow-y-auto">
     <div className="min-h-full overflow-y-auto flex items-center justify-center px-5 py-10">
       <Dialog.Panel className=" flex flex-col gap-6 p-7 bg-white-fixed rounded-2 max-w-[520px]">
         <Dialog.Title className="relative right-2 text-heading-7 font-500">
@@ -52,20 +71,50 @@ export const FormRegisterAnnouncement = ({
           className="flex flex-col items-center gap-6 justify-center"
           onSubmit={handleSubmit(onSubmit)}
         >
-          <Input
-            id="name_car"
-            label="Marca"
-            type="text"
-            placeholder="Mercedes Benz"
-            register={register("name_car")}
-            disabled={false}
-            className="max-w-full"
-          />
-          {errors.name_car && (
-            <span className="text-body-2 text-random-2">
-              {errors.name_car.message}
-            </span>
-          )}
+          <fieldset className="w-full flex flex-col gap-y-2.5">
+            <label className="text-grey-1 text-body-2" htmlFor="">
+              Marca
+            </label>
+            <select
+              name=""
+              id=""
+              onChange={(e) => setBrandSelected(e.target.value)}
+            >
+              {brands.map((elem: any) => (
+                <option value={elem}>{elem}</option>
+              ))}
+            </select>
+          </fieldset>
+          {/* <Listbox {...register("brand")} onChange={setBrandSelected}>
+            <Listbox.Button>{teste}</Listbox.Button>
+            <Listbox.Options>
+              {teste.map((model: any) => (
+                <Listbox.Option key={model.name} value={model} as="div">
+                  {({ active, selected }) => (
+                    <li
+                      className={`${
+                        active
+                          ? "bg-blue-500 text-white"
+                          : "bg-white text-black"
+                      }`}
+                    >
+                      {selected && <CheckIcon />}
+                      {model.name}
+                    </li>
+                  )}
+                  {model.name}
+                </Listbox.Option>
+              ))}
+            </Listbox.Options>
+          </Listbox> */}
+          {/* <MyListBox
+            array={teste}
+            as={Fragment}
+            selected={brandSelected}
+            setSelected={setBrandSelected}
+            register={register("brand")}
+          /> */}
+
           <Input
             id="model"
             label="Modelo"
@@ -258,7 +307,5 @@ export const FormRegisterAnnouncement = ({
         </form>
       </Dialog.Panel>
     </div>
-    //   </div>
-    // </Dialog>
   );
 };
