@@ -1,6 +1,6 @@
 import * as z from "zod";
 
-const addressSchema = z.object({
+export const addressSchema = z.object({
     cep: z
         .string()
         .nonempty("CEP é obrigatório")
@@ -12,6 +12,8 @@ const addressSchema = z.object({
     addOn: z.string().nullish(),
     street: z.string().nonempty("Rua é obrigatória").max(255, "Insira uma rua de endereço válida"),
 });
+
+export const updateAddressSchema = addressSchema.partial();
 
 export const RegisterSchema = z
     .object({

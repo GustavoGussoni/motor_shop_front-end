@@ -1,7 +1,10 @@
 import { Dialog } from "@headlessui/react";
-import React from "react";
 
-
+interface iModalDefault {
+    children: React.ReactNode;
+    open: boolean;
+    setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
 export const ModalDefault = ({ children, open, setOpen }: iModalDefault) => {
     return (
