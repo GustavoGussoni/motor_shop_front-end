@@ -1,17 +1,14 @@
-import { Dialog, Listbox } from "@headlessui/react";
+import { Dialog } from "@headlessui/react";
 import { Input } from "../Form/Input";
 import { Button } from "../Button";
 import { useForm } from "react-hook-form";
-import React, { Fragment, useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { iFormAnnoucement } from "./@types";
 import { AnnoucementSchema } from "./annoucement.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { UserContext } from "../../Contexts/UserContext";
-import { CheckIcon } from "@heroicons/react/24/outline";
-import { MyListBox } from "../ListBox";
 
 interface iFormRegisterAnnouncement {
-  open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -20,7 +17,6 @@ interface iBrand {
 }
 
 export const FormRegisterAnnouncement = ({
-  open,
   setOpen,
 }: iFormRegisterAnnouncement) => {
   const { cars, getCars } = useContext(UserContext);
@@ -310,6 +306,7 @@ export const FormRegisterAnnouncement = ({
             <Button
               // onClick={() => handleSubmit(onSubmit)}
               text="Criar anúncio"
+              type="submit"
               size="medium"
               variant={isValid ? "brand1" : "brandDisable"}
               disabled={!isValid}

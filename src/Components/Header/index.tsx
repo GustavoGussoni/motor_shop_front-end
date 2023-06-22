@@ -6,16 +6,15 @@ import { useContext, useEffect, useState } from "react";
 import { EditAddress } from "../Form/FormEditAddress";
 import { parseCookies } from "nookies";
 import { ModalDefault } from "../ModalDefault";
-import { Modal } from "../Modals";
-import { FormRegisterAnnouncement } from "../FormRegisterAnnouncement";
+
 export const Header = () => {
-  const { navigate, user, userLogout, getUserData, isOpen, setIsOpen } =
-    useContext(AuthContext);
+  const { navigate, user, userLogout, getUserData } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(true);
   const [openEdit, setOpenEdit] = useState(false);
 
   const cookies = parseCookies();
   const { user_token } = cookies;
+
   useEffect(() => {
     const getUser = async () => {
       try {
@@ -64,9 +63,6 @@ export const Header = () => {
   const randomColorClass = getRandomColorClass();
   return (
     <header className="bg-white-fixed">
-      <ModalDefault open={openEdit} setOpen={setOpenEdit}>
-        <EditAddress setOpen={setOpenEdit} />
-      </ModalDefault>
       <div className="flex px-14 items-center justify-between w-full">
         <img
           onClick={() => handleHome()}
@@ -76,11 +72,9 @@ export const Header = () => {
         <div className="pl-16 py-4 border-l z-[3] border-grey-6 gap-12 hidden sm:flex duration-150">
           {user_token && user ? (
             <>
-              {/* {isOpen && (
-                <Modal>
-                  <EditAddress />
-                </Modal>
-              )} */}
+              <ModalDefault open={openEdit} setOpen={setOpenEdit}>
+                <EditAddress setOpen={setOpenEdit} />
+              </ModalDefault>
               <div className="flex items-center gap-3">
                 <Menu>
                   <Menu.Button>
@@ -117,7 +111,7 @@ export const Header = () => {
                                 onClick={() => setOpenEdit(true)}
                                 variant="outline2"
                                 size="medium"
-                                text="Endereço"
+                                text="Editar Endereço"
                               ></Button>
                             </Menu.Item>
                             <Menu.Item>
@@ -187,10 +181,10 @@ export const Header = () => {
                       <div className="flex flex-col gap-[2px] align-middle justify-center">
                         <Menu.Item>
                           <Button
-                            onClick={() => setIsOpen(true)}
+                            onClick={() => setOpenEdit(true)}
                             variant="outline2"
                             size="medium"
-                            text="Endereço"
+                            text="Editar Endereço"
                           ></Button>
                         </Menu.Item>
 

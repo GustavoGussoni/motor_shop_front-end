@@ -14,7 +14,6 @@ interface iEditAddress {
 
 export const EditAddress = ({ setOpen }: iEditAddress) => {
   const [loading, setLoading] = useState(false);
-  // const {  } = useContext(AuthContext);
 
   const {
     register,
@@ -121,13 +120,14 @@ export const EditAddress = ({ setOpen }: iEditAddress) => {
               size="medium"
               variant="greyDisable"
             ></Button>
+            <Button
+              className="bg-brand-3 text-white-fixed"
+              type="submit"
+              text="Salvar Alterações"
+              size="big"
+              variant="brandDisable"
+            ></Button>
           </div>
-          <Button
-            className="bg-brand-3 text-white-fixed"
-            text="Salvar Alterações"
-            size="big"
-            variant="brandDisable"
-          ></Button>
         </div>
       </form>
     </div>

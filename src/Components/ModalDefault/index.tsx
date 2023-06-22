@@ -1,6 +1,12 @@
 import { Dialog } from "@headlessui/react";
 
-export const ModalDefault = ({ children, open, setOpen }) => {
+interface iModalDefault {
+  children: React.ReactNode;
+  open: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export const ModalDefault = ({ children, open, setOpen }: iModalDefault) => {
   return (
     <Dialog
       className="absolute z-50"

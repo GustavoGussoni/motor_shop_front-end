@@ -8,7 +8,6 @@ import { ModalDefault } from "../../Components/ModalDefault";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Contexts/AuthContext";
 import { CardAdmin } from "../../Components/CardAdmin";
-import { EditAddress } from "../../Components/Form/FormEditAddress";
 
 export const AdminProfile = () => {
   const {
@@ -24,7 +23,7 @@ export const AdminProfile = () => {
     const getUser = async () => {
       try {
         await getUserData();
-        await getUserAnnouncement(user.id);
+        await getUserAnnouncement(user!.id);
         console.log(userAnnouncements);
 
         setIsLoading(false);
@@ -42,8 +41,7 @@ export const AdminProfile = () => {
     return firstWords.join("");
   };
 
-  const [open, setOpen] = useState<boolean>(false);
-  const [openEdit, setOpenEdit] = useState(false);
+  const [openAnnouncement, setOpenAnnouncement] = useState<boolean>(false);
 
   if (isLoading || !user || !userAnnouncements) {
     return (
@@ -87,14 +85,8 @@ export const AdminProfile = () => {
               {user.description}
             </HeadingTextBody>
             <Button
-              onClick={() => setOpen(true)}
+              onClick={() => setOpenAnnouncement(true)}
               text="Criar anúncio"
-              size="big"
-              variant="brand1"
-            ></Button>
-            <Button
-              onClick={() => setOpenEdit(true)}
-              text="Endereço"
               size="big"
               variant="brand1"
             ></Button>
@@ -124,11 +116,8 @@ export const AdminProfile = () => {
         </div>
         <Footer />
       </div>
-      <ModalDefault open={openEdit} setOpen={setOpenEdit}>
-        <EditAddress setOpen={setOpenEdit} />
-      </ModalDefault>
-      <ModalDefault open={open} setOpen={setOpen}>
-        <FormRegisterAnnouncement open={open} setOpen={setOpen} />
+      <ModalDefault open={openAnnouncement} setOpen={setOpenAnnouncement}>
+        <FormRegisterAnnouncement setOpen={setOpenAnnouncement} />
       </ModalDefault>
     </div>
   );
