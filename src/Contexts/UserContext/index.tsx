@@ -7,30 +7,29 @@ export const UserContext = createContext({} as iUserContext);
 
 export const UserProvider = ({ children }: iUserProviderProps) => {
   const [cars, setCars] = useState([]);
+  const [models, setModels] = useState([]);
+  const [brands, setBrands] = useState<string[]>(Object.keys(cars));
 
   const getCars = async () => {
     try {
       const request = await carsApi.get("cars");
-      const data = await request.data;
 
-      console.log(data);
       setCars(request.data);
-      return request.data;
+      setBrands(Object.keys(request.data));
     } catch (error) {
-      console.log(error);
-
-      // toast.error(error.response.data.message);
+      toast.error(error.response.data.message);
     }
   };
-  // const getAllAnnouncement = async () => {
-  //   try {
-  //     const request = await api.get("announcement");
-  //     const data = await request.data;
-  //     setAllAnnouncements(data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+
+  const getModels = async (brand: string) => {
+    try {
+      const request = await carsApi.get(`cars/?brand=${brand}`);
+      console.log(request);
+      setModels(request.data);
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
 
   return (
     <UserContext.Provider
@@ -38,6 +37,9 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
         cars,
         setCars,
         getCars,
+        models,
+        getModels,
+        brands,
       }}
     >
       {children}

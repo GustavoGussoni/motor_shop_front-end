@@ -12,18 +12,22 @@ interface iFormRegisterAnnouncement {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-interface iBrand {
+interface iModel {
+  id: string;
   name: string;
+  brand: string;
+  year: string;
+  fuel: 3;
+  value: 282045;
 }
 
 export const FormRegisterAnnouncement = ({
   setOpen,
 }: iFormRegisterAnnouncement) => {
-  const { cars, getCars } = useContext(UserContext);
+  const { getCars, models, getModels, brands } = useContext(UserContext);
 
-  const [brands, setBrands] = useState<string[]>([]);
-  const [brandSelected, setBrandSelected] = useState<string>("");
-  const [models, setmodels] = useState<iBrand[]>([]);
+  const [image, setImage] = useState<number[]>([0, 1]);
+  const [modelSelected, setModelSelected] = useState();
 
   const {
     register,
@@ -35,26 +39,16 @@ export const FormRegisterAnnouncement = ({
   });
 
   useEffect(() => {
-    const teste = () => {
-      try {
-        console.log("função executada");
-        getCars();
-        setBrands(Object.keys(cars));
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    teste();
+    getCars();
   }, []);
 
-  console.log("errors", errors, "valid", isValid);
-
-  const onSubmit = (data: object) => {
+  const submitForm = (data: object) => {
     console.log(data);
   };
 
-  const [image, setImage] = useState<number[]>([0, 1]);
+  console.log(modelSelected);
+
+  const selectModels = async (brand: string) => await getModels(brand);
 
   return (
     <div className="min-h-full overflow-y-auto flex items-center justify-center px-5 py-10">
@@ -67,30 +61,21 @@ export const FormRegisterAnnouncement = ({
         </Dialog.Description>
         <form
           className="flex flex-col items-center gap-6 justify-center"
-          onSubmit={handleSubmit(onSubmit)}
+          onSubmit={handleSubmit(submitForm)}
         >
           <fieldset className="w-full flex flex-col gap-y-2.5">
-            <Input
-              id="brand"
-              label="Marca"
-              type="text"
-              placeholder="A 200 CGI ADVANCE SEDAN"
-              register={register("brand")}
-              disabled={false}
-              className="max-w-full"
-            />
-            {/* <label className="text-grey-1 text-body-2" htmlFor="">
+            <label className="text-grey-1 text-body-2" htmlFor="">
               Marca
             </label>
             <select
               name=""
               id=""
-              onChange={(e) => setBrandSelected(e.target.value)}
+              onChange={(e) => selectModels(e.target.value)}
             >
-              {brands.map((elem: any) => (
+              {brands.map((elem: string) => (
                 <option value={elem}>{elem}</option>
               ))}
-            </select> */}
+            </select>
           </fieldset>
           {/* <Listbox {...register("brand")} onChange={setBrandSelected}>
             <Listbox.Button>{teste}</Listbox.Button>
@@ -122,15 +107,23 @@ export const FormRegisterAnnouncement = ({
             register={register("brand")}
           /> */}
 
-          <Input
-            id="model"
-            label="Modelo"
-            type="text"
-            placeholder="A 200 CGI ADVANCE SEDAN"
-            register={register("model")}
-            disabled={false}
-            className="max-w-full"
-          />
+          <fieldset className="w-full flex flex-col gap-y-2.5">
+            <label className="text-grey-1 text-body-2" htmlFor="">
+              Modelos
+            </label>
+            <select
+              name=""
+              id=""
+              onChange={(e) => setModelSelected(e.target.value)}
+            >
+              {models.map((elem: any) => (
+                <option key={elem.id} value={elem.name}>
+                  {elem.name}
+                </option>
+              ))}
+            </select>
+          </fieldset>
+
           {errors.model && (
             <span className="text-body-2 text-random-2">
               {errors.model.message}
@@ -309,7 +302,6 @@ export const FormRegisterAnnouncement = ({
               type="submit"
               size="medium"
               variant={isValid ? "brand1" : "brandDisable"}
-              disabled={!isValid}
             ></Button>
           </div>
         </form>
