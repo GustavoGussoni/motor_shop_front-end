@@ -52,6 +52,8 @@ export const FormRegisterAnnouncement = ({
     teste();
   }, []);
 
+  console.log("errors", errors, "valid", isValid);
+
   const onSubmit = (data: object) => {
     console.log(data);
   };
@@ -72,7 +74,16 @@ export const FormRegisterAnnouncement = ({
           onSubmit={handleSubmit(onSubmit)}
         >
           <fieldset className="w-full flex flex-col gap-y-2.5">
-            <label className="text-grey-1 text-body-2" htmlFor="">
+            <Input
+              id="brand"
+              label="Marca"
+              type="text"
+              placeholder="A 200 CGI ADVANCE SEDAN"
+              register={register("brand")}
+              disabled={false}
+              className="max-w-full"
+            />
+            {/* <label className="text-grey-1 text-body-2" htmlFor="">
               Marca
             </label>
             <select
@@ -83,7 +94,7 @@ export const FormRegisterAnnouncement = ({
               {brands.map((elem: any) => (
                 <option value={elem}>{elem}</option>
               ))}
-            </select>
+            </select> */}
           </fieldset>
           {/* <Listbox {...register("brand")} onChange={setBrandSelected}>
             <Listbox.Button>{teste}</Listbox.Button>
@@ -297,7 +308,7 @@ export const FormRegisterAnnouncement = ({
               variant="greyDisable"
             ></Button>
             <Button
-              onClick={() => handleSubmit(onSubmit)}
+              // onClick={() => handleSubmit(onSubmit)}
               text="Criar anúncio"
               size="medium"
               variant={isValid ? "brand1" : "brandDisable"}

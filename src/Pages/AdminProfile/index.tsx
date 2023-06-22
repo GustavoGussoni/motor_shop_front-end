@@ -8,7 +8,7 @@ import { ModalDefault } from "../../Components/ModalDefault";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Contexts/AuthContext";
 import { CardAdmin } from "../../Components/CardAdmin";
-
+import { EditAddress } from "../../Components/Form/FormEditAddress";
 
 export const AdminProfile = () => {
   const {
@@ -43,6 +43,8 @@ export const AdminProfile = () => {
   };
 
   const [open, setOpen] = useState<boolean>(false);
+  const [openEdit, setOpenEdit] = useState(false);
+
   if (isLoading || !user || !userAnnouncements) {
     return (
       <div className="bg-gray-100 max-h-full">
@@ -90,6 +92,12 @@ export const AdminProfile = () => {
               size="big"
               variant="brand1"
             ></Button>
+            <Button
+              onClick={() => setOpenEdit(true)}
+              text="Endereço"
+              size="big"
+              variant="brand1"
+            ></Button>
           </div>
         </main>
         <div className="flex bg-gray-100 flex-col sm:justify-between sm:w-full">
@@ -116,6 +124,9 @@ export const AdminProfile = () => {
         </div>
         <Footer />
       </div>
+      <ModalDefault open={openEdit} setOpen={setOpenEdit}>
+        <EditAddress setOpen={setOpenEdit} />
+      </ModalDefault>
       <ModalDefault open={open} setOpen={setOpen}>
         <FormRegisterAnnouncement open={open} setOpen={setOpen} />
       </ModalDefault>
