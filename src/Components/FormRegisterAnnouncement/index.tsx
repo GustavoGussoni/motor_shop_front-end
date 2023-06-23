@@ -301,7 +301,7 @@ export const FormRegisterAnnouncement = ({
                 label={`${elem + 1}º imagem da galeria`}
                 type="text"
                 placeholder="https://image.com"
-                register={register(`image_gallery.${elem}`, {
+                register={register(`image_gallery.${elem}.image`, {
                   minLength: 1,
                 })}
                 disabled={false}

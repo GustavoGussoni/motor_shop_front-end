@@ -11,5 +11,5 @@ export const AnnoucementSchema = z.object({
   price: z.string().min(1).nonempty("O preço é obrigatório"),
   description: z.string(),
   cover_image: z.string().nonempty("A imagem de capa é obrigatória"),
-  image_gallery: z.array(z.string()),
+  image_gallery: z.array(z.object({ image: z.string() })),
 });
