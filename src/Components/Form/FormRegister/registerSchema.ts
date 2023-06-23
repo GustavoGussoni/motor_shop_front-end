@@ -1,6 +1,6 @@
 import * as z from "zod";
 
-const addressSchema = z.object({
+export const addressSchema = z.object({
     cep: z
         .string()
         .nonempty("CEP é obrigatório")
