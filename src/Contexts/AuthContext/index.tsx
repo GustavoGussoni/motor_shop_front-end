@@ -102,7 +102,7 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
       const request = await api.get("users");
 
       const data = await request.data;
-      const find_user = data.filter((el) => el.email === user_email);
+      const find_user = data.filter((el: iUserProps) => el.email === user_email);
       return setUser(find_user[0]);
     } catch (error) {
       console.log("erro catch getUser", error);
@@ -114,9 +114,9 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
       const request = await api.get("announcement");
 
       const data = await request.data;
-      const find_user_announcements = data.filter((el) => {
-        console.log("aqui", el === userId);
-        return el.userId === userId;
+      const find_user_announcements = data.filter((el: iUserProps) => {
+        // console.log("aqui", el === userId);
+        return el.id === userId;
       });
       setUserAnnouncements(find_user_announcements);
     } catch (error) {
@@ -166,6 +166,8 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
       console.error(error);
     }
   };
+
+  
 
   return (
     <AuthContext.Provider
