@@ -15,6 +15,7 @@ export const UserProfile = () => {
       try {
         await getUserData();
         setIsLoading(false);
+        console.log(userAnnouncements);
       } catch (error) {
         setIsLoading(false);
         return error;
