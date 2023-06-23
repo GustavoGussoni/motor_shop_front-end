@@ -17,23 +17,23 @@ interface iModel {
   name: string;
   brand: string;
   year: string;
-  fuel: 3;
-  value: 282045;
+  fuel: number | string;
+  value: number | string;
 }
 
 export const FormRegisterAnnouncement = ({
   setOpen,
 }: iFormRegisterAnnouncement) => {
-  const { getCars, models, getModels, brands } = useContext(UserContext);
+  const { getCars, models, getModels, brands, postAnnouncement } =
+    useContext(UserContext);
 
   const [image, setImage] = useState<number[]>([0, 1]);
-  const [modelSelected, setModelSelected] = useState<iModel>();
+  const [modelSelected, setModelSelected] = useState<iModel | null>(null);
 
   const {
     register,
     handleSubmit,
     getValues,
-    setValue,
     formState: { isValid, errors },
   } = useForm<iFormAnnoucement>({
     mode: "onBlur",
@@ -41,19 +41,23 @@ export const FormRegisterAnnouncement = ({
   });
 
   useEffect(() => {
-    getCars();
+    const init = async () => {
+      await getCars();
+    };
+
+    init();
   }, []);
 
   const submitForm = (data: object) => {
     console.log(data);
+    postAnnouncement(data).then((res) => setOpen(false));
   };
 
-  console.log(errors, getValues("year"));
-
-  const selectModels = async (brand: string) => await getModels(brand);
+  const selectModels = (brand: string) => getModels(brand);
 
   const findOneModel = (modelId: string) => {
     const newModel = models.find((elem) => elem.id === modelId);
+
     setModelSelected(newModel);
   };
 
@@ -77,7 +81,17 @@ export const FormRegisterAnnouncement = ({
             <select
               id=""
               {...register("brand")}
-              onChange={(e) => selectModels(e.target.value)}
+              onChange={(e) => {
+                setModelSelected({
+                  id: "",
+                  name: "",
+                  brand: "",
+                  year: "",
+                  fuel: "",
+                  value: "",
+                });
+                selectModels(e.target.value);
+              }}
             >
               {brands.map((elem: string) => (
                 <option value={elem}>{elem}</option>
@@ -121,7 +135,7 @@ export const FormRegisterAnnouncement = ({
             <select
               {...register("model")}
               id=""
-              onBlur={(e) => findOneModel(e.target.value)}
+              onChange={(e) => findOneModel(e.target.value)}
             >
               {models.map((elem: iModel) => (
                 <option key={elem.id} value={elem.id}>
@@ -143,10 +157,12 @@ export const FormRegisterAnnouncement = ({
                 id="year"
                 label="Ano"
                 type="text"
-                placeholder="2018"
+                placeholder="2022"
                 disabled={false}
                 className="max-w-full"
-                register={register("year")}
+                register={register("year", {
+                  setValueAs: () => "2022",
+                })}
                 value={modelSelected?.year}
               />
               {errors?.year && (
@@ -161,10 +177,12 @@ export const FormRegisterAnnouncement = ({
                 label="Combustível"
                 type="text"
                 placeholder="diesel"
-                register={register("fuel")}
                 disabled={false}
                 className="max-w-full"
-                value={modelSelected?.fuel}
+                register={register("fuel", {
+                  setValueAs: () => String(3),
+                })}
+                value={String(modelSelected?.fuel)}
               />
               {errors?.fuel && (
                 <span className="text-body-2 text-random-2">
@@ -217,7 +235,9 @@ export const FormRegisterAnnouncement = ({
                 disabled={false}
                 className="max-w-full"
                 value={modelSelected?.value}
-                register={register("price_fipe")}
+                register={register("price_fipe", {
+                  setValueAs: () => String(20000),
+                })}
               />
               {errors?.price_fipe && (
                 <span className="text-body-2 text-random-2">
@@ -281,7 +301,9 @@ export const FormRegisterAnnouncement = ({
                 label={`${elem + 1}º imagem da galeria`}
                 type="text"
                 placeholder="https://image.com"
-                register={register(`image_gallery.${elem}`)}
+                register={register(`image_gallery.${elem}`, {
+                  minLength: 1,
+                })}
                 disabled={false}
                 className="max-w-full"
               />
@@ -307,7 +329,6 @@ export const FormRegisterAnnouncement = ({
               variant="greyDisable"
             ></Button>
             <Button
-              // onClick={() => handleSubmit(onSubmit)}
               text="Criar anúncio"
               type="submit"
               size="medium"

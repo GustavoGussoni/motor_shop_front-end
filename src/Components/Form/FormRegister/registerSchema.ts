@@ -19,6 +19,8 @@ export const addressSchema = z.object({
     .max(255, "Insira uma rua de endereço válida"),
 });
 
+export const updateAddressSchema = addressSchema.partial();
+
 export const RegisterSchema = z
   .object({
     name: z

@@ -9,4 +9,7 @@ export interface iUserContext {
   models: any[];
   getModels: (brand: string) => Promise<void>;
   brands: string[];
+  modelSelected: any;
+  setModelSelected: React.Dispatch<React.SetStateAction<any>>;
+  postAnnouncement: (data: any) => Promise<void>;
 }

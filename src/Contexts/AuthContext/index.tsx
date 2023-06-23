@@ -17,6 +17,11 @@ export const AuthContext = createContext({} as iAuthContext);
 export const AuthProvider = ({ children }: iAuthProviderProps) => {
   const [cep, setCep] = useState<iCepProps | null>(null);
   const [user, setUser] = useState<iUserProps | null>(null);
+  const [announcementId, setAnnouncementId] = useState<string | null>(null);
+  const [announcement, setAnnouncement] = useState<iAnnouncementProps | null>(
+    null
+  );
+
   const [userAnnouncements, setUserAnnouncements] = useState<
     iAnnouncementProps[] | []
   >([]);
@@ -97,6 +102,7 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
       const request = await api.get("users");
 
       const data = await request.data;
+
       const find_user = data.filter(
         (el: iUserProps) => el.email === user_email
       );
@@ -111,8 +117,10 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
       const request = await api.get("announcement");
 
       const data = await request.data;
-      const find_user_announcements = data.filter((el: iAnnouncementProps) => {
-        return el.userId === userId;
+
+      const find_user_announcements = data.filter((el: iUserProps) => {
+        // console.log("aqui", el === userId);
+        return el.id === userId;
       });
       setUserAnnouncements(find_user_announcements);
     } catch (error) {
@@ -125,6 +133,23 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
       const request = await api.get("announcement");
       const data = await request.data;
       setAllAnnouncements(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getAnnouncementById = async (
+    announcementId: string
+  ): Promise<iAnnouncementProps | void> => {
+    try {
+      const request = await api.get(`/announcement/${announcementId}`, {
+        headers: {
+          Authorization: `Bearer ${user_token}`,
+        },
+      });
+      const data = request.data;
+      console.log(data);
+      return setAnnouncement(data);
     } catch (error) {
       console.log(error);
     }
@@ -167,6 +192,11 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
         userAnnouncements,
         getAllAnnouncement,
         allAnnouncements,
+        getAnnouncementById,
+        announcement,
+        user_token,
+        setAnnouncementId,
+        announcementId,
       }}
     >
       {children}
