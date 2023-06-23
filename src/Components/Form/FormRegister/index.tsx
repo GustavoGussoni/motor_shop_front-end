@@ -22,7 +22,6 @@ export const FormRegister = () => {
     resolver: zodResolver(RegisterSchema),
   });
   const submit: SubmitHandler<iRegisterFormValues> = (data) => {
-    console.log(data);
     delete data.confirmPassword;
     if (data.is_advertiser === "true") {
       data["is_advertiser"] = true;
@@ -50,7 +49,9 @@ export const FormRegister = () => {
         register={register("name")}
         disabled={loading}
       />
-      {errors.name && <span>{errors.name.message}</span>}
+      {errors.name && (
+        <span className="text-red-500">{errors.name.message}</span>
+      )}
       <Input
         id="email"
         label="E-mail"
@@ -59,7 +60,9 @@ export const FormRegister = () => {
         register={register("email")}
         disabled={loading}
       />
-      {errors.email && <span>{errors.email.message}</span>}
+      {errors.email && (
+        <span className="text-red-500">{errors.email.message}</span>
+      )}
       <Input
         id="cpf"
         label="CPF"
@@ -68,7 +71,7 @@ export const FormRegister = () => {
         register={register("cpf")}
         disabled={loading}
       />
-      {errors.cpf && <span>{errors.cpf.message}</span>}
+      {errors.cpf && <span className="text-red-500">{errors.cpf.message}</span>}
       <Input
         id="cellphone"
         label="Celular"
@@ -77,7 +80,9 @@ export const FormRegister = () => {
         register={register("cellphone")}
         disabled={loading}
       />
-      {errors.cellphone && <span>{errors.cellphone.message}</span>}
+      {errors.cellphone && (
+        <span className="text-red-500">{errors.cellphone.message}</span>
+      )}
       <Input
         id="birthdate"
         label="Data de nascimento"
@@ -86,7 +91,9 @@ export const FormRegister = () => {
         register={register("birthdate")}
         disabled={loading}
       />
-      {errors.birthdate && <span>{errors.birthdate.message}</span>}
+      {errors.birthdate && (
+        <span className="text-red-500">{errors.birthdate.message}</span>
+      )}
       <Input
         id="description"
         label="Descrição"
@@ -95,7 +102,9 @@ export const FormRegister = () => {
         register={register("description")}
         disabled={loading}
       />
-      {errors.description && <span>{errors.description.message}</span>}
+      {errors.description && (
+        <span className="text-red-500">{errors.description.message}</span>
+      )}
       <HeadingTextBody tag="body-2-500">Infomações de endereço</HeadingTextBody>
       <Input
         id="cep"
@@ -106,7 +115,9 @@ export const FormRegister = () => {
         disabled={loading}
         onBlur={(e) => authCep(e.target.value)}
       />
-      {errors.address?.cep && <span>{errors.address.cep.message}</span>}
+      {errors.address?.cep && (
+        <span className="text-red-500">{errors.address.cep.message}</span>
+      )}
       <div className="flex gap-[11px]">
         <Input
           id="state"
@@ -117,7 +128,9 @@ export const FormRegister = () => {
           disabled={loading}
           value={cep?.uf}
         />
-        {errors.address?.state && <span>{errors.address.state.message}</span>}
+        {errors.address?.state && (
+          <span className="text-red-500">{errors.address.state.message}</span>
+        )}
         <Input
           id="city"
           label="Cidade"
@@ -127,7 +140,9 @@ export const FormRegister = () => {
           disabled={loading}
           value={cep?.localidade}
         />
-        {errors.address?.city && <span>{errors.address.city.message}</span>}
+        {errors.address?.city && (
+          <span className="text-red-500">{errors.address.city.message}</span>
+        )}
       </div>
       <Input
         id="street"
@@ -138,7 +153,9 @@ export const FormRegister = () => {
         disabled={loading}
         value={cep?.logradouro}
       />
-      {errors.address?.street && <span>{errors.address.street.message}</span>}
+      {errors.address?.street && (
+        <span className="text-red-500">{errors.address.street.message}</span>
+      )}
       <div className="flex gap-[11px]">
         <Input
           id="number"
@@ -148,7 +165,9 @@ export const FormRegister = () => {
           register={register("address.number")}
           disabled={loading}
         />
-        {errors.address?.number && <span>{errors.address.number.message}</span>}
+        {errors.address?.number && (
+          <span className="text-red-500">{errors.address.number.message}</span>
+        )}
         <Input
           id="addOn"
           label="Complemento"
@@ -157,7 +176,9 @@ export const FormRegister = () => {
           register={register("address.addOn")}
           disabled={loading}
         />
-        {errors.address?.addOn && <span>{errors.address.addOn.message}</span>}
+        {errors.address?.addOn && (
+          <span className="text-red-500">{errors.address.addOn.message}</span>
+        )}
       </div>
       <HeadingTextBody tag="body-2-500">Tipo de conta</HeadingTextBody>
       <div className="flex gap-[11px] justify-between">
@@ -191,7 +212,9 @@ export const FormRegister = () => {
         register={register("password")}
         disabled={loading}
       />
-      {errors.password && <span>{errors.password.message}</span>}
+      {errors.password && (
+        <span className="text-red-500">{errors.password.message}</span>
+      )}
       <Input
         id="confirmPassword"
         label="Confirmar senha"
@@ -200,7 +223,9 @@ export const FormRegister = () => {
         register={register("confirmPassword")}
         disabled={loading}
       />
-      {errors.confirmPassword && <span>{errors.confirmPassword.message}</span>}
+      {errors.confirmPassword && (
+        <span className="text-red-500">{errors.confirmPassword.message}</span>
+      )}
       <Button
         variant="brand1"
         size="big"
