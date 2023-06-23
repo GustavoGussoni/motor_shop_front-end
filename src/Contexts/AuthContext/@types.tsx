@@ -87,5 +87,5 @@ export interface iAuthContext {
   announcement: iAnnouncementProps | null;
   user_token: string;
   setAnnouncementId: React.Dispatch<React.SetStateAction<string | null>>;
-  announcementId: announcementId;
+  announcementId: string;
 }
