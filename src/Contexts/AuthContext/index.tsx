@@ -37,11 +37,11 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
   ) => {
     try {
       setLoading(true);
+      console.log(data);
       const request = await api.post("users", data);
       if (request.statusText === "Created") {
         setUser(request.data);
         setIsOpen(true);
-        navigate("/login");
       }
       return request.data;
     } catch (error) {
@@ -133,13 +133,13 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
     try {
       const valueCep = value;
       let newValue = "";
-      if (valueCep.length > 8) {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        newValue = valueCep.substring(5, 0) + valueCep.substring(6);
+      if (valueCep.length === 8) {
+        newValue = valueCep.substring(5, 0) + "-" + valueCep.substring(5);
       }
-
       const cepRequest = await cepApi.get(`${newValue}/json`);
-      setCep(cepRequest.data);
+      if (cepRequest.statusText === "OK") {
+        setCep(cepRequest.data);
+      }
     } catch (error) {
       console.error(error);
     }
