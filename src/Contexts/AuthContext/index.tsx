@@ -17,6 +17,11 @@ export const AuthContext = createContext({} as iAuthContext);
 export const AuthProvider = ({ children }: iAuthProviderProps) => {
   const [cep, setCep] = useState<iCepProps | null>(null);
   const [user, setUser] = useState<iUserProps | null>(null);
+  const [announcementId, setAnnouncementId] = useState<string | null>(null);
+  const [announcement, setAnnouncement] = useState<iAnnouncementProps | null>(
+    null
+  );
+
   const [userAnnouncements, setUserAnnouncements] = useState<
     iAnnouncementProps[] | []
   >([]);
@@ -129,6 +134,23 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
     }
   };
 
+  const getAnnouncementById = async (
+    announcementId: string
+  ): Promise<iAnnouncementProps | void> => {
+    try {
+      const request = await api.get(`/announcement/${announcementId}`, {
+        headers: {
+          Authorization: `Bearer ${user_token}`,
+        },
+      });
+      const data = request.data;
+      console.log(data);
+      return setAnnouncement(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const authCep = async (value: string) => {
     try {
       const valueCep = value;
@@ -168,6 +190,11 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
         userAnnouncements,
         getAllAnnouncement,
         allAnnouncements,
+        getAnnouncementById,
+        announcement,
+        user_token,
+        setAnnouncementId,
+        announcementId,
       }}
     >
       {children}

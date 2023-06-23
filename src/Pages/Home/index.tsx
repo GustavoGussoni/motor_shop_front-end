@@ -48,21 +48,25 @@ export const Home = () => {
       <div className="bg-gradient-to-b flex relative items-center justify-center  from-brand-4 to-grey-0 to-90% h-1/3">
         <div className="absolute gap-2 flex w-full flex-col items-center justify-center">
           <HeadingText
-            tag="heading-3-600"
+            tag="heading-2-600"
             className="text-brand-4  bg-gray-600 bg-opacity-[0.3] "
           >
             Motors Shop
           </HeadingText>
 
           <HeadingText
-            tag="heading-6-500"
-            className="text-gray-50 bg-gray-600 bg-opacity-[0.6] w-[80%] max-w-[475px] px-1 rounded-1 text-center"
+            tag="heading-5-500"
+            className="text-gray-50 bg-gray-600 bg-opacity-[0.6] w-[80%] max-w-[555px] px-1 rounded-1 text-center"
           >
             A melhor plataforma de anúncios de carros do país
           </HeadingText>
         </div>
 
-        <img src={img} alt="Imagem carro" className="bg-contain " />
+        <img
+          src={img}
+          alt="Imagem carro"
+          className="bg-contain aspect-[2/1] "
+        />
       </div>
       <main className="flex flex-col container justify-center items-center sm:mx-auto sm:justify-between sm:w-full">
         <div className="flex w-full flex-row sm:justify-between sm:w-full">
