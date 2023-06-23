@@ -1,15 +1,25 @@
+import { useContext } from "react";
 import { iAnnouncementProps } from "../../Contexts/AuthContext/@types";
 import { Button } from "../Button";
+import { AuthContext } from "../../Contexts/AuthContext";
 
 interface iCard {
   data: iAnnouncementProps;
 }
 
 const CardAdmin = ({ data }: iCard) => {
+  const { setAnnouncementId, navigate } = useContext(AuthContext);
+
+  const handleProduct = async (announcementId: string) => {
+    await setAnnouncementId(announcementId);
+    navigate("/product");
+  };
+
   return (
     <li className="pt-2 px-2 sm:px-2 sm:py-2 list-none min-w-[312px] max-w-[300px] ml-1">
       <div className="relative w-[296px] h-[160px]">
         <img
+          onClick={() => handleProduct(data.id)}
           className="border-2 hover:cursor-pointer hover:border-brand-1 w-[296px] h-[160px] object-cover"
           src={data.cover_image}
           alt=""
@@ -26,11 +36,11 @@ const CardAdmin = ({ data }: iCard) => {
       </div>
       <div className="mt-2 flex flex-col gap-[16px] mb-4">
         <h2 className="mb-2 font-600 text-heading-7 text-grey-1">
-          {data.brand} - {data.name_car}
+          {data.brand} - {data.model}
         </h2>
-        <span className="text-grey-2">
+        <p className="text-grey-2  text-ellipsis overflow-hidden whitespace-nowrap">
           {data.description ? data.description : "Sem descrição"}
-        </span>
+        </p>
 
         <div className="flex justify-between">
           <div className="flex gap-[16px]">

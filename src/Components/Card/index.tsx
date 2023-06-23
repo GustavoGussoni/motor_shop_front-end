@@ -7,7 +7,12 @@ interface iCard {
 }
 
 const Card = ({ data }: iCard) => {
-  const { getUserAnnouncement, navigate } = useContext(AuthContext);
+  const {
+    getUserAnnouncement,
+    navigate,
+    getAnnouncementById,
+    setAnnouncementId,
+  } = useContext(AuthContext);
   const GetFirstLetterOfEachWord = (username: string) => {
     const words = username.split(" ");
     const firstWords = words.map((word) => word.charAt(0));
@@ -38,10 +43,16 @@ const Card = ({ data }: iCard) => {
     navigate("/profile/user");
   };
 
+  const handleProduct = async (announcementId: string) => {
+    await setAnnouncementId(announcementId);
+    navigate("/product");
+  };
+
   return (
     <li className="pt-2 px-2 sm:px-2 sm:py-2 list-none min-w-[312px] max-w-[300px] ml-1">
       <div className="relative w-[296px] h-[160px]">
         <img
+          onClick={() => handleProduct(data.id)}
           className="border-2 hover:cursor-pointer hover:border-brand-1 w-[296px] h-[160px] object-cover"
           src={data.cover_image}
           alt=""
@@ -58,11 +69,11 @@ const Card = ({ data }: iCard) => {
       </div>
       <div className="mt-2 flex flex-col mb-4 gap-[16px]">
         <h2 className="mb-2 text-grey-1">
-          {data.brand} - {data.name_car}
+          {data.brand} - {data.model}
         </h2>
-        <span className="text-grey-2">
+        <p className="text-grey-2 text-ellipsis overflow-hidden whitespace-nowrap">
           {data.description ? data.description : "Sem descrição"}
-        </span>
+        </p>
         <div
           onClick={() => handleUser(data.userId)}
           className="flex items-center gap-2 hover:cursor-pointer hover:text-"

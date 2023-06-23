@@ -94,7 +94,7 @@ export const Header = () => {
                       leaveFrom="transform scale-100 opacity-100"
                       leaveTo="transform scale-95 opacity-0"
                     >
-                      <Menu.Items className="origin-bottom-right flex flex-col absolute top-[0.3rem] right-[-11.75rem] gap-2 bg-transparent rounded-md">
+                      <Menu.Items className="origin-bottom-right flex flex-col absolute top-[0.3rem] right-[-3.75rem] gap-2 bg-transparent rounded-md">
                         {
                           <div className="flex flex-row-reverse gap-[2px] align-middle justify-center">
                             <Menu.Item>
