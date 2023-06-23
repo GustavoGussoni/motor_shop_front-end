@@ -43,7 +43,7 @@ export interface iAddressProps {
 
 export interface iAnnouncementProps {
   id: string;
-  name_car: string;
+  model: string;
   brand: string;
   year: string;
   fuel: number;
@@ -56,6 +56,7 @@ export interface iAnnouncementProps {
   is_activate: boolean;
   userId: string;
   user: { name: string; description: string; is_advertiser: boolean };
+  image_gallery: [{ image: string; id: string }];
 }
 
 export interface iAuthContext {
@@ -80,4 +81,11 @@ export interface iAuthContext {
   userAnnouncements: iAnnouncementProps[];
   getAllAnnouncement: () => Promise<void>;
   allAnnouncements: [] | iAnnouncementProps[];
+  getAnnouncementById: (
+    announcementId: string
+  ) => Promise<iAnnouncementProps | void>;
+  announcement: iAnnouncementProps | null;
+  user_token: string;
+  setAnnouncementId: React.Dispatch<React.SetStateAction<string | null>>;
+  announcementId: announcementId;
 }
