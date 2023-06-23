@@ -3,6 +3,7 @@ import { iUserContext, iUserProviderProps } from "./@types";
 import { toast } from "react-toastify";
 import { api, carsApi } from "../../Services";
 import { parseCookies } from "nookies";
+import { iFormAnnouncement } from "../../Components/FormRegisterAnnouncement/@types";
 
 export const UserContext = createContext({} as iUserContext);
 
@@ -10,7 +11,7 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
   const [cars, setCars] = useState([]);
   const [models, setModels] = useState([]);
   const [brands, setBrands] = useState<string[] | []>([]);
-  const [modelSelected, setModelSelected] = useState();
+  const [modelSelected, setModelSelected] = useState(null);
 
   const cookies = parseCookies();
   const { user_token } = cookies;
@@ -23,7 +24,7 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
       setBrands(Object.keys(request.data));
       getModels(Object.keys(request.data)[0]);
     } catch (error) {
-      console.log(error.response.data);
+      toast.error(error.request.data.message);
     }
   };
 
@@ -32,25 +33,21 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
       const request = await carsApi.get(`cars/?brand=${brand}`);
       setModels(request.data);
     } catch (error) {
-      console.log(error.response.data);
+      toast.error(error.request.data.message);
     }
   };
 
-  const postAnnouncement = async (data: any) => {
+  const postAnnouncement = async (data: iFormAnnouncement) => {
     try {
-      data.fuel = parseInt(data.fuel);
-      data.kilometers = parseInt(data.kilometers);
-      data.price_fipe = parseInt(data.price_fipe);
-      data.price = parseInt(data.price);
-
-      await api.post(
+      const request = await api.post(
         "/announcement",
         { ...data, is_activate: true },
         { headers: { Authorization: `Bearer ${user_token}` } }
       );
       toast.success("Anúncio criado com sucesso");
+      return request.status;
     } catch (error) {
-      console.log(error.response.data);
+      toast.error(error.request.data.message);
     }
   };
 

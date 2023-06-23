@@ -3,22 +3,14 @@ import { Input } from "../Form/Input";
 import { Button } from "../Button";
 import { useForm } from "react-hook-form";
 import React, { useContext, useEffect, useState } from "react";
-import { iFormAnnoucement } from "./@types";
-import { AnnoucementSchema } from "./annoucement.schema";
+import { iFormAnnouncement } from "./@types";
+import { AnnouncementSchema } from "./annoucement.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { UserContext } from "../../Contexts/UserContext";
+import { iModel } from "../../Contexts/UserContext/@types";
 
 interface iFormRegisterAnnouncement {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-interface iModel {
-  id: string;
-  name: string;
-  brand: string;
-  year: string;
-  fuel: number | string;
-  value: number | string;
 }
 
 export const FormRegisterAnnouncement = ({
@@ -34,10 +26,11 @@ export const FormRegisterAnnouncement = ({
     register,
     handleSubmit,
     getValues,
+    setValue,
     formState: { isValid, errors },
-  } = useForm<iFormAnnoucement>({
+  } = useForm<iFormAnnouncement>({
     mode: "onBlur",
-    resolver: zodResolver(AnnoucementSchema),
+    resolver: zodResolver(AnnouncementSchema),
   });
 
   useEffect(() => {
@@ -48,17 +41,31 @@ export const FormRegisterAnnouncement = ({
     init();
   }, []);
 
-  const submitForm = (data: object) => {
-    console.log(data);
-    postAnnouncement(data).then((res) => setOpen(false));
+  const setModel = (model: iModel) => {
+    console.log(model);
+    setValue("fuel", model.fuel);
+    setValue("year", model.year);
+    setValue("price_fipe", model.value);
   };
 
-  const selectModels = (brand: string) => getModels(brand);
+  const submitForm = (data: iFormAnnouncement) => {
+    const imageGallery =
+      getValues("image_gallery")?.filter((elem) => elem.image !== "") || [];
+
+    setValue("image_gallery", imageGallery);
+
+    postAnnouncement(data).then((status) =>
+      status === 201 ? setOpen(false) : null
+    );
+  };
+
+  const selectModels = async (brand: string) => await getModels(brand);
 
   const findOneModel = (modelId: string) => {
-    const newModel = models.find((elem) => elem.id === modelId);
+    const newModel = models.find((elem) => elem.id === modelId)!;
 
     setModelSelected(newModel);
+    setModel(newModel);
   };
 
   return (
@@ -87,8 +94,8 @@ export const FormRegisterAnnouncement = ({
                   name: "",
                   brand: "",
                   year: "",
-                  fuel: "",
-                  value: "",
+                  fuel: 0,
+                  value: 0,
                 });
                 selectModels(e.target.value);
               }}
@@ -97,41 +104,90 @@ export const FormRegisterAnnouncement = ({
                 <option value={elem}>{elem}</option>
               ))}
             </select>
+            {/* <Listbox
+              value={brands[0]}
+              as="div"
+              className="w-full"
+              {...register("brand")}
+              onChange={(e) => {
+                setModelSelected({
+                  id: "",
+                  name: "",
+                  brand: "",
+                  year: "",
+                  fuel: 0,
+                  value: 0,
+                });
+                selectModels(e);
+              }}
+            >
+              <Listbox.Button
+                className="py-2 w-full text-center text-body-1 border-[1.5px] border-grey-7 outline-none rounded text-grey-1 placeholder-grey-3"
+              >
+                {brands[0]}
+              </Listbox.Button>
+              <Listbox.Options className=" py-2 w-full text-center text-body-1 border-[1.5px] border-grey-7 outline-none rounded text-grey-1 placeholder-grey-3 flex flex-col items-center w-full  max-h-[250px] overflow-y-scroll">
+                {brands.map((brand: string) => (
+                  <Listbox.Option
+                    className="w-full text-center "
+                    key={brand}
+                    value={brand}
+                  >
+                    {({ active }) => (
+                      <li
+                        className={`w-full h-full py-2 cursor-pointer ${
+                          active
+                            ? "bg-blue-500 text-white"
+                            : "bg-white text-black"
+                        }`}
+                      >
+                        {brand}
+                      </li>
+                    )}
+                  </Listbox.Option>
+                ))}
+              </Listbox.Options>
+            </Listbox> */}
           </fieldset>
-          {/* <Listbox {...register("brand")} onChange={setBrandSelected}>
-            <Listbox.Button>{teste}</Listbox.Button>
-            <Listbox.Options>
-              {teste.map((model: any) => (
-                <Listbox.Option key={model.name} value={model} as="div">
-                  {({ active, selected }) => (
-                    <li
-                      className={`${
-                        active
-                          ? "bg-blue-500 text-white"
-                          : "bg-white text-black"
-                      }`}
-                    >
-                      {selected && <CheckIcon />}
-                      {model.name}
-                    </li>
-                  )}
-                  {model.name}
-                </Listbox.Option>
-              ))}
-            </Listbox.Options>
-          </Listbox> */}
-          {/* <MyListBox
-            array={teste}
-            as={Fragment}
-            selected={brandSelected}
-            setSelected={setBrandSelected}
-            register={register("brand")}
-          /> */}
-
           <fieldset className="w-full flex flex-col gap-y-2.5">
             <label className="text-grey-1 text-body-2" htmlFor="">
               Modelos
             </label>
+            {/* <Listbox
+              as="div"
+              className="w-full"
+              {...register("model")}
+              value={models[0]}
+              onChange={(e) => findOneModel(e)}
+            >
+              <Listbox.Button
+                className="py-2 w-full text-center text-body-1 border-[1.5px] border-grey-7 outline-none rounded text-grey-1 placeholder-grey-3"
+                value={models[0]}
+              >
+                {models[0]}
+              </Listbox.Button>
+              <Listbox.Options className="flex flex-col items-center w-full text-center max-h-[250px] overflow-y-scroll">
+                {models.map((elem: iModel) => (
+                  <Listbox.Option
+                    className="w-full text-center "
+                    key={elem.id}
+                    value={elem.id}
+                  >
+                    {({ active }) => (
+                      <li
+                        className={`w-full h-full py-2 cursor-pointer ${
+                          active
+                            ? "bg-blue-500 text-white"
+                            : "bg-white text-black"
+                        }`}
+                      >
+                        {elem.name}
+                      </li>
+                    )}
+                  </Listbox.Option>
+                ))}
+              </Listbox.Options>
+            </Listbox> */}
             <select
               {...register("model")}
               id=""
@@ -143,26 +199,22 @@ export const FormRegisterAnnouncement = ({
                 </option>
               ))}
             </select>
+            {errors.model && (
+              <span className="text-body-2 text-random-2">
+                {errors.model.message}
+              </span>
+            )}
           </fieldset>
-
-          {errors.model && (
-            <span className="text-body-2 text-random-2">
-              {errors.model.message}
-            </span>
-          )}
-
           <div className="flex gap-3">
             <div className="flex flex-col">
               <Input
                 id="year"
                 label="Ano"
-                type="text"
+                type="number"
                 placeholder="2022"
                 disabled={false}
                 className="max-w-full"
-                register={register("year", {
-                  setValueAs: () => "2022",
-                })}
+                register={register("year")}
                 value={modelSelected?.year}
               />
               {errors?.year && (
@@ -179,10 +231,8 @@ export const FormRegisterAnnouncement = ({
                 placeholder="diesel"
                 disabled={false}
                 className="max-w-full"
-                register={register("fuel", {
-                  setValueAs: () => String(3),
-                })}
-                value={String(modelSelected?.fuel)}
+                register={register("fuel")}
+                value={modelSelected?.fuel}
               />
               {errors?.fuel && (
                 <span className="text-body-2 text-random-2">
@@ -198,7 +248,7 @@ export const FormRegisterAnnouncement = ({
                 label="Quilometragem"
                 type="text"
                 placeholder="30.000"
-                register={register("kilometers")}
+                register={register("kilometers", { valueAsNumber: true })}
                 disabled={false}
                 className="max-w-full"
               />
@@ -230,14 +280,12 @@ export const FormRegisterAnnouncement = ({
               <Input
                 id="price_fipe"
                 label="Preço tabela FIPE"
-                type="text"
+                type="number"
                 placeholder="R$ 48.000,00"
                 disabled={false}
                 className="max-w-full"
                 value={modelSelected?.value}
-                register={register("price_fipe", {
-                  setValueAs: () => String(20000),
-                })}
+                register={register("price_fipe")}
               />
               {errors?.price_fipe && (
                 <span className="text-body-2 text-random-2">
@@ -249,9 +297,9 @@ export const FormRegisterAnnouncement = ({
               <Input
                 id="price"
                 label="Preço"
-                type="text"
-                placeholder="Ex: Nome Sobrenome"
-                register={register("price")}
+                type="number"
+                placeholder="15000"
+                register={register("price", { valueAsNumber: true })}
                 disabled={false}
                 className="max-w-full"
               />

@@ -26,5 +26,5 @@ export const cepApi = axios.create({
 
 export const carsApi = axios.create({
   baseURL: "https://kenzie-kars.herokuapp.com/",
-  timeout: 4000,
+  timeout: 8000,
 });
