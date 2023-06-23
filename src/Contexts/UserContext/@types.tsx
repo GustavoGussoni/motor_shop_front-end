@@ -6,7 +6,7 @@ export interface iUserContext {
   cars: string[];
   setCars: React.Dispatch<React.SetStateAction<never[]>>;
   getCars: () => Promise<void>;
-  models: string[];
+  models: any[];
   getModels: (brand: string) => Promise<void>;
   brands: string[];
 }

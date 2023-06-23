@@ -27,11 +27,13 @@ export const FormRegisterAnnouncement = ({
   const { getCars, models, getModels, brands } = useContext(UserContext);
 
   const [image, setImage] = useState<number[]>([0, 1]);
-  const [modelSelected, setModelSelected] = useState();
+  const [modelSelected, setModelSelected] = useState<iModel>();
 
   const {
     register,
     handleSubmit,
+    getValues,
+    setValue,
     formState: { isValid, errors },
   } = useForm<iFormAnnoucement>({
     mode: "onBlur",
@@ -46,9 +48,14 @@ export const FormRegisterAnnouncement = ({
     console.log(data);
   };
 
-  console.log(modelSelected);
+  console.log(errors, getValues("year"));
 
   const selectModels = async (brand: string) => await getModels(brand);
+
+  const findOneModel = (modelId: string) => {
+    const newModel = models.find((elem) => elem.id === modelId);
+    setModelSelected(newModel);
+  };
 
   return (
     <div className="min-h-full overflow-y-auto flex items-center justify-center px-5 py-10">
@@ -68,8 +75,8 @@ export const FormRegisterAnnouncement = ({
               Marca
             </label>
             <select
-              name=""
               id=""
+              {...register("brand")}
               onChange={(e) => selectModels(e.target.value)}
             >
               {brands.map((elem: string) => (
@@ -112,12 +119,12 @@ export const FormRegisterAnnouncement = ({
               Modelos
             </label>
             <select
-              name=""
+              {...register("model")}
               id=""
-              onChange={(e) => setModelSelected(e.target.value)}
+              onBlur={(e) => findOneModel(e.target.value)}
             >
-              {models.map((elem: any) => (
-                <option key={elem.id} value={elem.name}>
+              {models.map((elem: iModel) => (
+                <option key={elem.id} value={elem.id}>
                   {elem.name}
                 </option>
               ))}
@@ -137,11 +144,12 @@ export const FormRegisterAnnouncement = ({
                 label="Ano"
                 type="text"
                 placeholder="2018"
-                register={register("year")}
                 disabled={false}
                 className="max-w-full"
+                register={register("year")}
+                value={modelSelected?.year}
               />
-              {errors.year && (
+              {errors?.year && (
                 <span className="text-body-2 text-random-2">
                   {errors.year.message}
                 </span>
@@ -152,12 +160,13 @@ export const FormRegisterAnnouncement = ({
                 id="fuel"
                 label="Combustível"
                 type="text"
-                placeholder="disel"
+                placeholder="diesel"
                 register={register("fuel")}
                 disabled={false}
                 className="max-w-full"
+                value={modelSelected?.fuel}
               />
-              {errors.fuel && (
+              {errors?.fuel && (
                 <span className="text-body-2 text-random-2">
                   {errors.fuel.message}
                 </span>
@@ -205,11 +214,12 @@ export const FormRegisterAnnouncement = ({
                 label="Preço tabela FIPE"
                 type="text"
                 placeholder="R$ 48.000,00"
-                register={register("price_fipe")}
                 disabled={false}
                 className="max-w-full"
+                value={modelSelected?.value}
+                register={register("price_fipe")}
               />
-              {errors.price_fipe && (
+              {errors?.price_fipe && (
                 <span className="text-body-2 text-random-2">
                   {errors.price_fipe.message}
                 </span>

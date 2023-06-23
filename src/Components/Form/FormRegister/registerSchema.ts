@@ -41,6 +41,7 @@ export const RegisterSchema = z
     birthdate: z.string().nonempty("Data de nascimento é obrigatória"),
     description: z.string().nullish(),
     is_advertiser: z.boolean().nullish(),
+
     address: addressSchema,
     password: z
       .string()
