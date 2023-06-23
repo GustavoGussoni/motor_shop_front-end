@@ -47,10 +47,10 @@ export const Product = () => {
               />
               <DescriptionProduct description={announcement?.description} />
             </section>
-            <section className="flex gap-8 flex-col justify-end self-start z-[1] sm:w-[40%] sm:max-w-[440px]">
-              <aside className="bg-white rounded-2 flex flex-col items-center gap-4 w-full p-[25px] h-auto sm:flex sm:items-center sm:justify-center">
-                <h1 className="self-center text-heading-6">Fotos</h1>
-                <div className="flex gap-[4px] flex-wrap items-center gap-y-[25px] justify-evenly">
+            <section className="flex gap-8 w-[100%] flex-col justify-end self-start z-[1] sm:w-[40%] sm:max-w-[440px]">
+              <aside className="bg-white max-h-[351px] overflow-scroll rounded-2 flex flex-col items-center gap-4 w-full p-[25px] pt-[21px] h-auto sm:flex sm:items-center sm:justify-center">
+                <h1 className="self-center text-heading-6 font-600">Fotos</h1>
+                <div className="flex gap-[15px] flex-wrap items-center gap-y-[25px] sm:gap-[4px] justify-center overflow-auto">
                   {announcement?.image_gallery ? (
                     announcement?.image_gallery.map((el) => {
                       return <CarImages data={el} />;
