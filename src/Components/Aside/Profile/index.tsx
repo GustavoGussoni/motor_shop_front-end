@@ -11,8 +11,8 @@ export const AsideProfile = () => {
     profileImage: null,
   };
   return (
-    <aside className="bg-white flex flex-col items-center gap-8 w-full py-[40px] rounded-2 px-[28px] sm:py-[36px] h-auto sm:flex sm:items-center sm:justify-center">
-      <div className="w-[104px] h-[104px] flex items-center justify-center rounded-full bg-brand-1 text-3xl text-white-fixed">
+    <aside className="bg-white flex flex-col items-center gap-8 w-full py-[25px] rounded-2 p-[25px]  h-auto sm:flex sm:items-center sm:justify-center">
+      <div className="w-[90px] h-[90px] flex items-center justify-center rounded-full bg-brand-1 text-3xl text-white-fixed">
         {userTest.profileImage
           ? userTest.profileImage
           : userTest.name[0].toUpperCase() + userTest.lastName[0].toUpperCase()}
@@ -22,7 +22,7 @@ export const AsideProfile = () => {
       </HeadingText>
       <HeadingTextBody
         tag="body-1-400"
-        className="w-[100%] text-center text-grey-2 sm:max-w-[352px]"
+        className="w-[100%] text-ellipsis overflow-hidden whitespace-nowrap max-h-[85px] text-center text-grey-2 sm:max-w-[352px]"
       >
         {userTest.description}
       </HeadingTextBody>

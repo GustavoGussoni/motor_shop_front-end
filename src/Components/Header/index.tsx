@@ -38,9 +38,11 @@ export const Header = () => {
   const handleHome = () => {
     navigate("");
   };
+
   const handleProfileAdmin = () => {
     navigate("/profile/admin");
   };
+
   const GetFirstLetterOfEachWord = (username: string) => {
     const words = username.split(" ");
     const firstWords = words.map((word) => word.charAt(0));
@@ -89,44 +91,45 @@ export const Header = () => {
                         {GetFirstLetterOfEachWord(user.name)}
                       </p>
                     </div>
+
+                    <Transition
+                      enter="transition duration-100 ease-out"
+                      enterFrom="transform scale-50 opacity-0"
+                      enterTo="transform scale-100 opacity-100"
+                      leave="transition duration-75 ease-out"
+                      leaveFrom="transform scale-100 opacity-100"
+                      leaveTo="transform scale-95 opacity-0"
+                    >
+                      <Menu.Items className="origin-bottom-right flex absolute top-3 right-[-100px] gap-1 bg-transparent rounded-md">
+                        {
+                          <>
+                            <Menu.Item>
+                              <Button
+                                onClick={() => handleProfileAdmin()}
+                                variant="outline2"
+                                size="medium"
+                                text="Perfil"
+                              ></Button>
+                            </Menu.Item>
+                            <Button
+                              onClick={() => setIsOpen(true)}
+                              variant="outline2"
+                              size="medium"
+                              text="Endereço"
+                            ></Button>
+                            <Menu.Item>
+                              <Button
+                                onClick={() => userLogout()}
+                                variant="outline2"
+                                size="medium"
+                                text="Sair"
+                              ></Button>
+                            </Menu.Item>
+                          </>
+                        }
+                      </Menu.Items>
+                    </Transition>
                   </Menu.Button>
-                  <Transition
-                    enter="transition duration-100 ease-out"
-                    enterFrom="transform scale-50 opacity-0"
-                    enterTo="transform scale-100 opacity-100"
-                    leave="transition duration-75 ease-out"
-                    leaveFrom="transform scale-100 opacity-100"
-                    leaveTo="transform scale-95 opacity-0"
-                  >
-                    <Menu.Items className="origin-bottom-right flex flex-col absolute top-5 right-5 gap-2 bg-transparent rounded-md">
-                      {
-                        <>
-                          <Menu.Item>
-                            <Button
-                              onClick={() => handleProfileAdmin()}
-                              variant="outline2"
-                              size="medium"
-                              text="Perfil"
-                            ></Button>
-                          </Menu.Item>
-                          <Button
-                            onClick={() => setIsOpen(true)}
-                            variant="outline2"
-                            size="medium"
-                            text="Editar Endereço"
-                          ></Button>
-                          <Menu.Item>
-                            <Button
-                              onClick={() => userLogout()}
-                              variant="outline2"
-                              size="medium"
-                              text="Sair"
-                            ></Button>
-                          </Menu.Item>
-                        </>
-                      }
-                    </Menu.Items>
-                  </Transition>
                 </Menu>
                 <h2 className="text-grey-1 text-sm font-medium">{user.name}</h2>
               </div>
@@ -174,9 +177,17 @@ export const Header = () => {
               leaveFrom="transform scale-100 opacity-100"
               leaveTo="transform scale-95 opacity-0"
             >
-              <Menu.Items className="origin-bottom-right flex flex-col absolute top-5 right-5 gap-2 bg-transparent rounded-md">
+              <Menu.Items className="origin-bottom-right flex flex-col absolute top-6 right-5 gap-2 bg-transparent rounded-md">
                 {user_token && user ? (
                   <>
+                    <Menu.Item>
+                      <Button
+                        onClick={() => setIsOpen(true)}
+                        variant="outline2"
+                        size="medium"
+                        text="Endereço"
+                      ></Button>
+                    </Menu.Item>
                     <Menu.Item>
                       <Button
                         onClick={() => handleProfileAdmin()}
@@ -185,12 +196,6 @@ export const Header = () => {
                         text="Perfil"
                       ></Button>
                     </Menu.Item>
-                    <Button
-                      onClick={() => setIsOpen(true)}
-                      variant="outline2"
-                      size="medium"
-                      text="Editar Endereço"
-                    ></Button>
                     <Menu.Item>
                       <Button
                         onClick={() => userLogout()}

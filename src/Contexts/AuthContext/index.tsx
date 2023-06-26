@@ -102,7 +102,6 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
       const request = await api.get("users");
 
       const data = await request.data;
-
       const find_user = data.filter(
         (el: iUserProps) => el.email === user_email
       );
@@ -118,9 +117,9 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
 
       const data = await request.data;
 
-      const find_user_announcements = data.filter((el: iUserProps) => {
-        // console.log("aqui", el === userId);
-        return el.id === userId;
+      const find_user_announcements = data.filter((el: iAnnouncementProps) => {
+        // console.log(el. === userId);
+        return el.userId === userId;
       });
       setUserAnnouncements(find_user_announcements);
     } catch (error) {
