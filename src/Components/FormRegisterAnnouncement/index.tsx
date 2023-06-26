@@ -297,7 +297,7 @@ export const FormRegisterAnnouncement = ({
               <Input
                 id="price"
                 label="Preço"
-                type="number"
+                type="text"
                 placeholder="15000"
                 register={register("price", { valueAsNumber: true })}
                 disabled={false}
