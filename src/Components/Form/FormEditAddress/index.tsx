@@ -5,18 +5,15 @@ import { Input } from "../Input";
 import { iAddressProps } from "../FormRegister/@types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { updateAddressSchema } from "../FormRegister/registerSchema";
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import { AuthContext } from "../../../Contexts/AuthContext";
-import { api } from "../../../Services";
 
 interface iEditAddress {
     setOpenEdit: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const EditAddress = ({ setOpenEdit }: iEditAddress) => {
-    const [loading, setLoading] = useState(false);
-    const { user, setIsOpen } = useContext(AuthContext);
-
+    const { user, editAddress, loading } = useContext(AuthContext);
     const {
         register,
         handleSubmit,
@@ -26,26 +23,10 @@ export const EditAddress = ({ setOpenEdit }: iEditAddress) => {
         resolver: zodResolver(updateAddressSchema),
     });
 
-    const editAddress = async (data: iAddressProps) => {
-        const userId = user?.id;
-        console.log(userId);
-        try {
-            setLoading(true);
-
-            const response = await api.patch(`users/${userId}`, { address: data });
-            console.log(response);
-
-            console.log("Dados atualizados com sucesso:", response.data);
-        } catch (error) {
-            console.error("Erro ao atualizar dados:", error);
-        } finally {
-            setLoading(false);
-        }
-    };
-
     const onSubmit = (data: iAddressProps) => {
-        editAddress(data);
-        console.log(data);
+        const { number, ...rest } = data;
+        const newObject = { number: Number(number), ...rest };
+        editAddress(newObject);
     };
 
     return (
@@ -132,7 +113,7 @@ export const EditAddress = ({ setOpenEdit }: iEditAddress) => {
                         placeholder='Ex: apart 307'
                         register={register("addOn")}
                         disabled={loading}
-                        defaultValue={user?.address?.add_on}
+                        defaultValue={user?.address?.addOn}
                     />
                     {errors.addOn && <span>{errors.addOn.message}</span>}
                 </div>
@@ -149,7 +130,6 @@ export const EditAddress = ({ setOpenEdit }: iEditAddress) => {
                         text='Salvar Alterações'
                         size='big'
                         variant={isValid ? "brand1" : "brandDisable"}
-                        // disabled={!isValid}
                     ></Button>
                 </div>
             </div>
