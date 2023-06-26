@@ -105,7 +105,9 @@ export const FormRegister = () => {
       {errors.description && (
         <span className="text-red-500">{errors.description.message}</span>
       )}
-      <HeadingTextBody tag="body-2-500">Infomações de endereço</HeadingTextBody>
+      <HeadingTextBody tag="body-2-500">
+        Informações de endereço
+      </HeadingTextBody>
       <Input
         id="cep"
         label="CEP"

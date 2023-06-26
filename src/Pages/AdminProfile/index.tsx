@@ -9,7 +9,6 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Contexts/AuthContext";
 import { CardAdmin } from "../../Components/CardAdmin";
 
-
 export const AdminProfile = () => {
   const {
     getUserData,
@@ -24,7 +23,7 @@ export const AdminProfile = () => {
     const getUser = async () => {
       try {
         await getUserData();
-        await getUserAnnouncement(user.id);
+        await getUserAnnouncement(user!.id);
         console.log(userAnnouncements);
 
         setIsLoading(false);
@@ -42,7 +41,8 @@ export const AdminProfile = () => {
     return firstWords.join("");
   };
 
-  const [open, setOpen] = useState<boolean>(false);
+  const [openAnnouncement, setOpenAnnouncement] = useState<boolean>(false);
+
   if (isLoading || !user || !userAnnouncements) {
     return (
       <div className="bg-gray-100 max-h-full">
@@ -85,7 +85,7 @@ export const AdminProfile = () => {
               {user.description}
             </HeadingTextBody>
             <Button
-              onClick={() => setOpen(true)}
+              onClick={() => setOpenAnnouncement(true)}
               text="Criar anúncio"
               size="big"
               variant="brand1"
@@ -116,8 +116,8 @@ export const AdminProfile = () => {
         </div>
         <Footer />
       </div>
-      <ModalDefault open={open} setOpen={setOpen}>
-        <FormRegisterAnnouncement open={open} setOpen={setOpen} />
+      <ModalDefault open={openAnnouncement} setOpen={setOpenAnnouncement}>
+        <FormRegisterAnnouncement setOpen={setOpenAnnouncement} />
       </ModalDefault>
     </div>
   );

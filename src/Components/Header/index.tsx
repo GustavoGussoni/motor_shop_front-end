@@ -91,6 +91,7 @@ export const Header = () => {
                         {GetFirstLetterOfEachWord(user.name)}
                       </p>
                     </div>
+
                     <Transition
                       enter="transition duration-100 ease-out"
                       enterFrom="transform scale-50 opacity-0"
@@ -195,7 +196,6 @@ export const Header = () => {
                         text="Perfil"
                       ></Button>
                     </Menu.Item>
-
                     <Menu.Item>
                       <Button
                         onClick={() => userLogout()}
