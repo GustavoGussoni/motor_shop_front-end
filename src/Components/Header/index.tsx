@@ -13,7 +13,7 @@ export const Header = () => {
     const cookies = parseCookies();
     const [openEditAddress, setOpenEditAddres] = useState(false);
     const { user_token } = cookies;
-    
+
     useEffect(() => {
         const getUser = async () => {
             try {
@@ -26,46 +26,41 @@ export const Header = () => {
         };
         getUser();
     }, []);
+
     const handleLogin = () => {
         navigate("/login");
     };
-
-    getUser();
-  }, []);
-  const handleLogin = () => {
-    navigate("/login");
-  };
-  const handleRegister = () => {
-    navigate("register");
-  };
-  const handleHome = () => {
-    navigate("");
-  };
-  const handleProfileAdmin = () => {
-    navigate("/profile/admin");
-  };
-  const GetFirstLetterOfEachWord = (username: string) => {
-    const words = username.split(" ");
-    const firstWords = words.map((word) => word.charAt(0));
-    return firstWords.join("");
-  };
-  const getRandomColorClass = (): string => {
-    const colors = [
-      "bg-red-500",
-      "bg-blue-500",
-      "bg-green-500",
-      "bg-yellow-500",
-      "bg-purple-500",
-      "bg-pink-500",
-      "bg-teal-500",
-      "bg-indigo-500",
-      "bg-gray-500",
-      "bg-orange-500",
-    ];
-    const randomIndex = Math.floor(Math.random() * colors.length);
-    return colors[randomIndex];
-  };
-  const randomColorClass = getRandomColorClass();
+    const handleRegister = () => {
+        navigate("register");
+    };
+    const handleHome = () => {
+        navigate("");
+    };
+    const handleProfileAdmin = () => {
+        navigate("/profile/admin");
+    };
+    const GetFirstLetterOfEachWord = (username: string) => {
+        const words = username.split(" ");
+        const firstWords = words.map((word) => word.charAt(0));
+        return firstWords.join("");
+    };
+    const getRandomColorClass = (): string => {
+        const colors = [
+            "bg-red-500",
+            "bg-blue-500",
+            "bg-green-500",
+            "bg-yellow-500",
+            "bg-purple-500",
+            "bg-pink-500",
+            "bg-teal-500",
+            "bg-indigo-500",
+            "bg-gray-500",
+            "bg-orange-500",
+        ];
+        const randomIndex = Math.floor(Math.random() * colors.length);
+        return colors[randomIndex];
+    };
+    const randomColorClass = getRandomColorClass();
     return (
         <header className='bg-white-fixed'>
             <div className='flex px-14 items-center justify-between w-full'>

@@ -15,7 +15,7 @@ interface iEditAddress {
 
 export const EditAddress = ({ setOpenEdit }: iEditAddress) => {
     const [loading, setLoading] = useState(false);
-    const { user } = useContext(AuthContext);
+    const { user, setIsOpen } = useContext(AuthContext);
 
     const {
         register,
