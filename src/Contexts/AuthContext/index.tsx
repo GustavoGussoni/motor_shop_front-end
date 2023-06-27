@@ -5,17 +5,19 @@ import {
     iAuthProviderProps,
     iCepProps,
     iUserProps,
+    iAddressProps,
 } from "./@types";
 import { useNavigate } from "react-router-dom";
+import { iRegisterFormValues } from "../../Components/Form/FormRegister/@types";
 import { api, cepApi } from "../../Services";
-import { iAddressProps, iRegisterFormValues } from "../../Components/Form/FormRegister/@types";
 import { iLogin } from "../../Components/Form/FormLogin/loginSchema";
 import { toast } from "react-toastify";
 import { destroyCookie, parseCookies, setCookie } from "nookies";
+import { iProfileEditProps } from "../../Components/Form/FromProfileEdit/@types";
 
 export const AuthContext = createContext({} as iAuthContext);
 export const AuthProvider = ({ children }: iAuthProviderProps) => {
-    const [loading, setLoading] = useState(false);
+    const [typeModal, setTypeModal] = useState<string>("");
     const [cep, setCep] = useState<iCepProps | null>(null);
     const [user, setUser] = useState<iUserProps | null>(null);
     const [announcementId, setAnnouncementId] = useState<string | null>(null);
@@ -25,7 +27,6 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
     const [allAnnouncements, setAllAnnouncements] = useState<iAnnouncementProps[] | []>([]);
     const [filter, setFilter] = useState<string | null>(null);
     const [isOpen, setIsOpen] = useState(false);
-    // const [globalLoading, setGlobalLoading] = useState(false);
     const navigate = useNavigate();
 
     const cookies = parseCookies();
@@ -37,13 +38,27 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
     ) => {
         try {
             setLoading(true);
-            console.log(data);
             const request = await api.post("users", data);
             if (request.statusText === "Created") {
                 setUser(request.data);
                 setIsOpen(true);
             }
             return request.data;
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const userUpdateProfile = async (
+        data: iProfileEditProps,
+        setLoading: React.Dispatch<React.SetStateAction<boolean>>
+    ) => {
+        try {
+            setLoading(true);
+            const request = await api.patch("users", data);
+            console.log(request);
         } catch (error) {
             console.log(error);
         } finally {
@@ -109,9 +124,9 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
             const request = await api.get("announcement");
 
             const data = await request.data;
-            const find_user_announcements = data.filter((el: iUserProps) => {
-                // console.log("aqui", el === userId);
-                return el.id === userId;
+
+            const find_user_announcements = data.filter((el: iAnnouncementProps) => {
+                return el.userId === userId;
             });
             setUserAnnouncements(find_user_announcements);
         } catch (error) {
@@ -162,23 +177,18 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
         }
     };
 
-    const editAddress = async (data: iAddressProps): Promise<void> => {
+    const editAddress = async (
+        data: iAddressProps,
+        setLoading: React.Dispatch<React.SetStateAction<boolean>>
+    ): Promise<void> => {
         const userId = user?.id;
         const id = toast.loading("Verificando dados...");
 
         try {
             setLoading(true);
 
-            const request = await api.patch(`users/${userId}`, { address: data });
-            if (request) {
-                toast.update(id, {
-                    render: "Endereço atualizado com sucesso!",
-                    type: "success",
-                    isLoading: false,
-                    autoClose: 1000,
-                });
-            }
-            setUser(request.data);
+            const response = await api.patch(`users/${userId}`, { address: data });
+            setUser(response.data);
             setIsOpen(false);
         } catch (error) {
             toast.update(id, {
@@ -218,9 +228,10 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
                 user_token,
                 setAnnouncementId,
                 announcementId,
-                loading,
-                setLoading,
+                userUpdateProfile,
                 editAddress,
+                typeModal,
+                setTypeModal,
             }}
         >
             {children}

@@ -1,8 +1,8 @@
-export interface iFormAnnoucement {
+export interface iFormAnnouncement {
   name_car: string;
   brand: string;
   model: string;
-  year: number;
+  year: string;
   fuel: number;
   kilometers: number;
   color: string;
@@ -11,5 +11,9 @@ export interface iFormAnnoucement {
   description?: string;
   cover_image: string;
   is_activate?: true;
-  image_gallery?: string[];
+  image_gallery?: iImageGallery[];
+}
+
+interface iImageGallery {
+  image: string;
 }

@@ -1,3 +1,3 @@
 export interface iModalProps {
-    children: React.ReactNode;
+  typeModal: string;
 }

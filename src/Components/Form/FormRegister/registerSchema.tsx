@@ -1,16 +1,22 @@
 import * as z from "zod";
 
 export const addressSchema = z.object({
-    cep: z
-        .string()
-        .nonempty("CEP é obrigatório")
-        .min(8, "Insira um CEP válido")
-        .max(9, "Insira um CEP válido"),
-    state: z.string().nonempty("UF é obrigatório").max(2, "Insira um UF válido"),
-    city: z.string().nonempty("Cidade é obrigatório").max(50, "Insira um nome de cidade válido"),
-    number: z.string().nonempty("Numero é obrigatório"),
-    addOn: z.string().nullish(),
-    street: z.string().nonempty("Rua é obrigatória").max(255, "Insira uma rua de endereço válida"),
+  cep: z
+    .string()
+    .nonempty("CEP é obrigatório")
+    .min(8, "Insira um CEP válido")
+    .max(9, "Insira um CEP válido"),
+  state: z.string().nonempty("UF é obrigatório").max(2, "Insira um UF válido"),
+  city: z
+    .string()
+    .nonempty("Cidade é obrigatório")
+    .max(50, "Insira um nome de cidade válido"),
+  number: z.string().nonempty("Numero é obrigatório"),
+  addOn: z.string().nullish(),
+  street: z
+    .string()
+    .nonempty("Rua é obrigatória")
+    .max(255, "Insira uma rua de endereço válida"),
 });
 
 export const updateAddressSchema = addressSchema.partial();
@@ -36,14 +42,18 @@ export const RegisterSchema = z
       .max(11, "Insira um número de celular válido"),
     birthdate: z.string().nonempty("Data de nascimento é obrigatória"),
     description: z.string().nullish(),
-    is_advertiser: z.string().nonempty(),
+    is_advertiser: z.boolean().nullish(),
     address: addressSchema,
     password: z
       .string()
       .nonempty("Senha é obrigatória")
-      .min(8, "A senha deve contér no minímo 8 characters"),
+      .min(8, "A senha deve contér no minímo 8 characters")
+      .regex(/(?=.*?[A-Z])/, "É necessário ao menos uma letra maiúscula")
+      .regex(/(?=.*?[a-z])/, "É necessário ao menos uma letra minúscula")
+      .regex(/(?=.*?[0-9])/, "É necessário pelo menos um número"),
     confirmPassword: z.string().nonempty("Confirmação de senha obrigatória"),
   })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords don't match",
+  .refine(({ password, confirmPassword }) => password === confirmPassword, {
+    message: "As senhas precisam correspondentes",
+    path: ["confirm"],
   });

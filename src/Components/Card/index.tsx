@@ -40,11 +40,13 @@ const Card = ({ data }: iCard) => {
 
   const handleUser = async (userId: string) => {
     await getUserAnnouncement(userId);
+    // console.log(userId);
+
     navigate("/profile/user");
   };
 
-  const handleProduct = async (announcementId: string) => {
-    await setAnnouncementId(announcementId);
+  const handleProduct = (announcementId: string) => {
+    setAnnouncementId(announcementId);
     navigate("/product");
   };
 

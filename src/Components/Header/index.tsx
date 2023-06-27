@@ -6,12 +6,13 @@ import { useContext, useEffect, useState } from "react";
 import { EditAddress } from "../Form/FormEditAddress";
 import { parseCookies } from "nookies";
 import { Modal } from "../Modals";
+import { FormProfileEdit } from "../Form/FromProfileEdit";
 
 export const Header = () => {
-    const { navigate, user, userLogout, getUserData, isOpen, setIsOpen } = useContext(AuthContext);
+    const { navigate, user, userLogout, getUserData, setIsOpen, setTypeModal, isOpen, typeModal } =
+        useContext(AuthContext);
     const [isLoading, setIsLoading] = useState(true);
     const cookies = parseCookies();
-    const [openEditAddress, setOpenEditAddres] = useState(false);
     const { user_token } = cookies;
 
     useEffect(() => {
@@ -30,15 +31,18 @@ export const Header = () => {
     const handleLogin = () => {
         navigate("/login");
     };
+
     const handleRegister = () => {
         navigate("register");
     };
     const handleHome = () => {
         navigate("");
     };
+
     const handleProfileAdmin = () => {
         navigate("/profile/admin");
     };
+
     const GetFirstLetterOfEachWord = (username: string) => {
         const words = username.split(" ");
         const firstWords = words.map((word) => word.charAt(0));
@@ -72,11 +76,7 @@ export const Header = () => {
                 <div className='pl-16 py-4 border-l z-[3] border-grey-6 gap-12 hidden sm:flex duration-150'>
                     {user_token && user ? (
                         <>
-                            {isOpen && (
-                                <Modal>
-                                    <EditAddress setOpenEdit={setOpenEditAddres} />
-                                </Modal>
-                            )}
+                            {isOpen && <Modal typeModal={typeModal} />}
                             <div className='flex items-center gap-3'>
                                 <Menu>
                                     <Menu.Button>
@@ -87,44 +87,48 @@ export const Header = () => {
                                                 {GetFirstLetterOfEachWord(user.name)}
                                             </p>
                                         </div>
+
+                                        <Transition
+                                            enter='transition duration-100 ease-out'
+                                            enterFrom='transform scale-50 opacity-0'
+                                            enterTo='transform scale-100 opacity-100'
+                                            leave='transition duration-75 ease-out'
+                                            leaveFrom='transform scale-100 opacity-100'
+                                            leaveTo='transform scale-95 opacity-0'
+                                        >
+                                            <Menu.Items className='origin-bottom-right flex absolute top-3 right-[-100px] gap-1 bg-transparent rounded-md'>
+                                                {
+                                                    <>
+                                                        <Menu.Item>
+                                                            <Button
+                                                                onClick={() => handleProfileAdmin()}
+                                                                variant='outline2'
+                                                                size='medium'
+                                                                text='Perfil'
+                                                            ></Button>
+                                                        </Menu.Item>
+                                                        <Button
+                                                            onClick={() => {
+                                                                setTypeModal("editAddress");
+                                                                setIsOpen(true);
+                                                            }}
+                                                            variant='outline2'
+                                                            size='medium'
+                                                            text='Endereço'
+                                                        ></Button>
+                                                        <Menu.Item>
+                                                            <Button
+                                                                onClick={() => userLogout()}
+                                                                variant='outline2'
+                                                                size='medium'
+                                                                text='Sair'
+                                                            ></Button>
+                                                        </Menu.Item>
+                                                    </>
+                                                }
+                                            </Menu.Items>
+                                        </Transition>
                                     </Menu.Button>
-                                    <Transition
-                                        enter='transition duration-100 ease-out'
-                                        enterFrom='transform scale-50 opacity-0'
-                                        enterTo='transform scale-100 opacity-100'
-                                        leave='transition duration-75 ease-out'
-                                        leaveFrom='transform scale-100 opacity-100'
-                                        leaveTo='transform scale-95 opacity-0'
-                                    >
-                                        <Menu.Items className='origin-bottom-right flex flex-col absolute top-5 right-5 gap-2 bg-transparent rounded-md'>
-                                            {
-                                                <>
-                                                    <Menu.Item>
-                                                        <Button
-                                                            onClick={() => handleProfileAdmin()}
-                                                            variant='outline2'
-                                                            size='medium'
-                                                            text='Perfil'
-                                                        ></Button>
-                                                    </Menu.Item>
-                                                    <Button
-                                                        onClick={() => setIsOpen(true)}
-                                                        variant='outline2'
-                                                        size='medium'
-                                                        text='Editar Endereço'
-                                                    ></Button>
-                                                    <Menu.Item>
-                                                        <Button
-                                                            onClick={() => userLogout()}
-                                                            variant='outline2'
-                                                            size='medium'
-                                                            text='Sair'
-                                                        ></Button>
-                                                    </Menu.Item>
-                                                </>
-                                            }
-                                        </Menu.Items>
-                                    </Transition>
                                 </Menu>
                                 <h2 className='text-grey-1 text-sm font-medium'>{user.name}</h2>
                             </div>
@@ -172,9 +176,20 @@ export const Header = () => {
                             leaveFrom='transform scale-100 opacity-100'
                             leaveTo='transform scale-95 opacity-0'
                         >
-                            <Menu.Items className='origin-bottom-right flex flex-col absolute top-5 right-5 gap-2 bg-transparent rounded-md'>
+                            <Menu.Items className='origin-bottom-right flex flex-col absolute top-6 right-5 gap-2 bg-transparent rounded-md'>
                                 {user_token && user ? (
                                     <>
+                                        <Menu.Item>
+                                            <Button
+                                                onClick={() => {
+                                                    setTypeModal("editAddress");
+                                                    setIsOpen(true);
+                                                }}
+                                                variant='outline2'
+                                                size='medium'
+                                                text='Endereço'
+                                            ></Button>
+                                        </Menu.Item>
                                         <Menu.Item>
                                             <Button
                                                 onClick={() => handleProfileAdmin()}
@@ -183,12 +198,6 @@ export const Header = () => {
                                                 text='Perfil'
                                             ></Button>
                                         </Menu.Item>
-                                        <Button
-                                            onClick={() => setIsOpen(true)}
-                                            variant='outline2'
-                                            size='medium'
-                                            text='Editar Endereço'
-                                        ></Button>
                                         <Menu.Item>
                                             <Button
                                                 onClick={() => userLogout()}
