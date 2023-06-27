@@ -6,141 +6,111 @@ import { useContext, useEffect, useState } from "react";
 import { EditAddress } from "../Form/FormEditAddress";
 import { parseCookies } from "nookies";
 import { Modal } from "../Modals";
+import { FormProfileEdit } from "../Form/FromProfileEdit";
 
 export const Header = () => {
+  const { navigate, user, userLogout, getUserData, setIsOpen, setTypeModal } =
+    useContext(AuthContext);
+  const [isLoading, setIsLoading] = useState(true);
+  const cookies = parseCookies();
+  const { user_token } = cookies;
 
-    const { navigate, user, userLogout, getUserData, isOpen, setIsOpen } = useContext(AuthContext);
-    const [isLoading, setIsLoading] = useState(true);
-    const cookies = parseCookies();
-    const [openEditAddress, setOpenEditAddres] = useState(false);
-    const { user_token } = cookies;
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        await getUserData();
+        setIsLoading(false);
+      } catch (error) {
+        setIsLoading(false);
+        return error;
+      }
+    };
+    getUser();
+  }, []);
 
-    useEffect(() => {
-        const getUser = async () => {
-            try {
-                await getUserData();
-                setIsLoading(false);
-            } catch (error) {
-                setIsLoading(false);
-                return error;
-            }
-        };
-        getUser();
-    }, []);
+  const handleLogin = () => {
+    navigate("/login");
+  };
 
-    const handleLogin = () => {
-        navigate("/login");
-    };
-    const handleRegister = () => {
-        navigate("register");
-    };
-    const handleHome = () => {
-        navigate("");
-    };
-    const handleProfileAdmin = () => {
-        navigate("/profile/admin");
-    };
-    const GetFirstLetterOfEachWord = (username: string) => {
-        const words = username.split(" ");
-        const firstWords = words.map((word) => word.charAt(0));
-        return firstWords.join("");
-    };
-    const getRandomColorClass = (): string => {
-        const colors = [
-            "bg-red-500",
-            "bg-blue-500",
-            "bg-green-500",
-            "bg-yellow-500",
-            "bg-purple-500",
-            "bg-pink-500",
-            "bg-teal-500",
-            "bg-indigo-500",
-            "bg-gray-500",
-            "bg-orange-500",
-        ];
-        const randomIndex = Math.floor(Math.random() * colors.length);
-        return colors[randomIndex];
-    };
-    const randomColorClass = getRandomColorClass();
-    return (
-        <header className='bg-white-fixed'>
-            <div className='flex px-14 items-center justify-between w-full'>
-                <img
-                    onClick={() => handleHome()}
-                    className='py-4 hover:cursor-pointer'
-                    src={imgLogo}
-                ></img>
-                <div className='pl-16 py-4 border-l z-[3] border-grey-6 gap-12 hidden sm:flex duration-150'>
-                    {user_token && user ? (
-                        <>
-                            {isOpen && (
-                                <Modal>
-                                    <EditAddress setOpenEdit={setOpenEditAddres} />
-                                </Modal>
-                            )}
-                            <div className='flex items-center gap-3'>
-                                <Menu>
-                                    <Menu.Button>
-                                        <div
-                                            className={`rounded-full w-8 h-8 ${randomColorClass} flex items-center justify-center`}
-                                        >
-                                            <p className='text-center text-white font-medium text-sm flex items-center justify-center'>
-                                                {GetFirstLetterOfEachWord(user.name)}
-                                            </p>
-                                        </div>
-                                    </Menu.Button>
-                                    <Transition
-                                        enter='transition duration-100 ease-out'
-                                        enterFrom='transform scale-50 opacity-0'
-                                        enterTo='transform scale-100 opacity-100'
-                                        leave='transition duration-75 ease-out'
-                                        leaveFrom='transform scale-100 opacity-100'
-                                        leaveTo='transform scale-95 opacity-0'
-                                    >
-                                        <Menu.Items className='origin-bottom-right flex flex-col absolute top-5 right-5 gap-2 bg-transparent rounded-md'>
-                                            {
-                                                <>
-                                                    <Menu.Item>
-                                                        <Button
-                                                            onClick={() => handleProfileAdmin()}
-                                                            variant='outline2'
-                                                            size='medium'
-                                                            text='Perfil'
-                                                        ></Button>
-                                                    </Menu.Item>
-                                                    <Button
-                                                        onClick={() => setIsOpen(true)}
-                                                        variant='outline2'
-                                                        size='medium'
-                                                        text='Editar Endereço'
-                                                    ></Button>
-                                                    <Menu.Item>
-                                                        <Button
-                                                            onClick={() => userLogout()}
-                                                            variant='outline2'
-                                                            size='medium'
-                                                            text='Sair'
-                                                        ></Button>
-                                                    </Menu.Item>
-                                                </>
-                                            }
-                                        </Menu.Items>
-                                    </Transition>
-                                </Menu>
-                                <h2 className='text-grey-1 text-sm font-medium'>{user.name}</h2>
-                            </div>
-                        </>
-                    ) : (
-                        <>
-                            <button
-                                onClick={() => handleLogin()}
-                                className='bg-none text-grey-2 hover:text-brand-1'
-                            >
-                                Fazer login
-                            </button>
+  const handleRegister = () => {
+    navigate("register");
+  };
+  const handleHome = () => {
+    navigate("");
+  };
 
+  const handleProfileAdmin = () => {
+    navigate("/profile/admin");
+  };
+
+  const GetFirstLetterOfEachWord = (username: string) => {
+    const words = username.split(" ");
+    const firstWords = words.map((word) => word.charAt(0));
+    return firstWords.join("");
+  };
+  const getRandomColorClass = (): string => {
+    const colors = [
+      "bg-red-500",
+      "bg-blue-500",
+      "bg-green-500",
+      "bg-yellow-500",
+      "bg-purple-500",
+      "bg-pink-500",
+      "bg-teal-500",
+      "bg-indigo-500",
+      "bg-gray-500",
+      "bg-orange-500",
+    ];
+    const randomIndex = Math.floor(Math.random() * colors.length);
+    return colors[randomIndex];
+  };
+  const randomColorClass = getRandomColorClass();
+  return (
+    <header className="bg-white-fixed">
+      <div className="flex px-14 items-center justify-between w-full">
+        <img
+          onClick={() => handleHome()}
+          className="py-4 hover:cursor-pointer"
+          src={imgLogo}
+        ></img>
+        <div className="pl-16 py-4 border-l z-[3] border-grey-6 gap-12 hidden sm:flex duration-150">
+          {user_token && user ? (
+            <>
+              <div className="flex items-center gap-3">
+                <Menu>
+                  <Menu.Button>
+                    <div
+                      className={`rounded-full w-8 h-8 ${randomColorClass} flex items-center justify-center`}
+                    >
+                      <p className="text-center text-white font-medium text-sm flex items-center justify-center">
+                        {GetFirstLetterOfEachWord(user.name)}
+                      </p>
+                    </div>
+
+                    <Transition
+                      enter="transition duration-100 ease-out"
+                      enterFrom="transform scale-50 opacity-0"
+                      enterTo="transform scale-100 opacity-100"
+                      leave="transition duration-75 ease-out"
+                      leaveFrom="transform scale-100 opacity-100"
+                      leaveTo="transform scale-95 opacity-0"
+                    >
+                      <Menu.Items className="origin-bottom-right flex absolute top-3 right-[-100px] gap-1 bg-transparent rounded-md">
+                        {
+                          <>
+                            <Menu.Item>
+                              <Button
+                                onClick={() => handleProfileAdmin()}
+                                variant="outline2"
+                                size="medium"
+                                text="Perfil"
+                              ></Button>
+                            </Menu.Item>
                             <Button
-                              onClick={() => setIsOpen(true)}
+                              onClick={() => {
+                                setTypeModal("editAddress");
+                                setIsOpen(true);
+                              }}
                               variant="outline2"
                               size="medium"
                               text="Endereço"
@@ -210,7 +180,10 @@ export const Header = () => {
                   <>
                     <Menu.Item>
                       <Button
-                        onClick={() => setIsOpen(true)}
+                        onClick={() => {
+                          setTypeModal("editAddress");
+                          setIsOpen(true);
+                        }}
                         variant="outline2"
                         size="medium"
                         text="Endereço"

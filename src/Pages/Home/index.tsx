@@ -8,9 +8,11 @@ import { useContext } from "react";
 import img from "../../Assets/embargo_23_01_bst_15_july_2020_911_turbo_rear_three_quarter-removebg.png";
 import { AuthContext } from "../../Contexts/AuthContext";
 import { Button } from "../../Components/Button";
+import { EditAddress } from "../../Components/Form/FormEditAddress";
+import { Modal } from "../../Components/Modals";
 
 export const Home = () => {
-  const { setFilter, user, getAllAnnouncement, allAnnouncements } =
+  const { setFilter, user, getAllAnnouncement, allAnnouncements, isOpen } =
     useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -44,6 +46,11 @@ export const Home = () => {
   }
   return (
     <React.Fragment>
+      {isOpen && (
+        <Modal>
+          <EditAddress />
+        </Modal>
+      )}
       <Header />
       <div className="bg-gradient-to-b flex relative items-center justify-center  from-brand-4 to-grey-0 to-90% h-1/3">
         <div className="absolute gap-2 flex w-full flex-col items-center justify-center">

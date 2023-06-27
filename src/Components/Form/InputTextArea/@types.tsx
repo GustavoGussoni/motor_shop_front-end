@@ -1,6 +1,5 @@
-export interface iInputForm {
+export interface iTextAreaProps {
   id: string;
-  type: string;
   placeholder: string;
   disabled?: boolean;
   label: string;
@@ -8,5 +7,4 @@ export interface iInputForm {
   value?: any;
   defaultValue?: any;
   className?: string;
-  onBlur?: (e: any) => void;
 }
