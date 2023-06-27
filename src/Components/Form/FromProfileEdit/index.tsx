@@ -24,7 +24,7 @@ export const FormProfileEdit = () => {
   const submit: SubmitHandler<iProfileEditProps> = (data) => {
     console.log(data);
     // userUpdateProfile(data, setLoading, user?.id);
-    setIsOpen(false);
+    // setIsOpen(false);
   };
 
   return (
