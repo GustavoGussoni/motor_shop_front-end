@@ -9,9 +9,6 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Contexts/AuthContext";
 import { CardAdmin } from "../../Components/CardAdmin";
 import { PencilIcon } from "@heroicons/react/24/outline";
-import { Modal } from "../../Components/Modals";
-import { EditAddress } from "../../Components/Form/FormEditAddress";
-import { FormProfileEdit } from "../../Components/Form/FromProfileEdit";
 
 export const AdminProfile = () => {
   const {
@@ -20,8 +17,6 @@ export const AdminProfile = () => {
     getUserAnnouncement,
     userAnnouncements,
     setIsOpen,
-    isOpen,
-    typeModal,
     setTypeModal,
   } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(true);
@@ -67,11 +62,6 @@ export const AdminProfile = () => {
   }
   return (
     <>
-      {isOpen && (
-        <Modal>
-          {typeModal === "editAddress" ? <EditAddress /> : <FormProfileEdit />}
-        </Modal>
-      )}
       <div className="bg-gray-100 max-h-full">
         <Header />
         <div className="relative z-[1] bg-brand-1 h-[17rem]" />
@@ -92,7 +82,7 @@ export const AdminProfile = () => {
                 <PencilIcon
                   className="w-5 h-5 cursor-pointer"
                   onClick={() => {
-                    setTypeModal("");
+                    setTypeModal("editProfile");
                     setIsOpen(true);
                   }}
                 />

@@ -2,8 +2,10 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useContext } from "react";
 import { AuthContext } from "../../Contexts/AuthContext";
 import { iModalProps } from "./@types";
+import { EditAddress } from "../Form/FormEditAddress";
+import { FormProfileEdit } from "../Form/FromProfileEdit";
 
-export const Modal = ({ children }: iModalProps) => {
+export const Modal = ({ typeModal }: iModalProps) => {
   const { isOpen, setIsOpen } = useContext(AuthContext);
 
   const closeModal = () => {
@@ -12,6 +14,15 @@ export const Modal = ({ children }: iModalProps) => {
 
   const openModal = () => {
     setIsOpen(true);
+  };
+
+  const switchModal = () => {
+    switch (typeModal) {
+      case "editAddress":
+        return <EditAddress />;
+      case "editProfile":
+        return <FormProfileEdit />;
+    }
   };
 
   return (
@@ -41,7 +52,7 @@ export const Modal = ({ children }: iModalProps) => {
               leaveTo="opacity-0 scale-95"
             >
               <Dialog.Panel className="w-full max-w-[520px] transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all relative top-10 flex flex-col gap-[20px]">
-                {children}
+                {switchModal()}
               </Dialog.Panel>
             </Transition.Child>
           </div>
