@@ -2,16 +2,13 @@ import { useContext } from "react";
 import { iAnnouncementProps } from "../../Contexts/AuthContext/@types";
 import { Button } from "../Button";
 import { AuthContext } from "../../Contexts/AuthContext";
-import { Modal } from "../Modals";
-import { DeleteAnnoucement } from "../DeleteAnnoucement";
 
 interface iCard {
     data: iAnnouncementProps;
 }
 
 const CardAdmin = ({ data }: iCard) => {
-    const { setAnnouncementId, navigate, isOpen, setIsOpen, typeModal, setTypeModal } =
-        useContext(AuthContext);
+    const { setAnnouncementId, navigate } = useContext(AuthContext);
 
     const handleProduct = async (announcementId: string) => {
         await setAnnouncementId(announcementId);
@@ -20,7 +17,6 @@ const CardAdmin = ({ data }: iCard) => {
 
     return (
         <li className='pt-2 px-2 sm:px-2 sm:py-2 list-none min-w-[312px] max-w-[300px] ml-1'>
-            {isOpen && <Modal typeModal={typeModal} />}
             <div className='relative w-[296px] h-[160px]'>
                 <img
                     onClick={() => handleProduct(data.id)}
@@ -61,15 +57,7 @@ const CardAdmin = ({ data }: iCard) => {
                     </div>
                 </div>
                 <div className='flex gap-[16px]'>
-                    <Button
-                        variant='outline1'
-                        text='editar'
-                        size='medium'
-                        onClick={() => {
-                            setTypeModal("deleteAnnoucement");
-                            setIsOpen(true);
-                        }}
-                    />
+                    <Button variant='outline1' text='editar' size='medium' />
 
                     <Button variant='outline1' text='Ver detalhes' size='medium' />
                 </div>
