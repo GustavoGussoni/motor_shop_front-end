@@ -187,8 +187,16 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
         try {
             setLoading(true);
 
-            const response = await api.patch(`users/${userId}`, { address: data });
-            setUser(response.data);
+            const request = await api.patch(`users/${userId}`, { address: data });
+            if (request) {
+                toast.update(id, {
+                    render: "Endereço atualizado com sucesso!",
+                    type: "success",
+                    isLoading: false,
+                    autoClose: 1000,
+                });
+            }
+            setUser(request.data);
             setIsOpen(false);
         } catch (error) {
             toast.update(id, {
@@ -198,7 +206,7 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
                 autoClose: 1000,
             });
         } finally {
-            setLoading(true);
+            setLoading(false);
         }
     };
 
