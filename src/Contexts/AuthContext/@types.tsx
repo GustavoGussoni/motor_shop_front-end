@@ -89,4 +89,5 @@ export interface iAuthContext {
     editAddress: (data: iAddressProps) => Promise<void>;
     loading: boolean;
     setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+
 }

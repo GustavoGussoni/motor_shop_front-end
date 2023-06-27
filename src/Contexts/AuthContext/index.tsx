@@ -90,6 +90,7 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
             isLoading: false,
         });
         navigate("");
+
     };
 
     const getUserData = async () => {
@@ -213,4 +214,5 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
             {children}
         </AuthContext.Provider>
     );
+
 };

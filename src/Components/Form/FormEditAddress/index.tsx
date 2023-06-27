@@ -9,10 +9,11 @@ import { useContext } from "react";
 import { AuthContext } from "../../../Contexts/AuthContext";
 
 interface iEditAddress {
-    setOpenEdit: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpenEdit: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const EditAddress = ({ setOpenEdit }: iEditAddress) => {
+
     const { user, editAddress, loading } = useContext(AuthContext);
     const {
         register,
@@ -135,4 +136,5 @@ export const EditAddress = ({ setOpenEdit }: iEditAddress) => {
             </div>
         </form>
     );
+
 };

@@ -8,6 +8,7 @@ import { parseCookies } from "nookies";
 import { Modal } from "../Modals";
 
 export const Header = () => {
+
     const { navigate, user, userLogout, getUserData, isOpen, setIsOpen } = useContext(AuthContext);
     const [isLoading, setIsLoading] = useState(true);
     const cookies = parseCookies();
@@ -137,92 +138,126 @@ export const Header = () => {
                             >
                                 Fazer login
                             </button>
+
                             <Button
-                                onClick={() => handleRegister()}
-                                variant='outline2'
-                                size='medium'
-                                text='Cadastrar'
+                              onClick={() => setIsOpen(true)}
+                              variant="outline2"
+                              size="medium"
+                              text="Endereço"
                             ></Button>
-                        </>
-                    )}
-                </div>
-                <div className='flex z-[3] sm:hidden duration-150'>
-                    <Menu>
-                        <Menu.Button>
-                            <svg
-                                xmlns='http://www.w3.org/2000/svg'
-                                fill='none'
-                                viewBox='0 0 24 24'
-                                stroke-width='1.5'
-                                stroke='currentColor'
-                                className='w-6 h-6'
-                            >
-                                <path
-                                    stroke-linecap='round'
-                                    stroke-linejoin='round'
-                                    d='M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5'
-                                />
-                            </svg>
-                        </Menu.Button>
-                        <Transition
-                            enter='transition duration-100 ease-out'
-                            enterFrom='transform scale-50 opacity-0'
-                            enterTo='transform scale-100 opacity-100'
-                            leave='transition duration-75 ease-out'
-                            leaveFrom='transform scale-100 opacity-100'
-                            leaveTo='transform scale-95 opacity-0'
-                        >
-                            <Menu.Items className='origin-bottom-right flex flex-col absolute top-5 right-5 gap-2 bg-transparent rounded-md'>
-                                {user_token && user ? (
-                                    <>
-                                        <Menu.Item>
-                                            <Button
-                                                onClick={() => handleProfileAdmin()}
-                                                variant='outline2'
-                                                size='medium'
-                                                text='Perfil'
-                                            ></Button>
-                                        </Menu.Item>
-                                        <Button
-                                            onClick={() => setIsOpen(true)}
-                                            variant='outline2'
-                                            size='medium'
-                                            text='Editar Endereço'
-                                        ></Button>
-                                        <Menu.Item>
-                                            <Button
-                                                onClick={() => userLogout()}
-                                                variant='outline2'
-                                                size='medium'
-                                                text='Sair'
-                                            ></Button>
-                                        </Menu.Item>
-                                    </>
-                                ) : (
-                                    <>
-                                        <Menu.Item>
-                                            <Button
-                                                onClick={() => handleLogin()}
-                                                variant='outline2'
-                                                size='medium'
-                                                text='Login'
-                                            ></Button>
-                                        </Menu.Item>
-                                        <Menu.Item>
-                                            <Button
-                                                onClick={() => handleRegister()}
-                                                variant='outline2'
-                                                size='medium'
-                                                text='Cadastrar'
-                                            ></Button>
-                                        </Menu.Item>
-                                    </>
-                                )}
-                            </Menu.Items>
-                        </Transition>
-                    </Menu>
-                </div>
-            </div>
-        </header>
-    );
+                            <Menu.Item>
+                              <Button
+                                onClick={() => userLogout()}
+                                variant="outline2"
+                                size="medium"
+                                text="Sair"
+                              ></Button>
+                            </Menu.Item>
+                          </>
+                        }
+                      </Menu.Items>
+                    </Transition>
+                  </Menu.Button>
+                </Menu>
+                <h2 className="text-grey-1 text-sm font-medium">{user.name}</h2>
+              </div>
+            </>
+          ) : (
+            <>
+              <button
+                onClick={() => handleLogin()}
+                className="bg-none text-grey-2 hover:text-brand-1"
+              >
+                Fazer login
+              </button>
+              <Button
+                onClick={() => handleRegister()}
+                variant="outline2"
+                size="medium"
+                text="Cadastrar"
+              ></Button>
+            </>
+          )}
+        </div>
+        <div className="flex z-[3] sm:hidden duration-150">
+          <Menu>
+            <Menu.Button>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                />
+              </svg>
+            </Menu.Button>
+            <Transition
+              enter="transition duration-100 ease-out"
+              enterFrom="transform scale-50 opacity-0"
+              enterTo="transform scale-100 opacity-100"
+              leave="transition duration-75 ease-out"
+              leaveFrom="transform scale-100 opacity-100"
+              leaveTo="transform scale-95 opacity-0"
+            >
+              <Menu.Items className="origin-bottom-right flex flex-col absolute top-6 right-5 gap-2 bg-transparent rounded-md">
+                {user_token && user ? (
+                  <>
+                    <Menu.Item>
+                      <Button
+                        onClick={() => setIsOpen(true)}
+                        variant="outline2"
+                        size="medium"
+                        text="Endereço"
+                      ></Button>
+                    </Menu.Item>
+                    <Menu.Item>
+                      <Button
+                        onClick={() => handleProfileAdmin()}
+                        variant="outline2"
+                        size="medium"
+                        text="Perfil"
+                      ></Button>
+                    </Menu.Item>
+                    <Menu.Item>
+                      <Button
+                        onClick={() => userLogout()}
+                        variant="outline2"
+                        size="medium"
+                        text="Sair"
+                      ></Button>
+                    </Menu.Item>
+                  </>
+                ) : (
+                  <>
+                    <Menu.Item>
+                      <Button
+                        onClick={() => handleLogin()}
+                        variant="outline2"
+                        size="medium"
+                        text="Login"
+                      ></Button>
+                    </Menu.Item>
+                    <Menu.Item>
+                      <Button
+                        onClick={() => handleRegister()}
+                        variant="outline2"
+                        size="medium"
+                        text="Cadastrar"
+                      ></Button>
+                    </Menu.Item>
+                  </>
+                )}
+              </Menu.Items>
+            </Transition>
+          </Menu>
+        </div>
+      </div>
+    </header>
+  );
 };
