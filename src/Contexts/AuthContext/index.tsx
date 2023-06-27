@@ -183,7 +183,6 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
     ): Promise<void> => {
         const userId = user?.id;
         const id = toast.loading("Verificando dados...");
-
         try {
             setLoading(true);
 
