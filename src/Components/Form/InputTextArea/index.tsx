@@ -1,8 +1,7 @@
-import { iInputForm } from "./@types";
+import { iTextAreaProps } from "./@types";
 
-export const Input = ({
+export const TextArea = ({
   id,
-  type,
   placeholder,
   disabled,
   label,
@@ -10,21 +9,18 @@ export const Input = ({
   value,
   className,
   defaultValue,
-  onBlur,
-}: iInputForm) => {
+}: iTextAreaProps) => {
   return (
     <fieldset className="w-full flex flex-col gap-y-2.5">
       <label className="text-grey-1 text-body-2 font-bold" htmlFor={id}>
         {label}
       </label>
-      <input
-        type={type}
+      <textarea
         placeholder={placeholder}
         disabled={disabled}
         {...register}
         value={value}
-        className={`px-4 h-[48px] w-full border-[1.5px] border-grey-7 outline-none rounded text-grey-1 placeholder-grey-3 ${className}`}
-        onBlur={onBlur}
+        className={`px-4 h-[84px] w-full border-[1.5px] border-grey-7 outline-none rounded text-grey-1 placeholder-grey-3 resize-none py-[10px] ${className}`}
         defaultValue={defaultValue}
       />
     </fieldset>
