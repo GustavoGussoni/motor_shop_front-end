@@ -9,8 +9,16 @@ import { Modal } from "../Modals";
 import { FormProfileEdit } from "../Form/FromProfileEdit";
 
 export const Header = () => {
-  const { navigate, user, userLogout, getUserData, setIsOpen, setTypeModal } =
-    useContext(AuthContext);
+  const {
+    navigate,
+    user,
+    userLogout,
+    getUserData,
+    setIsOpen,
+    setTypeModal,
+    isOpen,
+    typeModal,
+  } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(true);
   const cookies = parseCookies();
   const { user_token } = cookies;
@@ -76,6 +84,15 @@ export const Header = () => {
         <div className="pl-16 py-4 border-l z-[3] border-grey-6 gap-12 hidden sm:flex duration-150">
           {user_token && user ? (
             <>
+              {isOpen && (
+                <Modal>
+                  {typeModal === "editAddress" ? (
+                    <EditAddress />
+                  ) : (
+                    <FormProfileEdit />
+                  )}
+                </Modal>
+              )}
               <div className="flex items-center gap-3">
                 <Menu>
                   <Menu.Button>

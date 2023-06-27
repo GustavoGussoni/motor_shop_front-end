@@ -46,11 +46,6 @@ export const Home = () => {
   }
   return (
     <React.Fragment>
-      {isOpen && (
-        <Modal>
-          <EditAddress />
-        </Modal>
-      )}
       <Header />
       <div className="bg-gradient-to-b flex relative items-center justify-center  from-brand-4 to-grey-0 to-90% h-1/3">
         <div className="absolute gap-2 flex w-full flex-col items-center justify-center">
