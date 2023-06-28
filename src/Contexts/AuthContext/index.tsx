@@ -130,6 +130,7 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
           autoClose: 1000,
           isLoading: false,
         });
+
         navigate("/");
         return;
       }
@@ -231,24 +232,36 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
     }
   };
 
-  const editAddress = async (
-    data: iAddressProps,
-    setLoading: React.Dispatch<React.SetStateAction<boolean>>
-  ): Promise<void> => {
-    const userId = user?.id;
-    try {
-      setLoading(true);
-      const response = await api.patch(`users/${userId}`, { address: data });
-      setUser(response.data);
-      setIsOpen(false);
-
-      console.log("Dados atualizados com sucesso:", response.data);
-    } catch (error) {
-      console.error("Erro ao atualizar dados:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+ const editAddress = async (
+        data: iAddressProps,
+        setLoading: React.Dispatch<React.SetStateAction<boolean>>
+    ): Promise<void> => {
+        const userId = user?.id;
+        const id = toast.loading("Verificando dados...");
+        try {
+            setLoading(true);
+            const request = await api.patch(`users/${userId}`, { address: data });
+            if (request) {
+                toast.update(id, {
+                    render: "Endereço atualizado com sucesso!",
+                    type: "success",
+                    isLoading: false,
+                    autoClose: 1000,
+                });
+            }
+            setUser(request.data);
+            setIsOpen(false);
+        } catch (error) {
+            toast.update(id, {
+                render: "Informações invalidas",
+                type: "error",
+                isLoading: false,
+                autoClose: 1000,
+            });
+        } finally {
+            setLoading(false);
+        }
+    };
 
   return (
     <AuthContext.Provider
@@ -286,5 +299,4 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
       {children}
     </AuthContext.Provider>
   );
-
 };
