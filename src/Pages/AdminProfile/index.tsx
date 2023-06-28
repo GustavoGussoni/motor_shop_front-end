@@ -3,7 +3,7 @@ import { HeadingText } from "../../Style/HeadingText";
 import { HeadingTextBody } from "../../Style/HeadingBodyText";
 import { Footer } from "../../Components/Footer";
 import { Button } from "../../Components/Button";
-import { FormRegisterAnnouncement } from "../../Components/FormRegisterAnnouncement";
+import { FormRegisterAnnouncement } from "../../Components/Form/FormRegisterAnnouncement";
 import { ModalDefault } from "../../Components/ModalDefault";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Contexts/AuthContext";

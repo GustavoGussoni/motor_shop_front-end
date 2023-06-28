@@ -5,37 +5,14 @@ import { LoginSchema, iLogin } from "./loginSchema";
 import { Button } from "../../Button";
 import { AuthContext } from "../../../Contexts/AuthContext";
 import { useContext } from "react";
-import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useState } from "react";
 import { ModalDefault } from "../../ModalDefault";
-import {
-  FormEmailRecover,
-  FormPasswordRecover,
-} from "../../FormPasswordRecovery";
+import { FormEmailRecover } from "../FormEmailRecover";
 
 export const FormLogin = () => {
   const { userLogin, navigate } = useContext(AuthContext);
   const [openRecoverPassword, setOpenRecoverPassword] =
     useState<boolean>(false);
-  const [typeModal, setTypeModal] = useState("email");
-  const query = useQuery();
-
-  useEffect(() => {
-    const newToken = query.get("resetPassword");
-
-    console.log(newToken);
-
-    if (newToken) {
-      setOpenRecoverPassword(true);
-      return setTypeModal("password");
-    }
-  }, []);
-
-  function useQuery() {
-    const { search } = useLocation();
-
-    return React.useMemo(() => new URLSearchParams(search), [search]);
-  }
 
   const {
     register,
@@ -102,14 +79,7 @@ export const FormLogin = () => {
         onClick={navigateRegister}
       />
       <ModalDefault open={openRecoverPassword} setOpen={setOpenRecoverPassword}>
-        {typeModal === "email" ? (
-          <FormEmailRecover setOpen={setOpenRecoverPassword} />
-        ) : (
-          <FormPasswordRecover
-            setOpen={setOpenRecoverPassword}
-            token={query.get("resetPassword")}
-          />
-        )}
+        <FormEmailRecover setOpen={setOpenRecoverPassword} />
       </ModalDefault>
     </form>
   );

@@ -15,5 +15,5 @@ export const FormPasswordSchema = z
   })
   .refine(({ password, confirmPassword }) => password === confirmPassword, {
     message: "As senhas precisam correspondentes",
-    path: ["confirm"],
+    path: ["confirmPassword"],
   });

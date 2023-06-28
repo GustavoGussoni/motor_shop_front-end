@@ -5,4 +5,5 @@ export interface iFormEmailRecover {
 export interface iFormPasswordRecover {
   password: string;
   confirmPassword: string;
+  confirm: any;
 }
