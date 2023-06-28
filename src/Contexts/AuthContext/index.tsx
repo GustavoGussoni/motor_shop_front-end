@@ -1,11 +1,11 @@
 import { createContext, useState } from "react";
 import {
-  iAnnouncementProps,
-  iAuthContext,
-  iAuthProviderProps,
-  iCepProps,
-  iUserProps,
-  iAddressProps,
+    iAnnouncementProps,
+    iAuthContext,
+    iAuthProviderProps,
+    iCepProps,
+    iUserProps,
+    iAddressProps,
 } from "./@types";
 import { useNavigate } from "react-router-dom";
 import { iRegisterFormValues } from "../../Components/Form/FormRegister/@types";
@@ -286,4 +286,5 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
       {children}
     </AuthContext.Provider>
   );
+
 };
