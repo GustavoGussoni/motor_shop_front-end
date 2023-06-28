@@ -12,7 +12,8 @@ import { TextArea } from "../InputTextArea";
 
 export const FormProfileEdit = () => {
   const [loading, setLoading] = useState(false);
-  const { userUpdateProfile, setIsOpen, user } = useContext(AuthContext);
+  const { userUpdateProfile, setIsOpen, user, userDeleteProfile } =
+    useContext(AuthContext);
   const {
     register,
     handleSubmit,
@@ -21,10 +22,14 @@ export const FormProfileEdit = () => {
     mode: "onBlur",
     resolver: zodResolver(updateEditProfileSchema),
   });
+
   const submit: SubmitHandler<iProfileEditProps> = (data) => {
-    console.log(data);
-    // userUpdateProfile(data, setLoading, user?.id);
+    userUpdateProfile(data, setLoading, user?.id);
     // setIsOpen(false);
+  };
+
+  const deleteUser = (userId: string | undefined) => {
+    userDeleteProfile(userId, setLoading);
   };
 
   return (
@@ -81,7 +86,7 @@ export const FormProfileEdit = () => {
         type="date"
         placeholder="00/00/00"
         register={register("birthdate")}
-        defaultValue={user?.birthdate}
+        defaultValue={user?.birthdate.substring(0, 10)}
       />
       {errors.birthdate && (
         <span className="text-red-500">{errors.birthdate.message}</span>
@@ -111,6 +116,7 @@ export const FormProfileEdit = () => {
           text="Exluir perfil"
           type="button"
           className="self-center w-[150px] p-0 py-[10px]"
+          onClick={() => deleteUser(user?.id)}
         />
         <Button
           variant="brand1"

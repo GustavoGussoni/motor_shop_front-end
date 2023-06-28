@@ -98,5 +98,9 @@ export interface iAuthContext {
     ) => void;
     typeModal: string;
     setTypeModal: React.Dispatch<React.SetStateAction<string>>;
+  userDeleteProfile: (
+    userId: string | undefined,
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>
+  ) => void;
     deleteAnnouncement: (announcementId: string) => Promise<void>;
 }
