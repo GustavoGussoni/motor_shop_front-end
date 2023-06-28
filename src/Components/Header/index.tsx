@@ -72,6 +72,7 @@ export const Header = () => {
     const randomIndex = Math.floor(Math.random() * colors.length);
     return colors[randomIndex];
   };
+  
   const randomColorClass = getRandomColorClass();
   return (
     <header className="bg-white-fixed">

@@ -24,7 +24,6 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
   const [announcement, setAnnouncement] = useState<iAnnouncementProps | null>(
     null
   );
-
   const [userAnnouncements, setUserAnnouncements] = useState<
     iAnnouncementProps[] | []
   >([]);
@@ -37,6 +36,33 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
 
   const cookies = parseCookies();
   const { user_token, user_email } = cookies;
+
+  const userLogin = async (data: iLogin) => {
+    const id = toast.loading("Verificando dados...");
+    try {
+      const request = await api.post("login", data);
+      if (request) {
+        api.defaults.headers.common.authorization = `Bearer ${request.data.token}`;
+        toast.update(id, {
+          render: "Login realizado com sucesso!",
+          type: "success",
+          isLoading: false,
+          autoClose: 1000,
+        });
+        setCookie(null, "user_token", request.data.token);
+        setCookie(null, "user_email", data.email);
+        navigate("");
+        await getUserData();
+      }
+    } catch (error) {
+      toast.update(id, {
+        render: "Informações invalidas",
+        type: "error",
+        isLoading: false,
+        autoClose: 1000,
+      });
+    }
+  };
 
   const userRegister = async (
     data: iRegisterFormValues,
@@ -59,35 +85,21 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
 
   const userUpdateProfile = async (
     data: iProfileEditProps,
-    setLoading: React.Dispatch<React.SetStateAction<boolean>>
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>,
+    userId: string | undefined
   ) => {
-    try {
-      setLoading(true);
-      const request = await api.patch("users", data);
-      console.log(request);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const userLogin = async (data: iLogin) => {
     const id = toast.loading("Verificando dados...");
     try {
-      const request = await api.post("login", data);
-
-      if (request) {
+      setLoading(true);
+      const request = await api.patch(`users/${userId}`, data);
+      if (request.statusText === "OK") {
         toast.update(id, {
-          render: "Login realizado com sucesso!",
+          render: "Usuário atualizado com sucesso",
           type: "success",
-          isLoading: false,
           autoClose: 1000,
+          isLoading: false,
         });
-        setCookie(null, "user_token", request.data.token);
-        setCookie(null, "user_email", data.email);
-        navigate("");
-        await getUserData();
+        setUser(request.data);
       }
     } catch (error) {
       toast.update(id, {
@@ -96,6 +108,40 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
         isLoading: false,
         autoClose: 1000,
       });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const userDeleteProfile = async (
+    userId: string | undefined,
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>
+  ) => {
+    const id = toast.loading("Verificando dados...");
+    try {
+      setLoading(true);
+      const request = await api.delete(`users/${userId}`);
+      if (request.statusText === "No Content") {
+        destroyCookie(null, "user_token");
+        destroyCookie(null, "user_email");
+        toast.update(id, {
+          render: "Usuário deletado com sucesso",
+          type: "success",
+          autoClose: 1000,
+          isLoading: false,
+        });
+        navigate("/");
+        return;
+      }
+    } catch (error) {
+      toast.update(id, {
+        render: "Foi impossível deletar o usuário",
+        type: "error",
+        isLoading: false,
+        autoClose: 1000,
+      });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -234,6 +280,7 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
         editAddress,
         typeModal,
         setTypeModal,
+        userDeleteProfile,
       }}
     >
       {children}
