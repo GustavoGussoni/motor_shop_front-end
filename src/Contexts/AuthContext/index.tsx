@@ -22,11 +22,11 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
     const [user, setUser] = useState<iUserProps | null>(null);
     const [announcementId, setAnnouncementId] = useState<string | null>(null);
     const [announcement, setAnnouncement] = useState<iAnnouncementProps | null>(null);
-
     const [userAnnouncements, setUserAnnouncements] = useState<iAnnouncementProps[] | []>([]);
     const [allAnnouncements, setAllAnnouncements] = useState<iAnnouncementProps[] | []>([]);
     const [filter, setFilter] = useState<string | null>(null);
     const [isOpen, setIsOpen] = useState(false);
+
     const navigate = useNavigate();
 
     const cookies = parseCookies();
@@ -209,6 +209,26 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
         }
     };
 
+    const deleteAnnouncement = async (announcementId: string): Promise<void> => {
+        try {
+            await api.delete(`announcement/${announcementId}`, {
+                headers: {
+                    Authorization: `Bearer ${user_token}`,
+                },
+            });
+
+            const findAnnouncements = userAnnouncements.filter((el: iAnnouncementProps) => {
+                return el.id !== announcementId;
+            });
+
+            setUserAnnouncements(findAnnouncements);
+            toast.success("Anúncio excluído com sucesso!");
+        } catch (error) {
+            console.log(error);
+            toast.error("Erro ao excluir o anúncio.");
+        }
+    };
+
     return (
         <AuthContext.Provider
             value={{
@@ -239,6 +259,7 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
                 editAddress,
                 typeModal,
                 setTypeModal,
+                deleteAnnouncement,
             }}
         >
             {children}
