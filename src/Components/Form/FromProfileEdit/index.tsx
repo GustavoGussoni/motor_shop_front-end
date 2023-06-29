@@ -14,7 +14,7 @@ import { DeleteAccount } from "../../DeleteAccount";
 
 export const FormProfileEdit = () => {
     const [loading, setLoading] = useState(false);
-    const [abrir, setAbrir] = useState(false);
+    const [openDeleteAccount, setOpenDeleteAccount] = useState(false);
     const { userUpdateProfile, setIsOpen, user } = useContext(AuthContext);
     const {
         register,
@@ -27,7 +27,7 @@ export const FormProfileEdit = () => {
 
     const submit: SubmitHandler<iProfileEditProps> = (data) => {
         userUpdateProfile(data, setLoading, user?.id);
-        // setIsOpen(false);
+        setIsOpen(false);
     };
 
     return (
@@ -35,8 +35,8 @@ export const FormProfileEdit = () => {
             className='flex flex-col gap-y-6 w-[466px] self-center'
             onSubmit={handleSubmit(submit)}
         >
-            <ModalDefault open={abrir} setOpen={setAbrir}>
-                <DeleteAccount setOpenAccount={setAbrir} />
+            <ModalDefault open={openDeleteAccount} setOpen={setOpenDeleteAccount}>
+                <DeleteAccount setOpenAccount={setOpenDeleteAccount} />
             </ModalDefault>
             <HeadingTextBody tag='body-2-500'>Infomações pessoais</HeadingTextBody>
             <Input
@@ -109,7 +109,7 @@ export const FormProfileEdit = () => {
                     text='Exluir perfil'
                     type='button'
                     className='self-center w-[150px] p-0 py-[10px]'
-                    onClick={() => setAbrir(true)}
+                    onClick={() => setOpenDeleteAccount(true)}
                 />
                 <Button
                     variant='brand1'
