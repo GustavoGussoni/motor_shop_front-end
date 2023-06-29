@@ -42,7 +42,6 @@ export const FormRegisterAnnouncement = ({
   }, []);
 
   const setModel = (model: iModel) => {
-    console.log(model);
     setValue("fuel", model.fuel);
     setValue("year", model.year);
     setValue("price_fipe", model.value);
@@ -54,15 +53,17 @@ export const FormRegisterAnnouncement = ({
 
     setValue("image_gallery", imageGallery);
 
-    postAnnouncement(data).then((status) =>
-      status === 201 ? setOpen(false) : null
-    );
+    console.log(data);
+
+    // postAnnouncement(data).then((status) =>
+    //   status === 201 ? setOpen(false) : null
+    // );
   };
 
   const selectModels = async (brand: string) => await getModels(brand);
 
-  const findOneModel = (modelId: string) => {
-    const newModel = models.find((elem) => elem.id === modelId)!;
+  const findOneModel = (modelName: string) => {
+    const newModel = models.find((elem) => elem.name === modelName)!;
 
     setModelSelected(newModel);
     setModel(newModel);
@@ -194,7 +195,7 @@ export const FormRegisterAnnouncement = ({
               onChange={(e) => findOneModel(e.target.value)}
             >
               {models.map((elem: iModel) => (
-                <option key={elem.id} value={elem.id}>
+                <option key={elem.id} value={elem.name}>
                   {elem.name}
                 </option>
               ))}
