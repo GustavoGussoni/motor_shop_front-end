@@ -1,5 +1,4 @@
 export interface iFormAnnouncement {
-  name_car: string;
   brand: string;
   model: string;
   year: string;

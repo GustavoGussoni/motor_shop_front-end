@@ -4,7 +4,6 @@ import { AuthContext } from "../../Contexts/AuthContext";
 import { iModalProps } from "./@types";
 import { EditAddress } from "../Form/FormEditAddress";
 import { FormProfileEdit } from "../Form/FromProfileEdit";
-import { DeleteAnnoucement } from "../DeleteAnnoucement";
 
 export const Modal = ({ typeModal }: iModalProps) => {
     const { isOpen, setIsOpen } = useContext(AuthContext);
@@ -23,8 +22,6 @@ export const Modal = ({ typeModal }: iModalProps) => {
                 return <EditAddress />;
             case "editProfile":
                 return <FormProfileEdit />;
-            case "deleteAnnoucement":
-                return <DeleteAnnoucement />;
         }
     };
 
