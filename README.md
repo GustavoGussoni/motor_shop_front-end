@@ -25,7 +25,7 @@
 <br>
 • <a href="#doc">Documentação da API</a>
 <br>
-• <a href="#Bibliotecas">Bibliotecas</a>
+• <a href="#tecs">Tecnologias</a>
 <br>
 • <a href="#Ferramentas">Ferramentas</a>
 <br>
@@ -50,7 +50,7 @@ Nossa plataforma também conta com recursos de busca avançada, permitindo que o
 Em resumo, nossa aplicação é uma solução abrangente e amigável para quem deseja comprar ou vender veículos. Proporcionamos uma plataforma segura e fácil de usar, conectando compradores e vendedores interessados em fazer negócios de forma confiável e conveniente.
 </p>
 
-<h2 id="Bibliotecas">:books:Tecnologias utilizadas</h2>
+<h2 id="tecs">:books:Tecnologias utilizadas</h2>
 
 - [x] React
 - [x] Tailwind
