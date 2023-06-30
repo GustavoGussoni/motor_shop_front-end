@@ -10,12 +10,21 @@ import { AuthContext } from "../../Contexts/AuthContext";
 import { Button } from "../../Components/Button";
 
 export const Home = () => {
-  const { setFilter, user, getAllAnnouncement, allAnnouncements, isOpen } =
-    useContext(AuthContext);
+  const {
+    setFilter,
+    renderAll,
+    announcementsFiltered,
+    setRenderAll,
+    user,
+    getAllAnnouncement,
+    allAnnouncements,
+    isOpen,
+  } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const getAnnoucements = async () => {
+      setRenderAll(true);
       try {
         await getAllAnnouncement();
         setIsLoading(false);
@@ -72,9 +81,15 @@ export const Home = () => {
           <AsideFilter className="hidden sm:flex " />
           <ul className="flex flex-nowrap flex-row gap-[46px] overflow-x-auto max-w-full sm:w-full sm:gap-2 sm:max-w-full sm:h-full sm:items-start sm:justify-start sm:flex-wrap sm:overflow-x-hidden">
             {!isLoading ? (
-              allAnnouncements.map((an) => {
-                return <Card key={an.id} data={an} />;
-              })
+              renderAll ? (
+                allAnnouncements.map((an) => {
+                  return <Card key={an.id} data={an} />;
+                })
+              ) : (
+                announcementsFiltered.map((an) => {
+                  return <Card key={an.id} data={an} />;
+                })
+              )
             ) : (
               <h1>Carreggando dados...</h1>
             )}
