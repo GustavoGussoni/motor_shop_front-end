@@ -8,6 +8,6 @@ export interface iInputRadio {
   disabled: boolean;
   label: string;
   register: object;
-  value: string;
+  value: any;
   checked?: boolean | undefined;
 }
