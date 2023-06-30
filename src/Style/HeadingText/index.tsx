@@ -4,6 +4,7 @@ export const HeadingText = ({
   children,
   tag,
   className,
+  onClick,
 }: iBasedHeadingProps) => {
   return (
     <>
@@ -51,7 +52,10 @@ export const HeadingText = ({
         </h3>
       )}
       {tag === "heading-6-500" && (
-        <h3 className={`text-heading-6 font-medium ${className}`}>
+        <h3
+          className={`text-heading-6 font-medium ${className}`}
+          onClick={onClick}
+        >
           {children}
         </h3>
       )}

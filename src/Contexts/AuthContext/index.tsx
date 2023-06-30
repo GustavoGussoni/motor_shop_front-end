@@ -192,6 +192,7 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
         }
     };
 
+<<<<<<< Updated upstream
     const getAnnouncementById = async (
         announcementId: string
     ): Promise<iAnnouncementProps | void> => {
@@ -208,6 +209,18 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
             console.log(error);
         }
     };
+=======
+  const getAllAnnouncement = async () => {
+    
+    try {
+      const request = await api.get("announcement");
+      const data = await request.data;
+      setAllAnnouncements(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+>>>>>>> Stashed changes
 
     const authCep = async (value: string) => {
         try {
