@@ -1,11 +1,34 @@
-import { useContext } from "react";
+import { HtmlHTMLAttributes, useContext, useEffect } from "react";
 import { HeadingText } from "../../../Style/HeadingText";
 import { InputNumber } from "./InputNumber";
 import { AuthContext } from "../../../Contexts/AuthContext";
 
 const AsideFilter = ({ className }: any) => {
-  const { filter, setFilter } = useContext(AuthContext);
-  
+  const { filter, setFilter, getAnnouncementsFiltered } =
+    useContext(AuthContext);
+
+  useEffect(() => {
+    const getFilter = async () => {
+      try {
+        await getAnnouncementsFiltered();
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getFilter();
+  }, []);
+
+  const handleFilteredAnnouncements = (brand: string) => {
+    const getAnnouncemments = async () => {
+      try {
+        await getAnnouncementsFiltered(brand);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getAnnouncemments();
+  };
 
   return (
     <section>
@@ -60,7 +83,7 @@ const AsideFilter = ({ className }: any) => {
               className="text-grey-3 cursor-pointer"
               onClick={(e) => setFilter((e.target as HTMLElement).innerText)}
             >
-              Volkswagen
+              Wolks
             </HeadingText>
           </div>
         </div>
