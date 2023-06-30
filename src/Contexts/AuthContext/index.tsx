@@ -30,6 +30,7 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
   const [allAnnouncements, setAllAnnouncements] = useState<
     iAnnouncementProps[] | []
   >([]);
+
   const [filter, setFilter] = useState<[] | null>(null);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -178,6 +179,7 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
   const getUserAnnouncement = async (userId: string) => {
     try {
       const request = await api.get("announcement");
+
       const data = await request.data;
 
       const find_user_announcements = data.filter((el: iAnnouncementProps) => {

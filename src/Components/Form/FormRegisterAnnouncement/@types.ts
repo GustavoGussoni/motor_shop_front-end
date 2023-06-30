@@ -9,7 +9,7 @@ export interface iFormAnnouncement {
   price: number;
   description?: string;
   cover_image: string;
-  is_activate?: true;
+  is_activate?: boolean;
   image_gallery?: iImageGallery[];
 }
 
