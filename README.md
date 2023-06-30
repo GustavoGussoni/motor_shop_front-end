@@ -13,13 +13,11 @@
     <img alt="Badge indicando que o status do projeto está 'Concluído'" src="https://img.shields.io/badge/Status-Concluído-green">
 </p>
 
-<h2 id="Como acessar"> :round_pushpin: Guia</h2>
+<h2> :round_pushpin: Guia</h2>
 
-• <a href="#Como acessar">Como acessar</a>
+• <a href="#comoAcessar">Como acessar</a>
 <br>
 • <a href="#descricao">Descrição</a>
-<br>
-• <a href="#login">Como acessar o dashboard de admin?</a>
 <br>
 • <a href="#funcionalidades">Funcionalidades</a>
 <br>
@@ -34,7 +32,7 @@
 • <a href="#Desenvolvedores">Pessoas contribuidoras</a>
 <br>
 
-<h2 id="Como acessar"> :computer_mouse: Como acessar?</h2>
+<h2 id="comoAcessar"> :computer_mouse: Como acessar?</h2>
 
 <a href="LINK DO VERCEL DO FRONT">Teste a aplicação clicando aqui!</a>.
 
@@ -52,7 +50,7 @@ Nossa plataforma também conta com recursos de busca avançada, permitindo que o
 Em resumo, nossa aplicação é uma solução abrangente e amigável para quem deseja comprar ou vender veículos. Proporcionamos uma plataforma segura e fácil de usar, conectando compradores e vendedores interessados em fazer negócios de forma confiável e conveniente.
 </p>
 
-<h2 id="Bibliotecas">:books: Bibliotecas utilizadas</h2>
+<h2 id="Bibliotecas">:books:Tecnologias utilizadas</h2>
 
 - [x] React
 - [x] Tailwind
@@ -64,14 +62,14 @@ Em resumo, nossa aplicação é uma solução abrangente e amigável para quem d
 - [x] Axios
 - [x] Cookies
 - [x] Vite
+- [x] JWT-Decode
+- [x] Typescript
 
 <h2 id="Ferramentas">:wrench: Ferramentas utilizadas</h2>
 
 - [x] Jira
 - [x] VS Code
 - [x] Github
-- [x] JWT-Decode
-- [x] Typescript
 
 <h2 id="funcionalidades">:hammer: Funcionalidades</h2>
 
