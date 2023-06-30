@@ -21,6 +21,21 @@ const CardAdmin = ({ data }: iCard) => {
   };
   return (
     <li className="pt-2 px-2 sm:px-2 sm:py-2 list-none min-w-[312px] max-w-[300px] ml-1">
+      <ModalDefault
+        open={openDeleteAnnouncement}
+        setOpen={setOpenDeleteAnnouncement}
+      >
+        <DeleteAnnouncement data={data} setOpen={setOpenDeleteAnnouncement} />
+      </ModalDefault>
+      <ModalDefault
+        open={openEditAnnouncement}
+        setOpen={setOpenEditAnnouncement}
+      >
+        <FormEditAnnouncement
+          announcement={data}
+          setOpen={setOpenEditAnnouncement}
+        />
+      </ModalDefault>
       <div className="relative w-[296px] h-[160px]">
         <img
           onClick={() => handleProduct(data.id)}
@@ -62,50 +77,21 @@ const CardAdmin = ({ data }: iCard) => {
         </div>
         <div className="flex gap-[16px]">
           <Button
+            variant="alert"
+            text="excluir"
+            size="medium"
+            onClick={() => setOpenDeleteAnnouncement(true)}
+          />
+          <Button
             variant="outline1"
             text="editar"
             size="medium"
-            onClick={() => setOpenDeleteAnnouncement(true)}
+            onClick={() => setOpenEditAnnouncement(true)}
           />
 
           <Button variant="outline1" text="Ver detalhes" size="medium" />
         </div>
       </div>
-
-      <div className="pt-2 pb-2 pl-2 pr-2 rounded-2 font-500 flex items-center justify-center">
-        <span>R${data.price}</span>
-      </div>
-      <div className="flex gap-[16px]">
-        <Button
-          variant="outline1"
-          text="editar"
-          size="medium"
-          onClick={() => setOpenEditAnnouncement(true)}
-        />
-        <Button
-          variant="outline1"
-          text="exluir"
-          size="medium"
-          onClick={() => setOpenDeleteAnnouncement(true)}
-        />
-
-        <Button variant="outline1" text="Ver detalhes" size="medium" />
-      </div>
-      <ModalDefault
-        open={openEditAnnouncement}
-        setOpen={setOpenEditAnnouncement}
-      >
-        <FormEditAnnouncement
-          setOpen={setOpenEditAnnouncement}
-          announcement={data}
-        />
-      </ModalDefault>
-      <ModalDefault
-        open={openDeleteAnnouncement}
-        setOpen={setOpenDeleteAnnouncement}
-      >
-        <DeleteAnnouncement data={data} setOpen={setOpenDeleteAnnouncement} />
-      </ModalDefault>
     </li>
   );
 };

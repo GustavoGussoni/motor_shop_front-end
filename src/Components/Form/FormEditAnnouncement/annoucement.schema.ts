@@ -1,4 +1,4 @@
-import { AnnouncementSchema } from "../../FormRegisterAnnouncement/annoucement.schema";
+import { AnnouncementSchema } from "../FormRegisterAnnouncement/annoucement.schema";
 import * as z from "zod";
 
 export const EditAnnouncementSchema = AnnouncementSchema.extend({

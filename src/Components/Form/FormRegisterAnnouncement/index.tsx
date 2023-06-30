@@ -56,9 +56,9 @@ export const FormRegisterAnnouncement = ({
 
     console.log(data);
 
-    // postAnnouncement(data).then((status) =>
-    //   status === 201 ? setOpen(false) : null
-    // );
+    postAnnouncement(data).then((status) =>
+      status === 201 ? setOpen(false) : null
+    );
   };
 
   const selectModels = async (brand: string) => await getModels(brand);

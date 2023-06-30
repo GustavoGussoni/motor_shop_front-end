@@ -69,7 +69,7 @@ export const FormEditAnnouncement = ({
     setValue("is_activate", activate);
 
     patchAnnouncement(announcementId, data).then((status) =>
-      status === 201 ? setOpen(false) : null
+      status === 200 ? setOpen(false) : null
     );
   };
 
