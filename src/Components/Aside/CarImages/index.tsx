@@ -3,7 +3,6 @@ type iCarImagesProps = {
 };
 
 export const CarImages = ({ data }: iCarImagesProps) => {
-  console.log(data);
   return (
     <>
       <div className="bg-gray-100 flex items-center w-full min-w-[90px] max-w-[108px] max-h-[108px]">

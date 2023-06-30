@@ -30,7 +30,8 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
   const [allAnnouncements, setAllAnnouncements] = useState<
     iAnnouncementProps[] | []
   >([]);
-  const [filter, setFilter] = useState<string | null>(null);
+
+  const [filter, setFilter] = useState<[] | null>(null);
   const [isOpen, setIsOpen] = useState(false);
 
   const navigate = useNavigate();
@@ -200,6 +201,18 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
     }
   };
 
+  const getAnnouncementsFiltered = async () => {
+    try {
+      const request = await api.get(`announcement?group=brand`);
+      const data = await request.data;
+      console.log(Object.keys(data));
+      // setFilter()
+      // setAllAnnouncements(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const getAnnouncementById = async (
     announcementId: string
   ): Promise<iAnnouncementProps | void> => {
@@ -214,22 +227,6 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
       return setAnnouncement(data);
     } catch (error) {
       console.log(error);
-    }
-  };
-
-  const authCep = async (value: string) => {
-    try {
-      const valueCep = value;
-      let newValue = "";
-      if (valueCep.length === 8) {
-        newValue = valueCep.substring(5, 0) + "-" + valueCep.substring(5);
-      }
-      const cepRequest = await cepApi.get(`${newValue}/json`);
-      if (cepRequest.statusText === "OK") {
-        setCep(cepRequest.data);
-      }
-    } catch (error) {
-      console.error(error);
     }
   };
 
@@ -286,6 +283,22 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
     }
   };
 
+  const authCep = async (value: string) => {
+    try {
+      const valueCep = value;
+      let newValue = "";
+      if (valueCep.length === 8) {
+        newValue = valueCep.substring(5, 0) + "-" + valueCep.substring(5);
+      }
+      const cepRequest = await cepApi.get(`${newValue}/json`);
+      if (cepRequest.statusText === "OK") {
+        setCep(cepRequest.data);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -318,6 +331,8 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
         setTypeModal,
         deleteAnnouncement,
         userDeleteProfile,
+        setAnnouncement,
+        getAnnouncementsFiltered,
       }}
     >
       {children}
