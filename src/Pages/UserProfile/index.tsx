@@ -13,6 +13,7 @@ export const UserProfile = () => {
   useEffect(() => {
     const getUser = async () => {
       try {
+        scrollTo(0, 0);
         await getUserData();
         setIsLoading(false);
         console.log(userAnnouncements);

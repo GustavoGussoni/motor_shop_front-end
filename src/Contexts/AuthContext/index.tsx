@@ -6,6 +6,7 @@ import {
   iCepProps,
   iUserProps,
   iAddressProps,
+  iGetAnnouncementFilter,
 } from "./@types";
 import { useNavigate } from "react-router-dom";
 import { iRegisterFormValues } from "../../Components/Form/FormRegister/@types";
@@ -24,13 +25,17 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
   const [announcement, setAnnouncement] = useState<iAnnouncementProps | null>(
     null
   );
+  const [renderAll, setRenderAll] = useState(true);
+  const [announcementsFiltered, setAnnouncementsFiltered] = useState<
+    iAnnouncementProps[] | []
+  >([]);
   const [userAnnouncements, setUserAnnouncements] = useState<
     iAnnouncementProps[] | []
   >([]);
   const [allAnnouncements, setAllAnnouncements] = useState<
     iAnnouncementProps[] | []
   >([]);
-  const [filter, setFilter] = useState<[] | null>(null);
+  const [filter, setFilter] = useState<iGetAnnouncementFilter | null>(null);
   const [isOpen, setIsOpen] = useState(false);
 
   const navigate = useNavigate();
@@ -199,12 +204,56 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
     }
   };
 
+  const filterData: iGetAnnouncementFilter = {
+    brand: [],
+    model: [],
+    color: [],
+    year: [],
+    fuel: [],
+    kilometers: [],
+    price: [],
+  };
+
   const getAnnouncementsFiltered = async () => {
+    setRenderAll(true);
+    // setAllAnnouncements(allAnnouncements);
     try {
-      const request = await api.get(`announcement?group=brand`);
-      const data = await request.data;
-      console.log(Object.keys(data));
-      // setFilter()
+      let request = await api.get(`announcement?group=brand`);
+      let data = await request.data;
+      const brand = Object.keys(data);
+      filterData.brand = brand;
+
+      request = await api.get(`announcement?group=model`);
+      data = await request.data;
+      const model = Object.keys(data);
+      filterData.model = model;
+
+      request = await api.get(`announcement?group=color`);
+      data = await request.data;
+      const color = Object.keys(data);
+      filterData.color = color;
+
+      request = await api.get(`announcement?group=year`);
+      data = await request.data;
+      const year = Object.keys(data);
+      filterData.year = year;
+
+      request = await api.get(`announcement?group=fuel`);
+      data = await request.data;
+      const fuel = Object.keys(data);
+      filterData.fuel = fuel;
+
+      request = await api.get(`announcement?group=kilometers`);
+      data = await request.data;
+      const kilometers = Object.keys(data);
+      filterData.kilometers = kilometers;
+
+      request = await api.get(`announcement?group=price`);
+      data = await request.data;
+      const price = Object.keys(data);
+      filterData.price = price;
+
+      setFilter(filterData);
       // setAllAnnouncements(data);
     } catch (error) {
       console.log(error);
@@ -331,6 +380,12 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
         userDeleteProfile,
         setAnnouncement,
         getAnnouncementsFiltered,
+        setAllAnnouncements,
+        renderAll,
+        setRenderAll,
+        announcementsFiltered,
+        setAnnouncementsFiltered,
+        filterData,
       }}
     >
       {children}

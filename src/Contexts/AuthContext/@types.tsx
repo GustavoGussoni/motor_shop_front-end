@@ -60,6 +60,16 @@ export interface iAnnouncementProps {
   image_gallery: [{ image: string; id: string }];
 }
 
+export interface iGetAnnouncementFilter {
+  brand: string[];
+  model: string[];
+  color: string[];
+  year: string[];
+  fuel: string[];
+  kilometers: string[];
+  price: string[];
+}
+
 export interface iAuthContext {
   cep: iCepProps | null;
   setCep: React.Dispatch<React.SetStateAction<iCepProps | null>>;
@@ -73,8 +83,10 @@ export interface iAuthContext {
   navigate: NavigateFunction;
   getUserData: () => void;
   authCep: (value: string) => void;
-  filter: [] | null;
-  setFilter: React.Dispatch<React.SetStateAction<[] | null>>;
+  filter: iGetAnnouncementFilter | null;
+  setFilter: React.Dispatch<
+    React.SetStateAction<iGetAnnouncementFilter | null>
+  >;
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   userLogout: () => void;
@@ -109,4 +121,14 @@ export interface iAuthContext {
     React.SetStateAction<iAnnouncementProps | null>
   >;
   getAnnouncementsFiltered: () => Promise<void>;
+  setAllAnnouncements: React.Dispatch<
+    React.SetStateAction<[] | iAnnouncementProps[]>
+  >;
+  renderAll: boolean;
+  setRenderAll: React.Dispatch<React.SetStateAction<boolean>>;
+  announcementsFiltered: [] | iAnnouncementProps[];
+  setAnnouncementsFiltered: React.Dispatch<
+    React.SetStateAction<iAnnouncementProps[] | []>
+  >;
+  filterData: iGetAnnouncementFilter;
 }
