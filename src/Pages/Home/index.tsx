@@ -8,8 +8,6 @@ import { useContext } from "react";
 import img from "../../Assets/embargo_23_01_bst_15_july_2020_911_turbo_rear_three_quarter-removebg.png";
 import { AuthContext } from "../../Contexts/AuthContext";
 import { Button } from "../../Components/Button";
-import { EditAddress } from "../../Components/Form/FormEditAddress";
-import { Modal } from "../../Components/Modals";
 
 export const Home = () => {
   const { setFilter, user, getAllAnnouncement, allAnnouncements, isOpen } =

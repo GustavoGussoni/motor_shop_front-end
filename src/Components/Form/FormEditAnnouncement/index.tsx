@@ -9,7 +9,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { UserContext } from "../../../Contexts/UserContext";
 import { iModel } from "../../../Contexts/UserContext/@types";
 import { iAnnouncementProps } from "../../../Contexts/AuthContext/@types";
-import { InputRadio } from "../InputRadio";
 
 interface iFormEditAnnouncementProps {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -26,6 +25,7 @@ export const FormEditAnnouncement = ({
 
   const [brandSelected, setBrandSelected] = useState<string>("");
   const [modelSelected, setModelSelected] = useState<iModel | null>(null);
+  const [activate, setActivate] = useState<boolean>(announcement.is_activate);
 
   const {
     register,
@@ -45,13 +45,11 @@ export const FormEditAnnouncement = ({
           findOneModel(models, announcement.model)
         );
       });
-      setValue("is_activate", announcement.is_activate);
     };
 
     init();
   }, []);
 
-  console.log(getValues("is_activate"));
   const setModelRegister = (model: iModel) => {
     setValue("fuel", model.fuel);
     setValue("year", model.year);
@@ -68,14 +66,12 @@ export const FormEditAnnouncement = ({
       getValues("image_gallery")?.filter((elem) => elem.image !== "") || [];
 
     setValue("image_gallery", imageGallery);
-    console.log(data);
+    setValue("is_activate", activate);
 
     patchAnnouncement(announcementId, data).then((status) =>
       status === 201 ? setOpen(false) : null
     );
   };
-
-  console.log(getValues("image_gallery"));
 
   const selectModels = async (brand: string) => {
     setBrandSelected(brand);
@@ -384,29 +380,19 @@ export const FormEditAnnouncement = ({
               Status do anúncio
             </label>
             <div className="flex gap-3">
-              <InputRadio
-                id="activate"
-                value={true}
-                register={register("is_activate")}
-                disabled={false}
-                variant={
-                  getValues("is_activate") !== true ? "brand1" : "outline2"
-                }
+              <Button
+                text="Ativo"
+                type="button"
                 size="medium"
-                label="Ativo"
-                className="max-w-[152px] w-full h-[48px] flex items-center justify-center"
+                variant={activate ? "brand1" : "outline1"}
+                onClick={() => setActivate((status) => !status)}
               />
-              <InputRadio
-                id="activate"
-                value={false}
-                register={register("is_activate")}
-                disabled={false}
-                variant={
-                  getValues("is_activate") !== true ? "outline2" : "brand1"
-                }
+              <Button
+                text="Inativo"
+                type="button"
                 size="medium"
-                label="Inativo"
-                className="max-w-[152px] w-full h-[48px] flex items-center justify-center"
+                variant={activate ? "outline1" : "brand1"}
+                onClick={() => setActivate((status) => !status)}
               />
             </div>
           </fieldset>
@@ -416,20 +402,21 @@ export const FormEditAnnouncement = ({
             size="medium"
             variant="brand1"
             onClick={() => setImage((array) => [...array, array.length])}
-          ></Button>
+          />
+
           <div className="flex gap-3 self-end">
             <Button
               onClick={() => setOpen(false)}
               text="Cancelar"
               size="medium"
               variant="greyDisable"
-            ></Button>
+            />{" "}
             <Button
               text="Editar anúncio"
               type="submit"
               size="medium"
               variant="brand1"
-            ></Button>
+            />
           </div>
         </form>
       </Dialog.Panel>

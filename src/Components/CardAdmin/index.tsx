@@ -2,35 +2,25 @@ import { useContext, useState } from "react";
 import { iAnnouncementProps } from "../../Contexts/AuthContext/@types";
 import { Button } from "../Button";
 import { AuthContext } from "../../Contexts/AuthContext";
-import { Modal } from "../Modals";
 import { ModalDefault } from "../ModalDefault";
 import { FormEditAnnouncement } from "../Form/FormEditAnnouncement";
+import { DeleteAnnouncement } from "../DeleteAnnouncement";
 
 interface iCard {
   data: iAnnouncementProps;
 }
 
 const CardAdmin = ({ data }: iCard) => {
-  const {
-    setAnnouncementId,
-    navigate,
-    isOpen,
-    setIsOpen,
-    typeModal,
-    setTypeModal,
-  } = useContext(AuthContext);
-
-  const [openEditAnnouncement, setOpenEditAnnouncement] =
-    useState<boolean>(false);
+  const { setAnnouncementId, navigate } = useContext(AuthContext);
+  const [openDeleteAnnouncement, setOpenDeleteAnnouncement] = useState(false);
+  const [openEditAnnouncement, setOpenEditAnnouncement] = useState(false);
 
   const handleProduct = async (announcementId: string) => {
     await setAnnouncementId(announcementId);
     navigate("/product");
   };
-
   return (
     <li className="pt-2 px-2 sm:px-2 sm:py-2 list-none min-w-[312px] max-w-[300px] ml-1">
-      {isOpen && <Modal typeModal={typeModal} />}
       <div className="relative w-[296px] h-[160px]">
         <img
           onClick={() => handleProduct(data.id)}
@@ -75,11 +65,31 @@ const CardAdmin = ({ data }: iCard) => {
             variant="outline1"
             text="editar"
             size="medium"
-            onClick={() => setOpenEditAnnouncement(true)}
+            onClick={() => setOpenDeleteAnnouncement(true)}
           />
 
           <Button variant="outline1" text="Ver detalhes" size="medium" />
         </div>
+      </div>
+
+      <div className="pt-2 pb-2 pl-2 pr-2 rounded-2 font-500 flex items-center justify-center">
+        <span>R${data.price}</span>
+      </div>
+      <div className="flex gap-[16px]">
+        <Button
+          variant="outline1"
+          text="editar"
+          size="medium"
+          onClick={() => setOpenEditAnnouncement(true)}
+        />
+        <Button
+          variant="outline1"
+          text="exluir"
+          size="medium"
+          onClick={() => setOpenDeleteAnnouncement(true)}
+        />
+
+        <Button variant="outline1" text="Ver detalhes" size="medium" />
       </div>
       <ModalDefault
         open={openEditAnnouncement}
@@ -89,6 +99,12 @@ const CardAdmin = ({ data }: iCard) => {
           setOpen={setOpenEditAnnouncement}
           announcement={data}
         />
+      </ModalDefault>
+      <ModalDefault
+        open={openDeleteAnnouncement}
+        setOpen={setOpenDeleteAnnouncement}
+      >
+        <DeleteAnnouncement data={data} setOpen={setOpenDeleteAnnouncement} />
       </ModalDefault>
     </li>
   );

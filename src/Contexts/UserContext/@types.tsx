@@ -1,5 +1,5 @@
 import { iFormEditAnnouncement } from "../../Components/Form/FormEditAnnouncement/@types";
-import { iFormAnnouncement } from "../../Components/FormRegisterAnnouncement/@types";
+import { iFormAnnouncement } from "../../Components/Form/FormRegisterAnnouncement/@types";
 
 export interface iUserProviderProps {
   children: React.ReactNode;

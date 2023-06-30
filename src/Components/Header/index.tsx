@@ -42,52 +42,51 @@ export const Header = () => {
     const handleProfileAdmin = () => {
         navigate("/profile/admin");
     };
-
-    const GetFirstLetterOfEachWord = (username: string) => {
-        const words = username.split(" ");
-        const firstWords = words.map((word) => word.charAt(0));
-        return firstWords.join("");
-    };
-    const getRandomColorClass = (): string => {
-        const colors = [
-            "bg-red-500",
-            "bg-blue-500",
-            "bg-green-500",
-            "bg-yellow-500",
-            "bg-purple-500",
-            "bg-pink-500",
-            "bg-teal-500",
-            "bg-indigo-500",
-            "bg-gray-500",
-            "bg-orange-500",
-        ];
-        const randomIndex = Math.floor(Math.random() * colors.length);
-        return colors[randomIndex];
-    };
-    const randomColorClass = getRandomColorClass();
-    return (
-        <header className='bg-white-fixed'>
-            <div className='flex px-14 items-center justify-between w-full'>
-                <img
-                    onClick={() => handleHome()}
-                    className='py-4 hover:cursor-pointer'
-                    src={imgLogo}
-                ></img>
-                <div className='pl-16 py-4 border-l z-[3] border-grey-6 gap-12 hidden sm:flex duration-150'>
-                    {user_token && user ? (
-                        <>
-                            {isOpen && <Modal typeModal={typeModal} />}
-                            <div className='flex items-center gap-3'>
-                                <Menu>
-                                    <Menu.Button>
-                                        <div
-                                            className={`rounded-full w-8 h-8 ${randomColorClass} flex items-center justify-center`}
-                                        >
-                                            <p className='text-center text-white font-medium text-sm flex items-center justify-center'>
-                                                {GetFirstLetterOfEachWord(user.name)}
-                                            </p>
-                                        </div>
-
+  const GetFirstLetterOfEachWord = (username: string) => {
+    const words = username.split(" ");
+    const firstWords = words.map((word) => word.charAt(0));
+    return firstWords.join("");
+  };
+  const getRandomColorClass = (): string => {
+    const colors = [
+      "bg-red-500",
+      "bg-blue-500",
+      "bg-green-500",
+      "bg-yellow-500",
+      "bg-purple-500",
+      "bg-pink-500",
+      "bg-teal-500",
+      "bg-indigo-500",
+      "bg-gray-500",
+      "bg-orange-500",
+    ];
+    const randomIndex = Math.floor(Math.random() * colors.length);
+    return colors[randomIndex];
+  };
+  
+  const randomColorClass = getRandomColorClass();
+  return (
+    <header className="bg-white-fixed">
+      <div className="flex px-14 items-center justify-between w-full">
+        <img
+          onClick={() => handleHome()}
+          className="py-4 hover:cursor-pointer"
+          src={imgLogo}
+        ></img>
+        <div className="pl-16 py-4 border-l z-[3] border-grey-6 gap-12 hidden sm:flex duration-150">
+          {user_token && user ? (
+            <>
+              {isOpen && <Modal typeModal={typeModal} />}
+              <div className="flex items-center gap-3">
+                <Menu>
+                  <Menu.Button>
+                    <div
+                      className={`rounded-full w-8 h-8 ${randomColorClass} flex items-center justify-center`}
+                    >
+                      <p className="text-center text-white font-medium text-sm flex items-center justify-center">
+                        {GetFirstLetterOfEachWord(user.name)}
+                      </p>
+                    </div>
                                         <Transition
                                             enter='transition duration-100 ease-out'
                                             enterFrom='transform scale-50 opacity-0'

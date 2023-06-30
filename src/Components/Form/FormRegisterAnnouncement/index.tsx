@@ -1,13 +1,13 @@
 import { Dialog } from "@headlessui/react";
-import { Input } from "../Form/Input";
-import { Button } from "../Button";
+import { Input } from "../Input";
+import { Button } from "../../Button";
 import { useForm } from "react-hook-form";
 import React, { useContext, useEffect, useState } from "react";
 import { iFormAnnouncement } from "./@types";
 import { AnnouncementSchema } from "./annoucement.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { UserContext } from "../../Contexts/UserContext";
-import { iModel } from "../../Contexts/UserContext/@types";
+import { UserContext } from "../../../Contexts/UserContext";
+import { iModel } from "../../../Contexts/UserContext/@types";
 
 interface iFormRegisterAnnouncement {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -42,6 +42,7 @@ export const FormRegisterAnnouncement = ({
   }, []);
 
   const setModel = (model: iModel) => {
+    console.log(model);
     setValue("fuel", model.fuel);
     setValue("year", model.year);
     setValue("price_fipe", model.value);

@@ -22,15 +22,42 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
     const [user, setUser] = useState<iUserProps | null>(null);
     const [announcementId, setAnnouncementId] = useState<string | null>(null);
     const [announcement, setAnnouncement] = useState<iAnnouncementProps | null>(null);
-
     const [userAnnouncements, setUserAnnouncements] = useState<iAnnouncementProps[] | []>([]);
     const [allAnnouncements, setAllAnnouncements] = useState<iAnnouncementProps[] | []>([]);
     const [filter, setFilter] = useState<string | null>(null);
     const [isOpen, setIsOpen] = useState(false);
+
     const navigate = useNavigate();
 
     const cookies = parseCookies();
     const { user_token, user_email } = cookies;
+
+    const userLogin = async (data: iLogin) => {
+        const id = toast.loading("Verificando dados...");
+        try {
+            const request = await api.post("login", data);
+            if (request) {
+                api.defaults.headers.common.authorization = `Bearer ${request.data.token}`;
+                toast.update(id, {
+                    render: "Login realizado com sucesso!",
+                    type: "success",
+                    isLoading: false,
+                    autoClose: 1000,
+                });
+                setCookie(null, "user_token", request.data.token);
+                setCookie(null, "user_email", data.email);
+                navigate("");
+                await getUserData();
+            }
+        } catch (error) {
+            toast.update(id, {
+                render: "Informações invalidas",
+                type: "error",
+                isLoading: false,
+                autoClose: 1000,
+            });
+        }
+    };
 
     const userRegister = async (
         data: iRegisterFormValues,
@@ -53,35 +80,21 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
 
     const userUpdateProfile = async (
         data: iProfileEditProps,
-        setLoading: React.Dispatch<React.SetStateAction<boolean>>
+        setLoading: React.Dispatch<React.SetStateAction<boolean>>,
+        userId: string | undefined
     ) => {
-        try {
-            setLoading(true);
-            const request = await api.patch("users", data);
-            console.log(request);
-        } catch (error) {
-            console.log(error);
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    const userLogin = async (data: iLogin) => {
         const id = toast.loading("Verificando dados...");
         try {
-            const request = await api.post("login", data);
-
-            if (request) {
+            setLoading(true);
+            const request = await api.patch(`users/${userId}`, data);
+            if (request.statusText === "OK") {
                 toast.update(id, {
-                    render: "Login realizado com sucesso!",
+                    render: "Usuário atualizado com sucesso",
                     type: "success",
-                    isLoading: false,
                     autoClose: 1000,
+                    isLoading: false,
                 });
-                setCookie(null, "user_token", request.data.token);
-                setCookie(null, "user_email", data.email);
-                navigate("");
-                await getUserData();
+                setUser(request.data);
             }
         } catch (error) {
             toast.update(id, {
@@ -90,6 +103,41 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
                 isLoading: false,
                 autoClose: 1000,
             });
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const userDeleteProfile = async (
+        userId: string | undefined,
+        setLoading: React.Dispatch<React.SetStateAction<boolean>>
+    ) => {
+        const id = toast.loading("Verificando dados...");
+        try {
+            setLoading(true);
+            const request = await api.delete(`users/${userId}`);
+            if (request.statusText === "No Content") {
+                destroyCookie(null, "user_token");
+                destroyCookie(null, "user_email");
+                toast.update(id, {
+                    render: "Usuário deletado com sucesso",
+                    type: "success",
+                    autoClose: 1000,
+                    isLoading: false,
+                });
+
+                navigate("/");
+                return;
+            }
+        } catch (error) {
+            toast.update(id, {
+                render: "Foi impossível deletar o usuário",
+                type: "error",
+                isLoading: false,
+                autoClose: 1000,
+            });
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -144,6 +192,7 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
         }
     };
 
+<<<<<<< Updated upstream
     const getAnnouncementById = async (
         announcementId: string
     ): Promise<iAnnouncementProps | void> => {
@@ -160,6 +209,18 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
             console.log(error);
         }
     };
+=======
+  const getAllAnnouncement = async () => {
+    
+    try {
+      const request = await api.get("announcement");
+      const data = await request.data;
+      setAllAnnouncements(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+>>>>>>> Stashed changes
 
     const authCep = async (value: string) => {
         try {
@@ -182,17 +243,49 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
         setLoading: React.Dispatch<React.SetStateAction<boolean>>
     ): Promise<void> => {
         const userId = user?.id;
+        const id = toast.loading("Verificando dados...");
         try {
             setLoading(true);
-            const response = await api.patch(`users/${userId}`, { address: data });
-            setUser(response.data);
+            const request = await api.patch(`users/${userId}`, { address: data });
+            if (request) {
+                toast.update(id, {
+                    render: "Endereço atualizado com sucesso!",
+                    type: "success",
+                    isLoading: false,
+                    autoClose: 1000,
+                });
+            }
+            setUser(request.data);
             setIsOpen(false);
-
-            console.log("Dados atualizados com sucesso:", response.data);
         } catch (error) {
-            console.error("Erro ao atualizar dados:", error);
+            toast.update(id, {
+                render: "Informações invalidas",
+                type: "error",
+                isLoading: false,
+                autoClose: 1000,
+            });
         } finally {
             setLoading(false);
+        }
+    };
+
+    const deleteAnnouncement = async (announcementId: string): Promise<void> => {
+        try {
+            await api.delete(`announcement/${announcementId}`, {
+                headers: {
+                    Authorization: `Bearer ${user_token}`,
+                },
+            });
+
+            const findAnnouncements = userAnnouncements.filter((el: iAnnouncementProps) => {
+                return el.id !== announcementId;
+            });
+
+            setUserAnnouncements(findAnnouncements);
+            toast.success("Anúncio excluído com sucesso!");
+        } catch (error) {
+            console.log(error);
+            toast.error("Erro ao excluir o anúncio.");
         }
     };
 
@@ -226,6 +319,8 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
                 editAddress,
                 typeModal,
                 setTypeModal,
+                deleteAnnouncement,
+                userDeleteProfile
             }}
         >
             {children}

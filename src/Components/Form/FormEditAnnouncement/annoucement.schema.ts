@@ -2,5 +2,5 @@ import { AnnouncementSchema } from "../../FormRegisterAnnouncement/annoucement.s
 import * as z from "zod";
 
 export const EditAnnouncementSchema = AnnouncementSchema.extend({
-  is_activate: z.string(),
+  is_activate: z.boolean(),
 }).partial();

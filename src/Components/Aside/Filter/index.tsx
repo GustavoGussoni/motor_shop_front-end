@@ -5,6 +5,7 @@ import { AuthContext } from "../../../Contexts/AuthContext";
 
 const AsideFilter = ({ className }: any) => {
   const { filter, setFilter } = useContext(AuthContext);
+  
 
   return (
     <section>
@@ -20,7 +21,9 @@ const AsideFilter = ({ className }: any) => {
             <HeadingText
               tag="heading-6-500"
               className="text-grey-3 cursor-pointer"
-              onClick={(e) => setFilter((e.target as HTMLElement).innerText)}
+              onClick={(event) =>
+                setFilter((event.target as HTMLElement).innerText)
+              }
             >
               General Motors
             </HeadingText>
