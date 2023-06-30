@@ -10,16 +10,19 @@ import { AuthContext } from "../../Contexts/AuthContext";
 import { useEffect, useContext, useState } from "react";
 
 export const Product = () => {
-  const { getAnnouncementById, announcement, announcementId } =
+  const { allAnnouncements, announcement, announcementId, setAnnouncement } =
     useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(true);
-  console.log(announcement?.cover_image);
 
   useEffect(() => {
     const getAnnouncement = async () => {
       try {
         scrollTo(0, 0);
-        await getAnnouncementById(announcementId);
+        allAnnouncements.filter((el) => {
+          if (el.id === announcementId) {
+            setAnnouncement(el);
+          }
+        });
         setIsLoading(false);
       } catch (error) {
         setIsLoading(false);
@@ -48,7 +51,7 @@ export const Product = () => {
               <DescriptionProduct description={announcement?.description} />
             </section>
             <section className="flex gap-8 w-[100%] flex-col justify-end self-start z-[1] sm:w-[40%] sm:max-w-[440px]">
-              <aside className="bg-white max-h-[351px] overflow-scroll rounded-2 flex flex-col items-center gap-4 w-full p-[25px] pt-[21px] h-auto sm:flex sm:items-center sm:justify-center">
+              <aside className="bg-white max-h-[351px] rounded-2 flex flex-col items-center gap-4 w-full p-[25px] pt-[21px] h-auto sm:flex sm:items-center sm:justify-center">
                 <h1 className="self-center text-heading-6 font-600">Fotos</h1>
                 <div className="flex gap-[15px] flex-wrap items-center gap-y-[25px] sm:gap-[4px] justify-center overflow-auto">
                   {announcement?.image_gallery ? (

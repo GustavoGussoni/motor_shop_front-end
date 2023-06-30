@@ -73,8 +73,8 @@ export interface iAuthContext {
   navigate: NavigateFunction;
   getUserData: () => void;
   authCep: (value: string) => void;
-  filter: string | null;
-  setFilter: React.Dispatch<React.SetStateAction<string | null>>;
+  filter: [] | null;
+  setFilter: React.Dispatch<React.SetStateAction<[] | null>>;
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   userLogout: () => void;
@@ -100,4 +100,13 @@ export interface iAuthContext {
   ) => void;
   typeModal: string;
   setTypeModal: React.Dispatch<React.SetStateAction<string>>;
+  userDeleteProfile: (
+    userId: string | undefined,
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>
+  ) => Promise<void>;
+  deleteAnnouncement: (announcementId: string) => Promise<void>;
+  setAnnouncement: React.Dispatch<
+    React.SetStateAction<iAnnouncementProps | null>
+  >;
+  getAnnouncementsFiltered: () => Promise<void>;
 }

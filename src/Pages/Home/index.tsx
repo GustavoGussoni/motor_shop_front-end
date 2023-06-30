@@ -8,8 +8,6 @@ import { useContext } from "react";
 import img from "../../Assets/embargo_23_01_bst_15_july_2020_911_turbo_rear_three_quarter-removebg.png";
 import { AuthContext } from "../../Contexts/AuthContext";
 import { Button } from "../../Components/Button";
-import { EditAddress } from "../../Components/Form/FormEditAddress";
-import { Modal } from "../../Components/Modals";
 
 export const Home = () => {
   const { setFilter, user, getAllAnnouncement, allAnnouncements, isOpen } =
@@ -48,6 +46,11 @@ export const Home = () => {
     <React.Fragment>
       <Header />
       <div className="bg-gradient-to-b flex relative items-center justify-center  from-brand-4 to-grey-0 to-90% h-1/3">
+        <img
+          src={img}
+          alt="Imagem carro"
+          className="bg-contain aspect-[2/1] "
+        />
         <div className="absolute gap-2 flex w-full flex-col items-center justify-center">
           <HeadingText
             tag="heading-2-600"
@@ -63,12 +66,6 @@ export const Home = () => {
             A melhor plataforma de anúncios de carros do país
           </HeadingText>
         </div>
-
-        <img
-          src={img}
-          alt="Imagem carro"
-          className="bg-contain aspect-[2/1] "
-        />
       </div>
       <main className="flex flex-col w-full max-w-full container justify-center items-center sm:mx-auto sm:justify-between sm:w-full">
         <div className="flex w-full flex-row sm:justify-between sm:w-full">

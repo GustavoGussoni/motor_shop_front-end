@@ -1,13 +1,13 @@
 import { Dialog } from "@headlessui/react";
-import { Input } from "../Form/Input";
-import { Button } from "../Button";
+import { Input } from "../Input";
+import { Button } from "../../Button";
 import { useForm } from "react-hook-form";
 import React, { useContext, useEffect, useState } from "react";
 import { iFormAnnouncement } from "./@types";
 import { AnnouncementSchema } from "./annoucement.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { UserContext } from "../../Contexts/UserContext";
-import { iModel } from "../../Contexts/UserContext/@types";
+import { UserContext } from "../../../Contexts/UserContext";
+import { iModel } from "../../../Contexts/UserContext/@types";
 
 interface iFormRegisterAnnouncement {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -54,6 +54,8 @@ export const FormRegisterAnnouncement = ({
 
     setValue("image_gallery", imageGallery);
 
+    console.log(data);
+
     postAnnouncement(data).then((status) =>
       status === 201 ? setOpen(false) : null
     );
@@ -61,8 +63,8 @@ export const FormRegisterAnnouncement = ({
 
   const selectModels = async (brand: string) => await getModels(brand);
 
-  const findOneModel = (modelId: string) => {
-    const newModel = models.find((elem) => elem.id === modelId)!;
+  const findOneModel = (modelName: string) => {
+    const newModel = models.find((elem) => elem.name === modelName)!;
 
     setModelSelected(newModel);
     setModel(newModel);
@@ -194,7 +196,7 @@ export const FormRegisterAnnouncement = ({
               onChange={(e) => findOneModel(e.target.value)}
             >
               {models.map((elem: iModel) => (
-                <option key={elem.id} value={elem.id}>
+                <option key={elem.id} value={elem.name}>
                   {elem.name}
                 </option>
               ))}
