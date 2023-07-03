@@ -7,6 +7,7 @@ import {
   iUserProps,
   iAddressProps,
   iGetAnnouncementFilter,
+  iCommentsProps,
 } from "./@types";
 import { useNavigate } from "react-router-dom";
 import { iRegisterFormValues } from "../../Components/Form/FormRegister/@types";
@@ -22,6 +23,7 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
   const [cep, setCep] = useState<iCepProps | null>(null);
   const [user, setUser] = useState<iUserProps | null>(null);
   const [announcementId, setAnnouncementId] = useState<string | null>(null);
+  const [comments, setComments] = useState<iCommentsProps[] | []>([])
   const [announcement, setAnnouncement] = useState<iAnnouncementProps | null>(
     null
   );
@@ -275,7 +277,6 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
         },
       });
       const data = request.data;
-      console.log(data);
       return setAnnouncement(data);
     } catch (error) {
       console.log(error);
@@ -385,6 +386,8 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
         userDeleteProfile,
         setAnnouncement,
         getAnnouncementsFiltered,
+        setComments,
+        comments,
         setAllAnnouncements,
         renderAll,
         setRenderAll,

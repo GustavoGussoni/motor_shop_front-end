@@ -1,5 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../../Contexts/AuthContext';
+import { api } from '../../../Services';
+import { iAnnouncementProps } from '../../../Contexts/AuthContext/@types';
 
 export const FormComents = () => {
   const [comment, setComment] = useState('');
@@ -7,6 +10,13 @@ export const FormComents = () => {
   const [isLogged, setIsLogged] = useState(true);
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
   const navigate = useNavigate();
+  const { announcement, user, comments, setComments } = useContext(AuthContext);
+
+  const GetFirstLetterOfEachWord = (username: string) => {
+    const words = username.split(' ');
+    const firstWords = words.map((word) => word.charAt(0));
+    return firstWords.join('');
+  };
 
   const handleCommentChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setComment(event.target.value);
@@ -22,35 +32,46 @@ export const FormComents = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log('Comentário:', comment);
-    console.log('Opção selecionada:', selectedOption);
+    const newComments = comment + selectedOption;
+    registerComments(newComments);
   };
 
   useEffect(updateSubmitButton, [comment, selectedOption]);
 
+  const registerComments = async (data: string) => {
+    try {
+      const request = await api.post(`comments/${announcement?.id}`, { comments: data });
+      setComments([...comments, request.data]);
+      setComment('')
+      setSelectedOption('')
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
-    <form className="flex flex-col gap-3 bg-grey-10 w-80 sm:w-4/5" onSubmit={handleSubmit}>
+    <form className="flex flex-col gap-3 bg-grey-10 w-full" onSubmit={handleSubmit}>
       <div className="flex items-center gap-2">
-        <div className={`rounded-full w-8 h-8 bg-blue-700 flex items-center justify-center`}>
-          <p className="text-center text-white font-medium text-sm flex items-center justify-center">
-            {/* {GetFirstLetterOfEachWord(user.username)} */}
-            AS
-          </p>
-        </div>
-        <h2 className="text-grey-1 text-sm font-medium">Adriano Souza</h2>
+        {user && (
+          <div className={`rounded-full w-8 h-8 bg-blue-700 flex items-center justify-center`}>
+            <p className="text-center text-white font-medium text-sm flex items-center justify-center">
+              {GetFirstLetterOfEachWord(user?.name)}
+            </p>
+          </div>
+        )}
+        <h2 className="text-grey-1 text-sm font-medium">{user?.name}</h2>
       </div>
-      <div className="relative">
+      <div className="relative w-full">
         <textarea
           id="comment"
-          className="w-72 h-32 sm:w-3/4 border-2 border-grey-7 placeholder:text-grey-3 placeholder:font-normal placeholder:text-base p-3"
+          className=" border-2 border-grey-7 placeholder:text-grey-3 placeholder:font-normal placeholder:text-base p-3 resize-none w-full h-[128px]"
           placeholder="Digitar comentário"
-          value={comment}
+          value={selectedOption + comment}
           onChange={handleCommentChange}
         />
-        {isLogged ? (
+        {user ? (
           <button
             type="submit"
-            className="bg-brand-1 border-2 border-brand-1 rounded w-24 h-9 py-3 px-5 flex items-center justify-center text-sm font-semibold text-white-fixed sm:absolute bottom-5 right-40"
+            className="bg-brand-1 border-2 border-brand-1 rounded w-24 h-9 py-3 px-5 flex items-center justify-center text-sm font-semibold text-white-fixed sm:absolute bottom-5 right-4 cursor-pointer"
             disabled={isSubmitDisabled}
           >
             Comentar
@@ -58,7 +79,7 @@ export const FormComents = () => {
         ) : (
           <button
             type="button"
-            className="bg-grey-5 border border-grey-5 rounded w-24 h-9 py-3 px-5 flex items-center justify-center text-sm font-semibold text-white-fixed"
+            className="bg-grey-5 border border-grey-5 rounded w-24 h-9 py-3 px-5 flex items-center justify-center text-sm font-semibold text-white-fixed cursor-pointer"
             onClick={() => navigate('/register')}
           >
             Comentar
@@ -76,10 +97,10 @@ export const FormComents = () => {
         </button>
         <button
           type="button"
-          onClick={() => handleOptionChange('Incrível')}
-          className={`selectedOption === 'Incrível' ? 'selected' : '' bg-grey-7 rounded-3xl py-0 px-2 text-grey-3 font-normal text-xs`}
+          onClick={() => handleOptionChange('Incrível!')}
+          className={`selectedOption === 'Incrível!' ? 'selected' : '' bg-grey-7 rounded-3xl py-0 px-2 text-grey-3 font-normal text-xs`}
         >
-          Incrível
+          Incrível!
         </button>
         <button
           type="button"

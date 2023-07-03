@@ -1,7 +1,7 @@
-import { NavigateFunction } from "react-router-dom";
-import { iLogin } from "../../Components/Form/FormLogin/loginSchema";
-import { iRegisterFormValues } from "../../Components/Form/FormRegister/@types";
-import { iProfileEditProps } from "../../Components/Form/FromProfileEdit/@types";
+import { NavigateFunction } from 'react-router-dom';
+import { iLogin } from '../../Components/Form/FormLogin/loginSchema';
+import { iRegisterFormValues } from '../../Components/Form/FormRegister/@types';
+import { iProfileEditProps } from '../../Components/Form/FromProfileEdit/@types';
 
 export interface iAuthProviderProps {
   children: React.ReactNode;
@@ -33,6 +33,14 @@ export interface iUserProps {
   address: iAddressProps;
 }
 
+export interface iCommentsProps {
+  comments: string;
+  created_at: Date;
+  user: {
+    name: string;
+  };
+}
+
 export interface iAddressProps {
   cep: string;
   state: string;
@@ -58,6 +66,7 @@ export interface iAnnouncementProps {
   userId: string;
   user: { name: string; description: string; is_advertiser: boolean };
   image_gallery: [{ image: string; id: string }];
+  comments: iCommentsProps[]
 }
 
 export interface iGetAnnouncementFilter {
@@ -75,10 +84,7 @@ export interface iAuthContext {
   setCep: React.Dispatch<React.SetStateAction<iCepProps | null>>;
   user: iUserProps | null;
   setUser: React.Dispatch<React.SetStateAction<iUserProps | null>>;
-  userRegister: (
-    data: iRegisterFormValues,
-    setLoading: React.Dispatch<React.SetStateAction<boolean>>
-  ) => void;
+  userRegister: (data: iRegisterFormValues, setLoading: React.Dispatch<React.SetStateAction<boolean>>) => void;
   userLogin: (data: iLogin) => void;
   navigate: NavigateFunction;
   getUserData: () => void;
@@ -94,17 +100,12 @@ export interface iAuthContext {
   userAnnouncements: iAnnouncementProps[];
   getAllAnnouncement: () => Promise<void>;
   allAnnouncements: [] | iAnnouncementProps[];
-  getAnnouncementById: (
-    announcementId: string
-  ) => Promise<iAnnouncementProps | void>;
+  getAnnouncementById: (announcementId: string) => Promise<iAnnouncementProps | void>;
   announcement: iAnnouncementProps | null;
   user_token: string;
   setAnnouncementId: React.Dispatch<React.SetStateAction<string | null>>;
   announcementId: string | null;
-  editAddress: (
-    data: iAddressProps,
-    setLoading: React.Dispatch<React.SetStateAction<boolean>>
-  ) => Promise<void>;
+  editAddress: (data: iAddressProps, setLoading: React.Dispatch<React.SetStateAction<boolean>>) => Promise<void>;
   userUpdateProfile: (
     data: iProfileEditProps,
     setLoading: React.Dispatch<React.SetStateAction<boolean>>,
@@ -117,10 +118,10 @@ export interface iAuthContext {
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
   ) => Promise<void>;
   deleteAnnouncement: (announcementId: string) => Promise<void>;
-  setAnnouncement: React.Dispatch<
-    React.SetStateAction<iAnnouncementProps | null>
-  >;
+  setAnnouncement: React.Dispatch<React.SetStateAction<iAnnouncementProps | null>>;
   getAnnouncementsFiltered: () => Promise<void>;
+  setComments: React.Dispatch<React.SetStateAction<iCommentsProps[] | []>>;
+  comments: iCommentsProps[] | [];
   setAllAnnouncements: React.Dispatch<
     React.SetStateAction<[] | iAnnouncementProps[]>
   >;
