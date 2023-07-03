@@ -1,5 +1,7 @@
-export const CardComents = ({ user }: any) => {
+import { iCommentsProps } from '../../Contexts/AuthContext/@types';
 
+export const CardComents = ({comments, user, created_at}: iCommentsProps) => {
+  
   const GetFirstLetterOfEachWord = (username: string) => {
     const words = username.split(' ');
     const firstWords = words.map((word) => word.charAt(0));
@@ -56,16 +58,16 @@ export const CardComents = ({ user }: any) => {
       <div className="flex items-center gap-3">
         <div className={`rounded-full w-8 h-8 ${randomColorClass} flex items-center justify-center`}>
           <p className="text-center text-white font-medium text-sm flex items-center justify-center">
-            {GetFirstLetterOfEachWord(user.username)}
+            {GetFirstLetterOfEachWord(user.name)}
           </p>
         </div>
-        <h2 className="text-grey-1 text-sm font-medium">{user.username}</h2>
+        <h2 className="text-grey-1 text-sm font-medium">{user.name}</h2>
         <span className="flex justify-center items-center gap-2 font-normal text-grey-3 text-xs">
           <div className="rounded-full w-1 h-1 text-center font-normal bg-grey-3"></div>
-          {calculateElapsedTime(user.createdAt)}
+          {calculateElapsedTime(new Date(created_at))}
         </span>
       </div>
-      <p className="font-normal text-grey-2 text-sm">{user.description}</p>
+      <p className="font-normal text-grey-2 text-sm">{comments}</p>
     </li>
   );
 };

@@ -10,7 +10,7 @@ import { AuthContext } from "../../Contexts/AuthContext";
 import { useEffect, useContext, useState } from "react";
 
 export const Product = () => {
-  const { allAnnouncements, announcement, announcementId, setAnnouncement } =
+  const { allAnnouncements, announcement, announcementId, setAnnouncement, setComments } =
     useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -20,6 +20,7 @@ export const Product = () => {
         scrollTo(0, 0);
         allAnnouncements.filter((el) => {
           if (el.id === announcementId) {
+            setComments(el.comments)
             setAnnouncement(el);
           }
         });
