@@ -11,6 +11,7 @@ export const Input = ({
   className,
   defaultValue,
   onBlur,
+  onChange,
 }: iInputForm) => {
   return (
     <fieldset className="w-full flex flex-col gap-y-2.5">
@@ -24,7 +25,7 @@ export const Input = ({
         {...register}
         value={value}
         className={`px-4 h-[48px] w-full border-[1.5px] border-grey-7 outline-none rounded text-grey-1 placeholder-grey-3 ${className}`}
-        onBlur={onBlur}
+        onChange={onChange}
         defaultValue={defaultValue}
       />
     </fieldset>

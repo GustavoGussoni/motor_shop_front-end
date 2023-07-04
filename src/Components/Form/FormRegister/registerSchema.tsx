@@ -6,16 +6,19 @@ export const addressSchema = z.object({
     .nonempty("CEP é obrigatório")
     .min(8, "Insira um CEP válido")
     .max(9, "Insira um CEP válido"),
-  state: z.string().nonempty("UF é obrigatório").max(2, "Insira um UF válido"),
+  state: z
+    .string()
+    .max(2, "Insira um UF válido")
+    .nonempty("UF do estado é obrigatório"),
   city: z
     .string()
-    .nonempty("Cidade é obrigatório")
-    .max(50, "Insira um nome de cidade válido"),
+    .max(50, "Insira um nome de cidade válido")
+    .nonempty("Nome da cidade é obrigatório"),
   number: z.string().nonempty("Numero é obrigatório"),
   addOn: z.string().nullish(),
   street: z
     .string()
-    .nonempty("Rua é obrigatória")
+    .nonempty("Nome da rua é obrigatória")
     .max(255, "Insira uma rua de endereço válida"),
 });
 
@@ -42,7 +45,7 @@ export const RegisterSchema = z
       .max(11, "Insira um número de celular válido"),
     birthdate: z.string().nonempty("Data de nascimento é obrigatória"),
     description: z.string().nullish(),
-    is_advertiser: z.boolean().nullish(),
+    is_advertiser: z.string().nullish(),
     address: addressSchema,
     password: z
       .string()
