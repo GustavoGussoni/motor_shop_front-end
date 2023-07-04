@@ -9,4 +9,5 @@ export interface iInputForm {
   defaultValue?: any;
   className?: string;
   onBlur?: (e: any) => void;
+  onChange?: (e: any) => void;
 }

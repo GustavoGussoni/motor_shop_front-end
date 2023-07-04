@@ -43,7 +43,7 @@ export const Button = ({
 }: iButton) => {
   return (
     <button
-      className={`${className} ${variantStyle[variant]} ${sizeStyle[size]} cursor-pointer`}
+      className={`${className} ${variantStyle[variant]} ${sizeStyle[size]}`}
       type={type}
       disabled={disabled}
       onClick={onClick}

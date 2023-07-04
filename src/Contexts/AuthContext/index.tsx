@@ -6,8 +6,11 @@ import {
   iCepProps,
   iUserProps,
   iAddressProps,
+<<<<<<< Updated upstream
   iGetAnnouncementFilter,
   iCommentsProps,
+=======
+>>>>>>> Stashed changes
 } from "./@types";
 import { useNavigate } from "react-router-dom";
 import { iRegisterFormValues } from "../../Components/Form/FormRegister/@types";
@@ -23,6 +26,7 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
   const [cep, setCep] = useState<iCepProps | null>(null);
   const [user, setUser] = useState<iUserProps | null>(null);
   const [announcementId, setAnnouncementId] = useState<string | null>(null);
+<<<<<<< Updated upstream
   const [comments, setComments] = useState<iCommentsProps[] | []>([])
   const [announcement, setAnnouncement] = useState<iAnnouncementProps | null>(
     null
@@ -31,12 +35,18 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
   const [announcementsFiltered, setAnnouncementsFiltered] = useState<
     iAnnouncementProps[] | []
   >([]);
+=======
+  const [announcement, setAnnouncement] = useState<iAnnouncementProps | null>(
+    null
+  );
+>>>>>>> Stashed changes
   const [userAnnouncements, setUserAnnouncements] = useState<
     iAnnouncementProps[] | []
   >([]);
   const [allAnnouncements, setAllAnnouncements] = useState<
     iAnnouncementProps[] | []
   >([]);
+<<<<<<< Updated upstream
 
   const [filter, setFilter] = useState<iGetAnnouncementFilter | null>(null);
 
@@ -125,6 +135,92 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
     }
   };
 
+=======
+  const [filter, setFilter] = useState<string | null>(null);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const navigate = useNavigate();
+
+  const cookies = parseCookies();
+  const { user_token, user_email } = cookies;
+
+  const userLogin = async (data: iLogin) => {
+    const id = toast.loading("Verificando dados...");
+    try {
+      const request = await api.post("login", data);
+      if (request) {
+        api.defaults.headers.common.authorization = `Bearer ${request.data.token}`;
+        toast.update(id, {
+          render: "Login realizado com sucesso!",
+          type: "success",
+          isLoading: false,
+          autoClose: 1000,
+        });
+        setCookie(null, "user_token", request.data.token);
+        setCookie(null, "user_email", data.email);
+        navigate("");
+        await getUserData();
+      }
+    } catch (error) {
+      toast.update(id, {
+        render: "Informações invalidas",
+        type: "error",
+        isLoading: false,
+        autoClose: 1000,
+      });
+    }
+  };
+
+  const userRegister = async (
+    data: iRegisterFormValues,
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>
+  ) => {
+    try {
+      setLoading(true);
+      const request = await api.post("users", data);
+      if (request.statusText === "Created") {
+        setUser(request.data);
+        setIsOpen(true);
+      }
+      return request.data;
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const userUpdateProfile = async (
+    data: iProfileEditProps,
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>,
+    userId: string | undefined
+  ) => {
+    const id = toast.loading("Verificando dados...");
+    try {
+      setLoading(true);
+      const request = await api.patch(`users/${userId}`, data);
+      if (request.statusText === "OK") {
+        toast.update(id, {
+          render: "Usuário atualizado com sucesso",
+          type: "success",
+          autoClose: 1000,
+          isLoading: false,
+        });
+        setUser(request.data);
+      }
+    } catch (error) {
+      toast.update(id, {
+        render: "Informações invalidas",
+        type: "error",
+        isLoading: false,
+        autoClose: 1000,
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+>>>>>>> Stashed changes
   const userDeleteProfile = async (
     userId: string | undefined,
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
@@ -211,6 +307,7 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
     }
   };
 
+<<<<<<< Updated upstream
   const filterData: iGetAnnouncementFilter = {
     brand: [],
     model: [],
@@ -267,6 +364,8 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
     }
   };
 
+=======
+>>>>>>> Stashed changes
   const getAnnouncementById = async (
     announcementId: string
   ): Promise<iAnnouncementProps | void> => {
@@ -277,12 +376,35 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
         },
       });
       const data = request.data;
+<<<<<<< Updated upstream
+=======
+      console.log(data);
+>>>>>>> Stashed changes
       return setAnnouncement(data);
     } catch (error) {
       console.log(error);
     }
   };
 
+<<<<<<< Updated upstream
+=======
+  const authCep = async (value: string) => {
+    try {
+      const valueCep = value;
+      let newValue = "";
+      if (valueCep.length === 8) {
+        newValue = valueCep.substring(5, 0) + "-" + valueCep.substring(5);
+      }
+      const cepRequest = await cepApi.get(`${newValue}/json`);
+      if (cepRequest.statusText === "OK") {
+        setCep(cepRequest.data);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+>>>>>>> Stashed changes
   const editAddress = async (
     data: iAddressProps,
     setLoading: React.Dispatch<React.SetStateAction<boolean>>
@@ -336,6 +458,7 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
     }
   };
 
+<<<<<<< Updated upstream
   const authCep = async (value: string) => {
     try {
       const valueCep = value;
@@ -352,6 +475,8 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
     }
   };
 
+=======
+>>>>>>> Stashed changes
   return (
     <AuthContext.Provider
       value={{
@@ -384,6 +509,7 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
         setTypeModal,
         deleteAnnouncement,
         userDeleteProfile,
+<<<<<<< Updated upstream
         setAnnouncement,
         getAnnouncementsFiltered,
         setComments,
@@ -394,6 +520,8 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
         announcementsFiltered,
         setAnnouncementsFiltered,
         filterData,
+=======
+>>>>>>> Stashed changes
       }}
     >
       {children}
