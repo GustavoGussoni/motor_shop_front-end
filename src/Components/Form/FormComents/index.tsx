@@ -1,24 +1,26 @@
-import { useState, useEffect, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../../Contexts/AuthContext';
-import { api } from '../../../Services';
-import { iAnnouncementProps } from '../../../Contexts/AuthContext/@types';
+import { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../../Contexts/AuthContext";
+import { api } from "../../../Services";
 
 export const FormComents = () => {
-  const [comment, setComment] = useState('');
-  const [selectedOption, setSelectedOption] = useState('');
+  const [comment, setComment] = useState("");
+  const [selectedOption, setSelectedOption] = useState("");
   const [isLogged, setIsLogged] = useState(true);
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
   const navigate = useNavigate();
-  const { announcement, user, comments, setComments } = useContext(AuthContext);
+  const { announcement, user, comments, setComments, user_token } =
+    useContext(AuthContext);
 
   const GetFirstLetterOfEachWord = (username: string) => {
-    const words = username.split(' ');
+    const words = username.split(" ");
     const firstWords = words.map((word) => word.charAt(0));
-    return firstWords.join('');
+    return firstWords.join("");
   };
 
-  const handleCommentChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleCommentChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
     setComment(event.target.value);
   };
 
@@ -27,7 +29,7 @@ export const FormComents = () => {
   };
 
   const updateSubmitButton = () => {
-    setIsSubmitDisabled(comment === '' && selectedOption === '');
+    setIsSubmitDisabled(comment === "" && selectedOption === "");
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -40,19 +42,32 @@ export const FormComents = () => {
 
   const registerComments = async (data: string) => {
     try {
-      const request = await api.post(`comments/${announcement?.id}`, { comments: data });
+      const request = await api.post(
+        `comments/${announcement?.id}`,
+        { comments: data },
+        {
+          headers: {
+            Authorization: `Bearer ${user_token}`,
+          },
+        }
+      );
       setComments([...comments, request.data]);
-      setComment('')
-      setSelectedOption('')
+      setComment("");
+      setSelectedOption("");
     } catch (error) {
       console.error(error);
     }
   };
   return (
-    <form className="flex flex-col gap-3 bg-grey-10 w-full" onSubmit={handleSubmit}>
+    <form
+      className="flex flex-col gap-3 bg-grey-10 w-full"
+      onSubmit={handleSubmit}
+    >
       <div className="flex items-center gap-2">
         {user && (
-          <div className={`rounded-full w-8 h-8 bg-blue-700 flex items-center justify-center`}>
+          <div
+            className={`rounded-full w-8 h-8 bg-blue-700 flex items-center justify-center`}
+          >
             <p className="text-center text-white font-medium text-sm flex items-center justify-center">
               {GetFirstLetterOfEachWord(user?.name)}
             </p>
@@ -80,7 +95,7 @@ export const FormComents = () => {
           <button
             type="button"
             className="bg-grey-5 border border-grey-5 rounded w-24 h-9 py-3 px-5 flex items-center justify-center text-sm font-semibold text-white-fixed cursor-pointer"
-            onClick={() => navigate('/register')}
+            onClick={() => navigate("/register")}
           >
             Comentar
           </button>
@@ -90,21 +105,21 @@ export const FormComents = () => {
       <div className="flex gap-2 flex-wrap">
         <button
           type="button"
-          onClick={() => handleOptionChange('Gostei Muito!')}
+          onClick={() => handleOptionChange("Gostei Muito!")}
           className={`selectedOption === 'Gostei Muito!' ? 'selected' : '' bg-grey-7 rounded-3xl py-0 px-2 text-grey-3 font-normal text-xs`}
         >
           Gostei Muito!
         </button>
         <button
           type="button"
-          onClick={() => handleOptionChange('Incrível!')}
+          onClick={() => handleOptionChange("Incrível!")}
           className={`selectedOption === 'Incrível!' ? 'selected' : '' bg-grey-7 rounded-3xl py-0 px-2 text-grey-3 font-normal text-xs`}
         >
           Incrível!
         </button>
         <button
           type="button"
-          onClick={() => handleOptionChange('Recomendarei para meus amigos!')}
+          onClick={() => handleOptionChange("Recomendarei para meus amigos!")}
           className={`selectedOption === 'Recomendarei para meus amigos!' ? 'selected' : '' bg-grey-7 rounded-3xl py-0 px-2 text-grey-3 font-normal text-xs`}
         >
           Recomendarei para meus amigos!

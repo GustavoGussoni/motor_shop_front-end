@@ -8,9 +8,10 @@ import { ImageProduct } from "../../Components/ImageProduct";
 import { TitleProduct } from "../../Components/TitleProduct";
 import { AuthContext } from "../../Contexts/AuthContext";
 import { useEffect, useContext, useState } from "react";
+import { parseCookies } from "nookies";
 
 export const Product = () => {
-  const { allAnnouncements, announcement, announcementId, setAnnouncement, setComments } =
+  const { announcement, setAnnouncement, setComments, getAllAnnouncement } =
     useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -18,12 +19,17 @@ export const Product = () => {
     const getAnnouncement = async () => {
       try {
         scrollTo(0, 0);
-        allAnnouncements.filter((el) => {
-          if (el.id === announcementId) {
-            setComments(el.comments)
-            setAnnouncement(el);
-          }
-        });
+
+        await getAllAnnouncement();
+
+        const cookies = parseCookies();
+        const { announcement_data } = cookies;
+
+        const data = JSON.parse(announcement_data);
+
+        setComments(data.comments);
+        setAnnouncement(data);
+
         setIsLoading(false);
       } catch (error) {
         setIsLoading(false);
@@ -32,6 +38,8 @@ export const Product = () => {
     };
     getAnnouncement();
   }, []);
+
+  console.log(announcement);
 
   if (!isLoading) {
     return (
@@ -64,7 +72,10 @@ export const Product = () => {
                   )}
                 </div>
               </aside>
-              <AsideProfile />
+              <AsideProfile
+                data={announcement?.user}
+                userId={announcement?.userId}
+              />
             </section>
           </main>
           <div className="px-14 w-full flex items-center gap-[1.5rem] justify-center sm:justify-center flex-col sm:flex-row">

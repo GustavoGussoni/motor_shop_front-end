@@ -101,7 +101,11 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
     const id = toast.loading("Verificando dados...");
     try {
       setLoading(true);
-      const request = await api.patch(`users/${userId}`, data);
+      const request = await api.patch(`users/${userId}`, data, {
+        headers: {
+          Authorization: `Bearer ${user_token}`,
+        },
+      });
       if (request.statusText === "OK") {
         toast.update(id, {
           render: "Usuário atualizado com sucesso",
@@ -184,7 +188,7 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
     }
   };
 
-  const getUserAnnouncement = async (userId: string) => {
+  const getUserAnnouncement = async (userId: string | undefined) => {
     try {
       const request = await api.get("announcement");
 
@@ -202,6 +206,7 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
   const getAllAnnouncement = async () => {
     try {
       const request = await api.get("announcement");
+
       const data = await request.data;
       setAllAnnouncements(data);
     } catch (error) {

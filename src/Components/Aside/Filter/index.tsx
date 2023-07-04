@@ -1,4 +1,4 @@
-import { HtmlHTMLAttributes, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { HeadingText } from "../../../Style/HeadingText";
 import { InputNumber } from "./InputNumber";
 import { AuthContext } from "../../../Contexts/AuthContext";
@@ -11,8 +11,6 @@ const AsideFilter = ({ className }: any) => {
     renderAll,
     getAnnouncementsFiltered,
     allAnnouncements,
-    setAllAnnouncements,
-    getAllAnnouncement,
     setAnnouncementsFiltered,
     setRenderAll,
   } = useContext(AuthContext);
@@ -22,7 +20,6 @@ const AsideFilter = ({ className }: any) => {
     const getFilter = async () => {
       try {
         await getAnnouncementsFiltered();
-        console.log(filter);
         setIsLoading(false);
       } catch (error) {
         console.log(error);
@@ -314,6 +311,7 @@ const AsideFilter = ({ className }: any) => {
               {filter.brand.map((el) => {
                 return (
                   <HeadingText
+                    key={el}
                     tag="heading-6-500"
                     className="text-grey-3 cursor-pointer"
                     onClick={() =>
@@ -337,6 +335,7 @@ const AsideFilter = ({ className }: any) => {
               {filter.model.map((el) => {
                 return (
                   <HeadingText
+                    key={el}
                     tag="heading-6-500"
                     className="text-grey-3 cursor-pointer"
                     onClick={() =>
@@ -360,6 +359,7 @@ const AsideFilter = ({ className }: any) => {
               {filter.color.map((el) => {
                 return (
                   <HeadingText
+                    key={el}
                     tag="heading-6-500"
                     className="text-grey-3 cursor-pointer"
                     onClick={() =>
@@ -383,6 +383,7 @@ const AsideFilter = ({ className }: any) => {
               {filter.year.map((el) => {
                 return (
                   <HeadingText
+                    key={el}
                     tag="heading-6-500"
                     className="text-grey-3 cursor-pointer"
                     onClick={() =>
@@ -406,6 +407,7 @@ const AsideFilter = ({ className }: any) => {
               {filter.fuel.map((el) => {
                 return (
                   <HeadingText
+                    key={el}
                     tag="heading-6-500"
                     className="text-grey-3 cursor-pointer"
                     onClick={(event) =>
