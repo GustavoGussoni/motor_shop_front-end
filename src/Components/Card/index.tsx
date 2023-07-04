@@ -1,18 +1,15 @@
 import { useContext } from "react";
 import { iAnnouncementProps } from "../../Contexts/AuthContext/@types";
 import { AuthContext } from "../../Contexts/AuthContext";
+import { setCookie } from "nookies";
 
 interface iCard {
   data: iAnnouncementProps;
 }
 
 const Card = ({ data }: iCard) => {
-  const {
-    getUserAnnouncement,
-    navigate,
-    getAnnouncementById,
-    setAnnouncementId,
-  } = useContext(AuthContext);
+  const { getUserAnnouncement, navigate, setAnnouncementId } =
+    useContext(AuthContext);
   const GetFirstLetterOfEachWord = (username: string) => {
     const words = username.split(" ");
     const firstWords = words.map((word) => word.charAt(0));
@@ -40,13 +37,13 @@ const Card = ({ data }: iCard) => {
 
   const handleUser = async (userId: string) => {
     await getUserAnnouncement(userId);
-    // console.log(userId);
-
     navigate("/profile/user");
   };
 
   const handleProduct = (announcementId: string) => {
     setAnnouncementId(announcementId);
+    const dataString = JSON.stringify(data);
+    setCookie(null, "announcement_data", dataString);
     navigate("/product");
   };
 

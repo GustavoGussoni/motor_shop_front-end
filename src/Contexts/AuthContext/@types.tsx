@@ -99,7 +99,7 @@ export interface iAuthContext {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   userLogout: () => void;
-  getUserAnnouncement: (userId: string) => Promise<void>;
+  getUserAnnouncement: (userId: string | undefined) => Promise<void>;
   userAnnouncements: iAnnouncementProps[];
   getAllAnnouncement: () => Promise<void>;
   allAnnouncements: [] | iAnnouncementProps[];
