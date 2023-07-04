@@ -42,7 +42,6 @@ export const FormRegisterAnnouncement = ({
   }, []);
 
   const setModel = (model: iModel) => {
-    console.log(model);
     setValue("fuel", model.fuel);
     setValue("year", model.year);
     setValue("price_fipe", model.value);
