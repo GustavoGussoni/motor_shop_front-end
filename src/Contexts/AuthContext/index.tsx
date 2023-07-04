@@ -184,11 +184,7 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
       );
       return setUser(find_user[0]);
     } catch (error) {
-      if (error.response.data.status === 401) {
-        navigate("");
-        setUser(null);
-      }
-      toast.error(error.response.data.message);
+      console.log("erro catch getUser", error);
     }
   };
 
