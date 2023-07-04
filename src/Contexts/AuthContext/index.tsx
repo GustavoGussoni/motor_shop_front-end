@@ -38,8 +38,6 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
 
   const [filter, setFilter] = useState<iGetAnnouncementFilter | null>(null);
 
-
-  
   const [isOpen, setIsOpen] = useState(false);
 
   const navigate = useNavigate();
@@ -180,7 +178,11 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
       );
       return setUser(find_user[0]);
     } catch (error) {
-      console.log("erro catch getUser", error);
+      if (error.response.data.status === 401) {
+        navigate("");
+        setUser(null);
+      }
+      toast.error(error.response.data.message);
     }
   };
 
