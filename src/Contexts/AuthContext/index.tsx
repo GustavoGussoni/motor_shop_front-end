@@ -23,7 +23,7 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
   const [cep, setCep] = useState<iCepProps | null>(null);
   const [user, setUser] = useState<iUserProps | null>(null);
   const [announcementId, setAnnouncementId] = useState<string | null>(null);
-  const [comments, setComments] = useState<iCommentsProps[] | []>([])
+  const [comments, setComments] = useState<iCommentsProps[] | []>([]);
   const [announcement, setAnnouncement] = useState<iAnnouncementProps | null>(
     null
   );
@@ -40,8 +40,6 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
 
   const [filter, setFilter] = useState<iGetAnnouncementFilter | null>(null);
 
-
-  
   const [isOpen, setIsOpen] = useState(false);
 
   const navigate = useNavigate();

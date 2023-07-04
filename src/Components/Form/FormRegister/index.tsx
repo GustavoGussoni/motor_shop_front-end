@@ -12,7 +12,8 @@ import { InputRadio } from "../InputRadio";
 
 export const FormRegister = () => {
   const [loading, setLoading] = useState(false);
-  const { authCep, cep, userRegister, setIsOpen } = useContext(AuthContext);
+  const { authCep, cep, userRegister, setIsOpen, setTypeModal } =
+    useContext(AuthContext);
   const {
     register,
     handleSubmit,
@@ -243,6 +244,10 @@ export const FormRegister = () => {
         type="submit"
         className="self-center max-w-[315px] w-full"
         disabled={!isValid}
+        onClick={() => {
+          setTypeModal("registerSuccessfully");
+          setIsOpen(true);
+        }}
       />
     </form>
   );
