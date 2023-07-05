@@ -39,7 +39,6 @@ export const Product = () => {
     getAnnouncement();
   }, []);
 
-  console.log(announcement);
 
   if (!isLoading) {
     return (
