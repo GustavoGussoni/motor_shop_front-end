@@ -22,8 +22,9 @@
     position: absolute;
     opacity: 0;
     cursor: pointer;
-    width: 150px;
+    width: 162px;
     height: 48px;
+    z-index: 1;
   }
 }
 
