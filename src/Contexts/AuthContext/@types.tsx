@@ -104,7 +104,7 @@ export interface iAuthContext {
   getAllAnnouncement: () => Promise<void>;
   allAnnouncements: [] | iAnnouncementProps[];
   getAnnouncementById: (
-    announcementId: string
+    announcementId: string | undefined
   ) => Promise<iAnnouncementProps | void>;
   announcement: iAnnouncementProps | null;
   user_token: string;

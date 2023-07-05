@@ -5,20 +5,16 @@ import { HeadingText } from "../../Style/HeadingText";
 import { Card } from "../../Components/Card";
 import { Header } from "../../Components/Header";
 import { useContext } from "react";
-import img from "../../Assets/embargo_23_01_bst_15_july_2020_911_turbo_rear_three_quarter-removebg.png";
 import { AuthContext } from "../../Contexts/AuthContext";
 import { Button } from "../../Components/Button";
 
 export const Home = () => {
   const {
-    setFilter,
     renderAll,
     announcementsFiltered,
     setRenderAll,
-    user,
     getAllAnnouncement,
     allAnnouncements,
-    isOpen,
   } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -79,7 +75,9 @@ export const Home = () => {
             {!isLoading ? (
               renderAll ? (
                 allAnnouncements.map((an) => {
-                  return <Card key={an.id} data={an} />;
+                  if (an !== undefined) {
+                    return <Card key={an.id} data={an} />;
+                  }
                 })
               ) : (
                 announcementsFiltered.map((an) => {
@@ -88,7 +86,7 @@ export const Home = () => {
               )
             ) : (
               <h1>Carreggando dados...</h1>
-            )} 
+            )}
           </ul>
         </div>
         <div className="flex max-w-[279px] w-[100%] justify-center flex-col self-center sm:flex-row gap-10 mb-11 mt-12">

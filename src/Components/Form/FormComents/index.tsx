@@ -95,7 +95,7 @@ export const FormComents = () => {
           <button
             type="button"
             className="bg-grey-5 border border-grey-5 rounded w-24 h-9 py-3 px-5 flex items-center justify-center text-sm font-semibold text-white-fixed cursor-pointer"
-            onClick={() => navigate("/register")}
+            onClick={() => navigate("/login")}
           >
             Comentar
           </button>
