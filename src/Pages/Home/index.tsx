@@ -80,7 +80,7 @@ export const Home = () => {
         <div className="flex w-full flex-row sm:justify-between sm:w-full">
           <AsideFilter className="hidden sm:flex " />
           <ul className="flex flex-nowrap flex-row gap-[46px] overflow-x-auto max-w-full sm:w-full sm:gap-2 sm:max-w-full sm:h-full sm:items-start sm:justify-start sm:flex-wrap sm:overflow-x-hidden">
-            {!isLoading ? (
+            {/* {!isLoading ? (
               renderAll ? (
                 allAnnouncements.map((an) => {
                   return <Card key={an.id} data={an} />;
@@ -92,7 +92,7 @@ export const Home = () => {
               )
             ) : (
               <h1>Carreggando dados...</h1>
-            )}
+            )} */}
           </ul>
         </div>
         <div className="flex max-w-[279px] w-[100%] justify-center flex-col self-center sm:flex-row gap-10 mb-11 mt-12">
