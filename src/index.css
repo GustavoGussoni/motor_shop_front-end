@@ -6,6 +6,15 @@
   * {
     @apply box-border;
   }
+
+  .bg-img {
+    background-image: url("Assets/embargo_23_01_bst_15_july_2020_911_turbo_rear_three_quarter-removebg.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    object-fit: contain;
+  }
+
   main {
     @apply flex flex-col gap-5 px-[8%] py-5;
   }
