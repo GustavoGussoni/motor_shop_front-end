@@ -54,12 +54,8 @@ export const Home = () => {
   return (
     <React.Fragment>
       <Header />
-      <div className="bg-gradient-to-b flex relative items-center justify-center  from-brand-4 to-grey-0 to-90% h-1/3">
-        <img
-          src={img}
-          alt="Imagem carro"
-          className="bg-contain aspect-[2/1] "
-        />
+      <div className="bg-gradient-to-b flex relative items-center justify-center h-[40rem]  from-brand-4 to-grey-0 to-90%">
+        <div className="w-full max-w-[1500px] h-full bg-img" />
         <div className="absolute gap-2 flex w-full flex-col items-center justify-center">
           <HeadingText
             tag="heading-2-600"
@@ -79,7 +75,7 @@ export const Home = () => {
       <main className="flex flex-col w-full max-w-full container justify-center items-center sm:mx-auto sm:justify-between sm:w-full">
         <div className="flex w-full flex-row sm:justify-between sm:w-full">
           <AsideFilter className="hidden sm:flex " />
-          <ul className="flex flex-nowrap flex-row gap-[46px] overflow-x-auto max-w-full sm:w-full sm:gap-2 sm:max-w-full sm:h-full sm:items-start sm:justify-start sm:flex-wrap sm:overflow-x-hidden">
+          <ul className="flex flex-nowrap flex-row justify-start gap-[46px] overflow-x-auto max-w-full sm:w-full sm:gap-2 sm:max-w-full sm:h-full sm:items-start sm:justify-start sm:flex-wrap sm:overflow-x-hidden">
             {!isLoading ? (
               renderAll ? (
                 allAnnouncements.map((an) => {

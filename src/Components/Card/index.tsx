@@ -35,8 +35,8 @@ const Card = ({ data }: iCard) => {
 
   const randomColorClass = getRandomColorClass();
 
-  const handleUser = async (userId: string) => {
-    await getUserAnnouncement(userId);
+  const handleUser = (userId: string) => {
+    setCookie(null, "user_id", userId);
     navigate("/profile/user");
   };
 
