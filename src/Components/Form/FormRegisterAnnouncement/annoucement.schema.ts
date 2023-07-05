@@ -20,7 +20,7 @@ export const AnnouncementSchema = z.object({
   color: z.string().max(20).nonempty("O cor é obrigatória"),
   price_fipe: z.number().min(1, "O preço da tabela FIPE é obrigatória"),
   price: z.number().min(1, "O preço é obrigatório"),
-  description: z.string(),
+  description: z.string().nonempty(),
   cover_image: z.string().nonempty("A imagem de capa é obrigatória"),
   image_gallery: z.array(z.object({ image: z.string() })),
 });
