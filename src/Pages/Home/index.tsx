@@ -88,7 +88,7 @@ export const Home = () => {
               )
             ) : (
               <h1>Carreggando dados...</h1>
-            )}
+            )} 
           </ul>
         </div>
         <div className="flex max-w-[279px] w-[100%] justify-center flex-col self-center sm:flex-row gap-10 mb-11 mt-12">

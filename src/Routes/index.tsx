@@ -5,6 +5,7 @@ import { UserProfile } from "../Pages/UserProfile";
 import { Home } from "../Pages/Home";
 import { Product } from "../Pages/Product";
 import { Login } from "../Pages/Login";
+import { ProtectRoute } from "../Components/ProtectRoute";
 
 export const RouteMain = () => {
   return (
@@ -13,7 +14,7 @@ export const RouteMain = () => {
       <Route path="product" element={<Product />} />
       <Route path="register" element={<Register />} />
       <Route path="login" element={<Login />} />
-      <Route path="profile">
+      <Route path="profile" element={<ProtectRoute />}>
         <Route path="user" element={<UserProfile />} />
         <Route path="admin" element={<AdminProfile />} />
       </Route>

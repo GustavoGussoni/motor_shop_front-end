@@ -23,6 +23,7 @@
     -webkit-appearance: none;
     margin: 0;
   }
+
   #radios label {
     position: relative;
   }
@@ -31,9 +32,11 @@
     position: absolute;
     opacity: 0;
     cursor: pointer;
-    width: 150px;
+    width: 162px;
     height: 48px;
+    z-index: 1;
   }
+  
 }
 
 @layer components {
@@ -43,4 +46,5 @@
   .button-big {
     @apply w-fit py-2 px-5 text-body-1 rounded-1 font-600 hover:ease-in duration-300;
   }
+  
 }
