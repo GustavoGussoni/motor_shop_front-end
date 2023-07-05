@@ -9,11 +9,15 @@ import { TitleProduct } from "../../Components/TitleProduct";
 import { AuthContext } from "../../Contexts/AuthContext";
 import { useEffect, useContext, useState } from "react";
 import { parseCookies } from "nookies";
+import { ModalDefault } from "../../Components/ModalDefault";
+import { ViewImage } from "../../Components/ViewImage";
 
 export const Product = () => {
   const { announcement, setAnnouncement, setComments, getAllAnnouncement } =
     useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(true);
+  const [viewImage, setViewImage] = useState<string>("");
+  const [openViewImage, setOpenViewImage] = useState<boolean>(false);
 
   useEffect(() => {
     const getAnnouncement = async () => {
@@ -26,6 +30,8 @@ export const Product = () => {
         const { announcement_data } = cookies;
 
         const data = JSON.parse(announcement_data);
+
+        console.log("announcement", announcement, data);
 
         setComments(data.comments);
         setAnnouncement(data);
@@ -65,7 +71,13 @@ export const Product = () => {
                 <div className="flex gap-[15px] flex-wrap items-center gap-y-[25px] sm:gap-[4px] justify-center overflow-auto">
                   {announcement?.image_gallery ? (
                     announcement?.image_gallery.map((el) => {
-                      return <CarImages data={el} />;
+                      return (
+                        <CarImages
+                          data={el}
+                          setOpen={setOpenViewImage}
+                          setImage={setViewImage}
+                        />
+                      );
                     })
                   ) : (
                     <p>Carregando fotos...</p>
@@ -84,6 +96,9 @@ export const Product = () => {
             </section>
             <section className="flex gap-8 flex-col justify-end self-start z-[1] sm:w-[40%] sm:max-w-[440px]"></section>
           </div>
+          <ModalDefault open={openViewImage} setOpen={setOpenViewImage}>
+            <ViewImage setOpen={setOpenViewImage} viewImage={viewImage} />
+          </ModalDefault>
           <Footer />
         </div>
       </div>
