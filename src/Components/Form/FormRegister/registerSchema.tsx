@@ -44,8 +44,8 @@ export const RegisterSchema = z
       .nonempty("Numero de celular é obrigatório")
       .max(11, "Insira um número de celular válido"),
     birthdate: z.string().nonempty("Data de nascimento é obrigatória"),
-    description: z.string().nullish(),
-    is_advertiser: z.string().nullish(),
+    description: z.string().nonempty("A descrição é obrigatória"),
+    is_advertiser: z.string().nonempty("Selecione um tipo de usuário"),
     address: addressSchema,
     password: z
       .string()
@@ -57,6 +57,6 @@ export const RegisterSchema = z
     confirmPassword: z.string().nonempty("Confirmação de senha obrigatória"),
   })
   .refine(({ password, confirmPassword }) => password === confirmPassword, {
-    message: "As senhas precisam correspondentes",
-    path: ["confirm"],
+    message: "As senhas precisam ser correspondentes",
+    path: ["confirmPassword"],
   });
