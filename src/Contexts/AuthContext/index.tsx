@@ -212,7 +212,7 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
       const request = await api.get("announcement");
 
       const data = await request.data;
-      setAllAnnouncements(data);
+      setAllAnnouncements(data.data);
     } catch (error) {
       console.log(error);
     }
@@ -275,16 +275,20 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
   };
 
   const getAnnouncementById = async (
-    announcementId: string
+    announcementId: string | undefined
   ): Promise<iAnnouncementProps | void> => {
     try {
-      const request = await api.get(`/announcement/${announcementId}`, {
-        headers: {
-          Authorization: `Bearer ${user_token}`,
-        },
-      });
+      const request = await api.get(`/announcement/${announcementId}`);
       const data = request.data;
-      return setAnnouncement(data);
+      // localStorage.setItem("cudecurioso", dataString);
+      const expirationDate = new Date();
+      expirationDate.setDate(expirationDate.getDate() + 1);
+      const dataString = JSON.stringify(data);
+      setCookie(null, "announcement_data", dataString, {
+        expires: expirationDate,
+      });
+      setAnnouncement(data);
+      setComments(data.comments);
     } catch (error) {
       console.log(error);
     }

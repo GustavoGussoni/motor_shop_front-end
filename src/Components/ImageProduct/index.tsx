@@ -5,7 +5,6 @@ type iImageProps = {
 };
 
 export const ImageProduct = ({ announcement_image }: iImageProps) => {
-  console.log(announcement_image);
   return (
     <div>
       {announcement_image === undefined ? (
