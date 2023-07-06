@@ -15,7 +15,7 @@ export const CarImages = ({
         <img
           src={data.image}
           alt="Imagem carro"
-          className="object-cover rounded-1"
+          className="object-cover rounded-1 cursor-pointer"
           onClick={() => {
             setViewImage(data.image);
             setOpenViewImage(true);
