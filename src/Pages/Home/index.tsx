@@ -15,14 +15,18 @@ export const Home = () => {
     setRenderAll,
     getAllAnnouncement,
     allAnnouncements,
+    pagination,
+    getAnnouncementPaginated,
   } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(true);
+  const [pageNum, setPageNum] = useState(1);
 
   useEffect(() => {
     const getAnnoucements = async () => {
       setRenderAll(true);
       try {
         await getAllAnnouncement();
+        console.log(pagination);
         setIsLoading(false);
       } catch (error) {
         setIsLoading(false);
@@ -31,6 +35,18 @@ export const Home = () => {
     };
     getAnnoucements();
   }, []);
+
+  const nextPage = async (url: string) => {
+    scrollTo(0, 0);
+    setPageNum(pageNum + 1);
+    await getAnnouncementPaginated(url);
+  };
+
+  const prevPage = async (url: string) => {
+    scrollTo(0, 0);
+    setPageNum(pageNum - 1);
+    await getAnnouncementPaginated(url);
+  };
 
   if (isLoading || !allAnnouncements) {
     return (
@@ -90,17 +106,53 @@ export const Home = () => {
           </ul>
         </div>
         <div className="flex max-w-[279px] w-[100%] justify-center flex-col self-center sm:flex-row gap-10 mb-11 mt-12">
-          <div className="flex self-center">
-            <HeadingText
-              tag="heading-5-600"
-              className="text-grey-3 mr-1 self-center"
-            >
-              1
-            </HeadingText>
-            <HeadingText tag="heading-5-500" className="text-grey-3">
-              de 1
-            </HeadingText>
-          </div>
+          {pagination.isActive ? (
+            <div>
+              <div className="flex items-center gap-2 self-center">
+                {pagination?.prevPage ? (
+                  <button
+                    className="text-brand-2 hover:cursor-pointer hover:underline"
+                    onClick={() => prevPage(pagination.prevPage)}
+                  >
+                    {"< "} Voltar
+                  </button>
+                ) : null}
+                <div className="flex gap-1">
+                  <HeadingText
+                    tag="heading-7-600"
+                    className="text-grey-3 mr-1 self-center"
+                  >
+                    {pageNum}
+                  </HeadingText>
+                  <HeadingText tag="heading-7-500" className="text-grey-3">
+                    de {pagination.pageCount}
+                  </HeadingText>
+                </div>
+
+                {pagination.nextPage ? (
+                  <button
+                    // tag="heading-7-600"
+                    className="text-brand-2 hover:cursor-pointer hover:underline"
+                    onClick={() => nextPage(pagination.nextPage)}
+                  >
+                    Seguinte{" >"}
+                  </button>
+                ) : null}
+              </div>
+            </div>
+          ) : (
+            <div className="flex self-center">
+              <HeadingText
+                tag="heading-5-600"
+                className="text-grey-3 mr-1 self-center"
+              >
+                1
+              </HeadingText>
+              <HeadingText tag="heading-5-500" className="text-grey-3">
+                de 1
+              </HeadingText>
+            </div>
+          )}
           <Button
             variant="brand1"
             size="medium"
@@ -108,9 +160,10 @@ export const Home = () => {
             // onClick={() => ())
             className="max-w-[279px] w-full  sm:hidden "
           />
+
           {/* <HeadingText tag="heading-5-600" className="text-brand-2">
-            {"Seguinte >"}
-          </HeadingText> */}
+            //   {"Seguinte >"}
+            // </HeadingText> */}
         </div>
       </main>
       <Footer />
