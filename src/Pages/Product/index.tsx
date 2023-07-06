@@ -27,7 +27,7 @@ export const Product = () => {
 
         const data = JSON.parse(announcement_data);
 
-        setComments(data.data.comments);
+        setComments(data.comments);
         setAnnouncement(data);
 
         setIsLoading(false);
@@ -39,7 +39,6 @@ export const Product = () => {
     getAnnouncement();
   }, []);
 
-  console.log(announcement);
 
   if (!isLoading) {
     return (

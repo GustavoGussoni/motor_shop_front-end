@@ -53,8 +53,6 @@ export const FormRegisterAnnouncement = ({
 
     setValue("image_gallery", imageGallery);
 
-    console.log(data);
-
     postAnnouncement(data).then((status) =>
       status === 201 ? setOpen(false) : null
     );
