@@ -1,10 +1,11 @@
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import { iUserContext, iUserProviderProps } from "./@types";
 import { toast } from "react-toastify";
 import { api, carsApi } from "../../Services";
 import { parseCookies } from "nookies";
 import { iFormEditAnnouncement } from "../../Components/Form/FormEditAnnouncement/@types";
 import { iFormAnnouncement } from "../../Components/Form/FormRegisterAnnouncement/@types";
+import { AuthContext } from "../AuthContext";
 
 export const UserContext = createContext({} as iUserContext);
 
@@ -13,6 +14,8 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
     const [models, setModels] = useState([]);
     const [brands, setBrands] = useState<string[] | []>([]);
     const [modelSelected, setModelSelected] = useState(null);
+    const [newComment, setNewComment] = useState("");
+    const { comments, setComments } = useContext(AuthContext);
 
     const cookies = parseCookies();
     const { user_token } = cookies;
@@ -85,12 +88,36 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
             const request = await api.delete(`/comments/${commentId}`, {
                 headers: { Authorization: `Bearer ${user_token}` },
             });
-            console.log(request.data)
+            console.log(request.data);
             toast.success("Comentário deletado com sucesso");
             return request.status;
         } catch (error) {
-            console.log(error,'erro')
+            console.log(error, "erro");
             toast.error(error.response.data.message);
+        }
+    };
+
+    const editComment = async (id: string, data: string) => {
+        try {
+            const request = await api.patch(
+                `/comments/${id}`,
+                { comments: data },
+                {
+                    headers: { Authorization: `Bearer ${user_token}` },
+                }
+            );
+
+            const newData = comments.filter((comment) => {
+                if (comment.id === id) {
+                    comment.comments = request.data.comments;
+                    comment.created_at = new Date()
+                }
+                return comment.comments;
+            });
+
+            setComments(newData);
+        } catch (error) {
+            console.error(error);
         }
     };
 
@@ -109,6 +136,9 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
                 patchAnnouncement,
                 getOneCar,
                 deleteComment,
+                editComment,
+                setNewComment,
+                newComment,
             }}
         >
             {children}
