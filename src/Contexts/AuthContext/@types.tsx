@@ -109,6 +109,9 @@ export interface iAuthContext {
   userLogout: () => void;
   getUserAnnouncement: (userId: string | undefined) => Promise<void>;
   userAnnouncements: iAnnouncementProps[];
+  setUserAnnouncements: React.Dispatch<
+    React.SetStateAction<iAnnouncementProps[]>
+  >;
   getAllAnnouncement: () => Promise<void>;
   allAnnouncements: [] | iAnnouncementProps[];
   getAnnouncementById: (
@@ -150,6 +153,7 @@ export interface iAuthContext {
     React.SetStateAction<iAnnouncementProps[] | []>
   >;
   filterData: iGetAnnouncementFilter;
+
   getAnnouncementByQuery: (
     key: string,
     value: string
