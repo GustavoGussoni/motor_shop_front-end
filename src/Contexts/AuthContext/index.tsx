@@ -8,6 +8,7 @@ import {
   iAddressProps,
   iGetAnnouncementFilter,
   iCommentsProps,
+  iPaginationProps,
 } from "./@types";
 import { useNavigate } from "react-router-dom";
 import { iRegisterFormValues } from "../../Components/Form/FormRegister/@types";
@@ -16,6 +17,7 @@ import { iLogin } from "../../Components/Form/FormLogin/loginSchema";
 import { toast } from "react-toastify";
 import { destroyCookie, parseCookies, setCookie } from "nookies";
 import { iProfileEditProps } from "../../Components/Form/FromProfileEdit/@types";
+import axios from "axios";
 
 export const AuthContext = createContext({} as iAuthContext);
 export const AuthProvider = ({ children }: iAuthProviderProps) => {
@@ -37,6 +39,12 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
   const [allAnnouncements, setAllAnnouncements] = useState<
     iAnnouncementProps[] | []
   >([]);
+  const [pagination, setPagination] = useState<iPaginationProps>({
+    isActive: false,
+    pageCount: 0,
+    nextPage: "",
+    prevPage: "",
+  });
 
   const [filter, setFilter] = useState<iGetAnnouncementFilter | null>(null);
 
@@ -116,6 +124,7 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
           isLoading: false,
         });
         setUser(request.data);
+        await getUserData();
       }
     } catch (error) {
       toast.update(id, {
@@ -219,6 +228,16 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
 
       const data = await request.data;
       console.log(data);
+      if (data.count > 12) {
+        console.log(data.data.length);
+        const newPagination = {
+          isActive: true,
+          pageCount: Math.ceil(data.count / data.data.length),
+          nextPage: data.nextPage,
+          prevPage: data.prevNext,
+        };
+        setPagination(newPagination);
+      }
       setAllAnnouncements(data.data);
     } catch (error) {
       console.log(error);
@@ -238,6 +257,7 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
   const getAnnouncementsFiltered = async () => {
     setRenderAll(true);
     // setAllAnnouncements(allAnnouncements);
+    await getAllAnnouncement();
     try {
       let request = await api.get(`announcement?group=brand`);
       let data = await request.data;
@@ -283,11 +303,31 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
     }
   };
 
-  const getAnnouncementByQuery = async (key: string, value: string) => {
+  const getAnnouncementByQuery = async (
+    key: string,
+    value: string
+  ): Promise<iAnnouncementProps | undefined> => {
     try {
       const request = await api.get(`announcement?${key}=${value}`);
-      const data = request.data.data;
-      return data;
+      const data = request.data;
+      if (data.count > 12) {
+        const newPagination = {
+          isActive: true,
+          pageCount: Math.ceil(data.count / data.data.length),
+          nextPage: data.nextPage,
+          prevPage: data.prevNext,
+        };
+        setPagination(newPagination);
+      }
+      if (data.count <= 12) {
+        setPagination({
+          isActive: false,
+          pageCount: 0,
+          nextPage: "",
+          prevPage: "",
+        });
+      }
+      return data.data;
     } catch (error) {
       console.error(error);
     }
@@ -310,6 +350,31 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
       setComments(data.comments);
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const getAnnouncementPaginated = async (url: string | undefined) => {
+    const newApiConnection = axios.create({
+      baseURL: ``,
+      timeout: 4000,
+    });
+    try {
+      const request = await newApiConnection.get(`${url}`);
+      const data = request.data;
+      if (data.count > 12) {
+        console.log(data);
+        console.log(data.data.length);
+        const newPagination = {
+          isActive: true,
+          nextPage: data.nextPage ? `${data.nextPage}` : undefined,
+          prevPage: data.prevPage ? `${data.prevPage}` : undefined,
+        };
+        console.log(newPagination);
+        setPagination({ ...pagination, ...newPagination });
+      }
+      setAllAnnouncements(data.data);
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -426,6 +491,8 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
         setAnnouncementsFiltered,
         filterData,
         getAnnouncementByQuery,
+        pagination,
+        getAnnouncementPaginated,
       }}
     >
       {children}
