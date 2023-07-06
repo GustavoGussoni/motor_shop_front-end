@@ -192,7 +192,7 @@ export const FormEditAnnouncement = ({
                 label="Ano"
                 type="number"
                 placeholder="2022"
-                disabled={false}
+                disabled={true}
                 className="max-w-full"
                 register={register("year")}
                 value={modelSelected?.year}
@@ -209,7 +209,7 @@ export const FormEditAnnouncement = ({
                 label="Combustível"
                 type="text"
                 placeholder="diesel"
-                disabled={false}
+                disabled={true}
                 className="max-w-full"
                 register={register("fuel")}
                 value={modelSelected?.fuel}
@@ -264,7 +264,7 @@ export const FormEditAnnouncement = ({
                 label="Preço tabela FIPE"
                 type="number"
                 placeholder="R$ 48.000,00"
-                disabled={false}
+                disabled={true}
                 className="max-w-full"
                 value={modelSelected?.value}
                 register={register("price_fipe")}
@@ -400,6 +400,7 @@ export const FormEditAnnouncement = ({
           <Button
             text="Adicionar campo para imagem da galeria"
             size="medium"
+            type="button"
             variant="brand1"
             onClick={() => setImage((array) => [...array, array.length])}
           />

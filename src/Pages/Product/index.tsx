@@ -27,6 +27,8 @@ export const Product = () => {
 
         const data = JSON.parse(announcement_data);
 
+        console.log(data);
+
         setComments(data.comments);
         setAnnouncement(data);
 

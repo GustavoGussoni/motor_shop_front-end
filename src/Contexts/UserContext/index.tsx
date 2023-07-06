@@ -26,7 +26,7 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
       getModels(Object.keys(request.data)[0]);
       return request.data;
     } catch (error) {
-      toast.error(error.request.data.message);
+      toast.error(error.response.data.message);
     }
   };
 
@@ -36,7 +36,7 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
       setModels(request.data);
       return request.data;
     } catch (error) {
-      toast.error(error.request.data.message);
+      toast.error(error.response.data.message);
     }
   };
 
@@ -53,11 +53,12 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
 
       return request.data;
     } catch (error) {
-      toast.error(error.request.data.message);
+      toast.error(error.response.data.message);
     }
   };
 
   const postAnnouncement = async (data: iFormAnnouncement) => {
+    console.log(user_token);
     try {
       const request = await api.post(
         "/announcement",
@@ -67,7 +68,8 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
       toast.success("Anúncio criado com sucesso");
       return request.status;
     } catch (error) {
-      toast.error(error.request.data.message);
+      console.log(error);
+      toast.error(error.response.data.message);
     }
   };
 
@@ -76,6 +78,7 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
     data: iFormEditAnnouncement
   ) => {
     try {
+      console.log(data);
       const request = await api.patch(
         `announcement/${announcementId}`,
         { ...data },
