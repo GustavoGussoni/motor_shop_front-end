@@ -64,7 +64,7 @@ export const Product = () => {
                 <div className="flex gap-[15px] flex-wrap items-center gap-y-[25px] sm:gap-[4px] justify-center overflow-auto">
                   {announcement?.image_gallery ? (
                     announcement?.image_gallery.map((el) => {
-                      return <CarImages data={el} />;
+                      return <CarImages key={el.id} data={el} />;
                     })
                   ) : (
                     <p>Carregando fotos...</p>

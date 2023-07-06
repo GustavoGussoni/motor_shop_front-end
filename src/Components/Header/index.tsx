@@ -124,6 +124,7 @@ export const Header = () => {
                                 variant="outline2"
                                 size="medium"
                                 text="Perfil"
+                                className=""
                               ></Button>
                             </Menu.Item>
                             <Button
@@ -195,7 +196,7 @@ export const Header = () => {
               leaveFrom="transform scale-100 opacity-100"
               leaveTo="transform scale-95 opacity-0"
             >
-              <Menu.Items className="origin-bottom-right flex flex-col absolute top-6 right-5 gap-2 bg-transparent rounded-md">
+              <Menu.Items className="origin-bottom-right flex flex-col items-end absolute top-[2.4rem] right-[0px] gap-2 bg-transparent rounded-md">
                 {user_token && user ? (
                   <>
                     <Menu.Item>

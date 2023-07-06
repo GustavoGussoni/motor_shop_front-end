@@ -10,7 +10,6 @@ import { AuthContext } from "../../Contexts/AuthContext";
 import { CardAdmin } from "../../Components/CardAdmin";
 import { PencilIcon } from "@heroicons/react/24/outline";
 
-
 export const AdminProfile = () => {
   const {
     getUserData,
@@ -27,7 +26,6 @@ export const AdminProfile = () => {
       try {
         await getUserData();
         await getUserAnnouncement(user!.id);
-        console.log(userAnnouncements);
 
         setIsLoading(false);
       } catch (error) {
@@ -110,7 +108,7 @@ export const AdminProfile = () => {
               </h1>
             </div>
             <main>
-              <ul className="flex flex-nowrap flex-row gap-[46px] overflow-x-auto sm:w-full sm:gap-2 sm:max-w-full sm:h-full sm:items-start sm:flex-wrap sm:overflow-x-hidden">
+              <ul className="flex flex-nowrap justify-start sm:justify-center flex-row gap-[46px] overflow-x-auto sm:w-full sm:gap-2 sm:max-w-full sm:h-full sm:items-start sm:flex-wrap sm:overflow-x-hidden">
                 {userAnnouncements ? (
                   userAnnouncements.length === 0 ? (
                     <p>Sem anúncios cadastrados</p>

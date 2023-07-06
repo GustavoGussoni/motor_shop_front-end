@@ -81,6 +81,7 @@ export interface iGetAnnouncementFilter {
 }
 
 export interface iAuthContext {
+<<<<<<< HEAD
     cep: iCepProps | null;
     setCep: React.Dispatch<React.SetStateAction<iCepProps | null>>;
     user: iUserProps | null;
@@ -133,4 +134,69 @@ export interface iAuthContext {
     announcementsFiltered: [] | iAnnouncementProps[];
     setAnnouncementsFiltered: React.Dispatch<React.SetStateAction<iAnnouncementProps[] | []>>;
     filterData: iGetAnnouncementFilter;
+=======
+  cep: iCepProps | null;
+  setCep: React.Dispatch<React.SetStateAction<iCepProps | null>>;
+  user: iUserProps | null;
+  setUser: React.Dispatch<React.SetStateAction<iUserProps | null>>;
+  userRegister: (
+    data: iRegisterFormValues,
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>
+  ) => void;
+  userLogin: (data: iLogin) => void;
+  navigate: NavigateFunction;
+  getUserData: () => void;
+  authCep: (value: string) => void;
+  filter: iGetAnnouncementFilter | null;
+  setFilter: React.Dispatch<
+    React.SetStateAction<iGetAnnouncementFilter | null>
+  >;
+  isOpen: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  userLogout: () => void;
+  getUserAnnouncement: (userId: string | undefined) => Promise<void>;
+  userAnnouncements: iAnnouncementProps[];
+  getAllAnnouncement: () => Promise<void>;
+  allAnnouncements: [] | iAnnouncementProps[];
+  getAnnouncementById: (
+    announcementId: string | undefined
+  ) => Promise<iAnnouncementProps | void>;
+  announcement: iAnnouncementProps | null;
+  user_token: string;
+  setAnnouncementId: React.Dispatch<React.SetStateAction<string | null>>;
+  announcementId: string | null;
+  editAddress: (
+    data: iAddressProps,
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>
+  ) => Promise<void>;
+  userUpdateProfile: (
+    data: iProfileEditProps,
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>,
+    userId: string | undefined
+  ) => void;
+  typeModal: string;
+  setTypeModal: React.Dispatch<React.SetStateAction<string>>;
+  userDeleteProfile: (
+    userId: string | undefined,
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>
+  ) => Promise<void>;
+  deleteAnnouncement: (announcementId: string) => Promise<void>;
+  setAnnouncement: React.Dispatch<
+    React.SetStateAction<iAnnouncementProps | null>
+  >;
+  getAnnouncementsFiltered: () => Promise<void>;
+  setComments: React.Dispatch<React.SetStateAction<iCommentsProps[] | []>>;
+  comments: iCommentsProps[] | [];
+  setAllAnnouncements: React.Dispatch<
+    React.SetStateAction<[] | iAnnouncementProps[]>
+  >;
+  renderAll: boolean;
+  setRenderAll: React.Dispatch<React.SetStateAction<boolean>>;
+  announcementsFiltered: [] | iAnnouncementProps[];
+  setAnnouncementsFiltered: React.Dispatch<
+    React.SetStateAction<iAnnouncementProps[] | []>
+  >;
+  filterData: iGetAnnouncementFilter;
+  getAnnouncementByQuery: (key: string, value: string) => Promise<any>;
+>>>>>>> 295646d785dd07040c7a0ad98356cc3a34ee2c20
 }

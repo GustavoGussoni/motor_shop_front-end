@@ -22,7 +22,6 @@ export const AsideProfile = ({ data, userId }: iAsideProfileProps) => {
 
   const handleUser = async (user_id: string | undefined) => {
     await getUserAnnouncement(user_id);
-    // console.log(userId);
 
     navigate("/profile/user");
   };

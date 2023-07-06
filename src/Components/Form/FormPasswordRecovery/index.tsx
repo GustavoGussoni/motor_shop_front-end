@@ -50,8 +50,6 @@ export const FormPasswordRecover = ({
     }
   };
 
-  console.log("errors", errors);
-
   return (
     <div className=" overflow-y-auto flex justify-center py-12 ">
       <form
