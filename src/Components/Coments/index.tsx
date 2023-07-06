@@ -4,7 +4,7 @@ import { FormComents } from "../Form/FormComents";
 import { AuthContext } from "../../Contexts/AuthContext";
 
 export const Coments = () => {
-  const { comments, setComments } = useContext(AuthContext);
+  const { comments } = useContext(AuthContext);
 
   return (
     <section className="bg-transparent w-full gap-6 pr-0 pl-0 px-9 flex mb-5 flex-col">

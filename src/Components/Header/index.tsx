@@ -7,7 +7,6 @@ import { useContext, useEffect, useState } from "react";
 import { parseCookies } from "nookies";
 import { Modal } from "../Modals";
 
-
 export const Header = () => {
   const {
     navigate,

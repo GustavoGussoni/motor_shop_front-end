@@ -9,11 +9,16 @@ import { TitleProduct } from "../../Components/TitleProduct";
 import { AuthContext } from "../../Contexts/AuthContext";
 import { useEffect, useContext, useState } from "react";
 import { parseCookies } from "nookies";
+import { ModalDefault } from "../../Components/ModalDefault";
+import { ViewImage } from "../../Components/ViewImage";
 
 export const Product = () => {
   const { announcement, setAnnouncement, setComments, getAllAnnouncement } =
     useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(true);
+
+  const [viewImage, setViewImage] = useState<string>("");
+  const [openViewImage, setOpenViewImage] = useState<boolean>(false);
 
   useEffect(() => {
     const getAnnouncement = async () => {
@@ -39,7 +44,6 @@ export const Product = () => {
     getAnnouncement();
   }, []);
 
-
   if (!isLoading) {
     return (
       <div className="bg-gray-100 max-h-full">
@@ -64,7 +68,14 @@ export const Product = () => {
                 <div className="flex gap-[15px] flex-wrap items-center gap-y-[25px] sm:gap-[4px] justify-center overflow-auto">
                   {announcement?.image_gallery ? (
                     announcement?.image_gallery.map((el) => {
-                      return <CarImages key={el.id} data={el} />;
+                      return (
+                        <CarImages
+                          setViewImage={setViewImage}
+                          setOpenViewImage={setOpenViewImage}
+                          key={el.id}
+                          data={el}
+                        />
+                      );
                     })
                   ) : (
                     <p>Carregando fotos...</p>
@@ -85,6 +96,9 @@ export const Product = () => {
           </div>
           <Footer />
         </div>
+        <ModalDefault open={openViewImage} setOpen={setOpenViewImage}>
+          <ViewImage setOpen={setOpenViewImage} viewImage={viewImage} />
+        </ModalDefault>
       </div>
     );
   }
