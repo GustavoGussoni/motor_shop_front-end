@@ -9,109 +9,117 @@ import { iFormAnnouncement } from "../../Components/Form/FormRegisterAnnouncemen
 export const UserContext = createContext({} as iUserContext);
 
 export const UserProvider = ({ children }: iUserProviderProps) => {
-    const [cars, setCars] = useState([]);
-    const [models, setModels] = useState([]);
-    const [brands, setBrands] = useState<string[] | []>([]);
-    const [modelSelected, setModelSelected] = useState(null);
+  const [cars, setCars] = useState([]);
+  const [models, setModels] = useState([]);
+  const [brands, setBrands] = useState<string[] | []>([]);
+  const [modelSelected, setModelSelected] = useState(null);
 
-    const cookies = parseCookies();
-    const { user_token } = cookies;
+  const cookies = parseCookies();
+  const { user_token } = cookies;
 
-    const getCars = async () => {
-        try {
-            const request = await carsApi.get("cars");
+  const getCars = async () => {
+    try {
+      const request = await carsApi.get("cars");
 
-            setCars(request.data);
-            setBrands(Object.keys(request.data));
-            getModels(Object.keys(request.data)[0]);
-            return request.data;
-        } catch (error) {
-            toast.error(error.request.data.message);
-        }
-    };
+      setCars(request.data);
+      setBrands(Object.keys(request.data));
+      getModels(Object.keys(request.data)[0]);
+      return request.data;
+    } catch (error) {
+      toast.error("");
+    }
+  };
 
-    const getModels = async (brand: string) => {
-        try {
-            const request = await carsApi.get(`cars/?brand=${brand}`);
-            setModels(request.data);
-            return request.data;
-        } catch (error) {
-            toast.error(error.request.data.message);
-        }
-    };
+  const getModels = async (brand: string) => {
+    try {
+      const request = await carsApi.get(`cars/?brand=${brand}`);
+      setModels(request.data);
+      return request.data;
+    } catch (error) {
+      toast.error("");
+    }
+  };
 
-    const getOneCar = async (brand: string, name: string, year: string, fuel: number) => {
-        try {
-            const request = await carsApi.get(
-                `cars/unique?brand=${brand}?name=${name}?year=${year}?fuel=${fuel}`
-            );
+  const getOneCar = async (
+    brand: string,
+    name: string,
+    year: string,
+    fuel: number
+  ) => {
+    try {
+      const request = await carsApi.get(
+        `cars/unique?brand=${brand}?name=${name}?year=${year}?fuel=${fuel}`
+      );
 
-            return request.data;
-        } catch (error) {
-            toast.error(error.request.data.message);
-        }
-    };
+      return request.data;
+    } catch (error) {
+      toast.error("");
+    }
+  };
 
-    const postAnnouncement = async (data: iFormAnnouncement) => {
-        try {
-            const request = await api.post(
-                "/announcement",
-                { ...data, is_activate: true },
-                { headers: { Authorization: `Bearer ${user_token}` } }
-            );
-            toast.success("Anúncio criado com sucesso");
-            return request.status;
-        } catch (error) {
-            toast.error(error.request.data.message);
-        }
-    };
+  const postAnnouncement = async (data: iFormAnnouncement) => {
+    try {
+      const request = await api.post(
+        "/announcement",
+        { ...data, is_activate: true },
+        { headers: { Authorization: `Bearer ${user_token}` } }
+      );
+      toast.success("Anúncio criado com sucesso");
+      return request.status;
+    } catch (error) {
+      toast.error("");
+    }
+  };
 
-    const patchAnnouncement = async (announcementId: string, data: iFormEditAnnouncement) => {
-        try {
-            const request = await api.patch(
-                `announcement/${announcementId}`,
-                { ...data },
-                { headers: { Authorization: `Bearer ${user_token}` } }
-            );
-            toast.success("Anúncio editado com sucesso");
-            return request.status;
-        } catch (error) {
-            toast.error(error.response.data.message);
-        }
-    };
+  const patchAnnouncement = async (
+    announcementId: string,
+    data: iFormEditAnnouncement
+  ) => {
+    try {
+      const request = await api.patch(
+        `announcement/${announcementId}`,
+        { ...data },
+        { headers: { Authorization: `Bearer ${user_token}` } }
+      );
+      toast.success("Anúncio editado com sucesso");
+      return request.status;
+    } catch (error) {
+      toast.error("");
+    }
+  };
 
-    const deleteComment = async (commentId: string) => {
-        try {
-            const request = await api.delete(`/comments/${commentId}`, {
-                headers: { Authorization: `Bearer ${user_token}` },
-            });
-            console.log(request.data)
-            toast.success("Comentário deletado com sucesso");
-            return request.status;
-        } catch (error) {
-            console.log(error,'erro')
-            toast.error(error.response.data.message);
-        }
-    };
+  const deleteComment = async (commentId: string) => {
+    try {
+      const request = await api.delete(`/comments/${commentId}`, {
+        headers: { Authorization: `Bearer ${user_token}` },
+      });
+      console.log(request.data);
+      toast.success("Comentário deletado com sucesso");
+      return request.status;
+    } catch (error) {
+      console.log(error, "erro");
+      toast.error("");
+    }
+  };
 
-    return (
-        <UserContext.Provider
-            value={{
-                cars,
-                setCars,
-                getCars,
-                models,
-                getModels,
-                brands,
-                modelSelected,
-                postAnnouncement,
-                setModelSelected,
-                patchAnnouncement,
-                getOneCar,
-                deleteComment,
-            }}
-        >
-            {children}
-        </UserContext.Provider>
-    );
+  return (
+    <UserContext.Provider
+      value={{
+        cars,
+        setCars,
+        getCars,
+        models,
+        getModels,
+        brands,
+        modelSelected,
+        postAnnouncement,
+        setModelSelected,
+        patchAnnouncement,
+        getOneCar,
+        deleteComment,
+      }}
+    >
+      {children}
+    </UserContext.Provider>
+  );
 };

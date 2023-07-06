@@ -4,9 +4,9 @@ import { AuthContext } from "../../Contexts/AuthContext";
 import { iModalProps } from "./@types";
 import { EditAddress } from "../Form/FormEditAddress";
 import { FormProfileEdit } from "../Form/FromProfileEdit";
-import { HeadingText } from "../../Style/HeadingText";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../Button";
+import { AsideFilter } from "../Aside/Filter";
 
 export const Modal = ({ typeModal }: iModalProps) => {
   const { isOpen, setIsOpen } = useContext(AuthContext);
@@ -14,10 +14,6 @@ export const Modal = ({ typeModal }: iModalProps) => {
 
   const closeModal = () => {
     setIsOpen(false);
-  };
-
-  const openModal = () => {
-    setIsOpen(true);
   };
 
   const switchModal = () => {
@@ -29,12 +25,20 @@ export const Modal = ({ typeModal }: iModalProps) => {
       case "registerSuccessfully":
         return (
           <div className="flex flex-col gap-[40px]">
-            <Dialog.Title
-              as="h3"
-              className="text-lg font-medium leading-6 text-gray-900"
-            >
-              Sucesso!
-            </Dialog.Title>
+            <div className="h-[50px] flex justify-between">
+              <Dialog.Title
+                as="h3"
+                className="text-lg font-medium leading-6 text-gray-900"
+              >
+                Sucesso!
+              </Dialog.Title>
+              <p
+                onClick={() => setIsOpen(false)}
+                className="text-grey-3 font-bold cursor-pointer"
+              >
+                X
+              </p>
+            </div>
             <div className="flex flex-col gap-[20px]">
               <Dialog.Title
                 as="h3"
@@ -55,10 +59,27 @@ export const Modal = ({ typeModal }: iModalProps) => {
                   variant="brand1"
                   text="Ir para o login"
                   className="outline-none px-[24px] py-[6px]"
-                  onClick={() => navigate("/login")}
+                  onClick={() => {
+                    setIsOpen(false);
+                    navigate("/login");
+                  }}
                 />
               </div>
             </div>
+          </div>
+        );
+      case "asideFilter":
+        return (
+          <div className="flex flex-col items-center gap-[42px]">
+            <AsideFilter />
+            <Button
+              type="button"
+              size="medium"
+              variant="brand1"
+              text="Ver anúncios"
+              className="outline-none px-[24px] py-[6px] max-w-[279px] w-full self-center"
+              onClick={() => setIsOpen(false)}
+            />
           </div>
         );
     }
