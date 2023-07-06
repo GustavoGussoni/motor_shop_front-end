@@ -58,7 +58,6 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
   };
 
   const postAnnouncement = async (data: iFormAnnouncement) => {
-    console.log(user_token);
     try {
       const request = await api.post(
         "/announcement",
@@ -78,7 +77,6 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
     data: iFormEditAnnouncement
   ) => {
     try {
-      console.log(data);
       const request = await api.patch(
         `announcement/${announcementId}`,
         { ...data },

@@ -193,7 +193,6 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
       const request = await api.get("announcement");
 
       const data = await request.data.data;
-      console.log(data);
 
       const find_user_announcements = data.filter((el: iAnnouncementProps) => {
         return el.userId === userId;
@@ -209,7 +208,6 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
       const request = await api.get("announcement");
 
       const data = await request.data;
-      console.log(data);
       setAllAnnouncements(data.data);
     } catch (error) {
       console.log(error);
@@ -232,13 +230,11 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
     try {
       let request = await api.get(`announcement?group=brand`);
       let data = await request.data;
-      console.log(data);
       const brand = Object.keys(data);
       filterData.brand = brand;
 
       request = await api.get(`announcement?group=model`);
       data = await request.data;
-      console.log(data);
       const model = Object.keys(data);
       filterData.model = model;
 
