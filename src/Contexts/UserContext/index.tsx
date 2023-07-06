@@ -15,6 +15,7 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
   const [models, setModels] = useState([]);
   const [brands, setBrands] = useState<string[] | []>([]);
   const [modelSelected, setModelSelected] = useState(null);
+  const { comments, setComments } = useContext(AuthContext);
 
   const { setUserAnnouncements } = useContext(AuthContext);
 
@@ -108,10 +109,35 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
       const request = await api.delete(`/comments/${commentId}`, {
         headers: { Authorization: `Bearer ${user_token}` },
       });
+      console.log(request.data);
       toast.success("Comentário deletado com sucesso");
       return request.status;
     } catch (error: any) {
       toast.error(error.response.data.message);
+    }
+  };
+
+  const editComment = async (id: string, data: string) => {
+    try {
+      const request = await api.patch(
+        `/comments/${id}`,
+        { comments: data },
+        {
+          headers: { Authorization: `Bearer ${user_token}` },
+        }
+      );
+
+      const newData = comments.filter((comment) => {
+        if (comment.id === id) {
+          comment.comments = request.data.comments;
+          comment.created_at = new Date();
+        }
+        return comment.comments;
+      });
+
+      setComments(newData);
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -130,6 +156,7 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
         patchAnnouncement,
         getOneCar,
         deleteComment,
+        editComment,
       }}
     >
       {children}

@@ -52,6 +52,7 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
     try {
       const request = await api.post("login", data);
       if (request) {
+        api.defaults.headers.common.authorization = `Bearer ${request.data.token}`;
         toast.update(id, {
           render: "Login realizado com sucesso!",
           type: "success",
@@ -82,8 +83,7 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
     try {
       setLoading(true);
       const request = await api.post("users", data);
-
-      if (request) {
+      if (request.statusText === "Created") {
         setUser(request.data);
         setIsOpen(true);
       }
@@ -97,16 +97,18 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
 
   const userUpdateProfile = async (
     data: iProfileEditProps,
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>,
     userId: string | undefined
   ) => {
     const id = toast.loading("Verificando dados...");
     try {
+      setLoading(true);
       const request = await api.patch(`users/${userId}`, data, {
         headers: {
           Authorization: `Bearer ${user_token}`,
         },
       });
-      if (request) {
+      if (request.statusText === "OK") {
         toast.update(id, {
           render: "Usuário atualizado com sucesso",
           type: "success",
@@ -122,18 +124,20 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
         isLoading: false,
         autoClose: 1000,
       });
+    } finally {
+      setLoading(false);
     }
   };
 
-  const userDeleteProfile = async (userId: string | undefined) => {
+  const userDeleteProfile = async (
+    userId: string | undefined,
+    setLoading: React.Dispatch<React.SetStateAction<boolean>>
+  ) => {
     const id = toast.loading("Verificando dados...");
     try {
-      const request = await api.delete(`users/${userId}`, {
-        headers: {
-          Authorization: `Bearer ${user_token}`,
-        },
-      });
-      if (request) {
+      setLoading(true);
+      const request = await api.delete(`users/${userId}`);
+      if (request.statusText === "No Content") {
         destroyCookie(null, "user_token");
         destroyCookie(null, "user_email");
         toast.update(id, {
@@ -153,6 +157,8 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
         isLoading: false,
         autoClose: 1000,
       });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -196,6 +202,7 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
       const request = await api.get("announcement");
 
       const data = await request.data.data;
+      console.log(data);
 
       const find_user_announcements = data.filter((el: iAnnouncementProps) => {
         return el.userId === userId;
@@ -211,6 +218,7 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
       const request = await api.get("announcement");
 
       const data = await request.data;
+      console.log(data);
       setAllAnnouncements(data.data);
     } catch (error) {
       console.log(error);
@@ -229,14 +237,17 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
 
   const getAnnouncementsFiltered = async () => {
     setRenderAll(true);
+    // setAllAnnouncements(allAnnouncements);
     try {
       let request = await api.get(`announcement?group=brand`);
       let data = await request.data;
+      console.log(data);
       const brand = Object.keys(data);
       filterData.brand = brand;
 
       request = await api.get(`announcement?group=model`);
       data = await request.data;
+      console.log(data);
       const model = Object.keys(data);
       filterData.model = model;
 
@@ -266,6 +277,7 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
       filterData.price = price;
 
       setFilter(filterData);
+      // setAllAnnouncements(data);
     } catch (error) {
       console.log(error);
     }
@@ -287,6 +299,7 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
     try {
       const request = await api.get(`/announcement/${announcementId}`);
       const data = request.data;
+      // localStorage.setItem("cudecurioso", dataString);
       const expirationDate = new Date();
       expirationDate.setDate(expirationDate.getDate() + 1);
       const dataString = JSON.stringify(data);
@@ -308,15 +321,7 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
     const id = toast.loading("Verificando dados...");
     try {
       setLoading(true);
-      const request = await api.patch(
-        `users/${userId}`,
-        { address: data },
-        {
-          headers: {
-            Authorization: `Bearer ${user_token}`,
-          },
-        }
-      );
+      const request = await api.patch(`users/${userId}`, { address: data });
       if (request) {
         toast.update(id, {
           render: "Endereço atualizado com sucesso!",

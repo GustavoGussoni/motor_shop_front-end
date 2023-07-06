@@ -1,10 +1,9 @@
 import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { useContext, useState } from "react";
 import { UserContext } from "../../Contexts/UserContext";
-import { ModalDefault } from "../ModalDefault";
-import { DeleteComment } from "../DeleteComment";
+import { Button } from "../Button";
 
-interface iCommentsProps {
+interface iCommentsCardProps {
     id: string;
     comments: string;
     created_at: Date;
@@ -13,10 +12,23 @@ interface iCommentsProps {
     };
 }
 
-export const CardComents = ({ comments, user, created_at, id }: iCommentsProps) => {
-    const { deleteComment } = useContext(UserContext);
-    const [openDeleteComment, setOpenDeleteComment] = useState(false);
-    const [openEditComment, setOpenEditComment] = useState(false);
+export const CardComents = ({ comments, user, created_at, id }: iCommentsCardProps) => {
+    const { deleteComment, editComment } = useContext(UserContext);
+    const [editing, setEditing] = useState(false);
+    const [comment, setComment] = useState("");
+
+    const handleClick = () => {
+        if (!editing) {
+            setEditing(true);
+        } else {
+            setEditing(false);
+        }
+    };
+
+    const handleNewComment = async (id: string, data: string) => {
+        await editComment(id, data);
+        setEditing(false);
+    };
 
     const delComment = () => {
         deleteComment(id);
@@ -76,9 +88,9 @@ export const CardComents = ({ comments, user, created_at, id }: iCommentsProps) 
 
     return (
         <li className='flex gap-2 flex-col'>
-            <ModalDefault open={openDeleteComment} setOpen={setOpenDeleteComment}>
+            {/* <ModalDefault open={openDeleteComment} setOpen={setOpenDeleteComment}>
                 <DeleteComment setOpenDelete={setOpenDeleteComment} />
-            </ModalDefault>
+            </ModalDefault> */}
             <div className='flex items-center gap-3'>
                 <div
                     className={`rounded-full w-8 h-8 ${randomColorClass} flex items-center justify-center`}
@@ -93,14 +105,35 @@ export const CardComents = ({ comments, user, created_at, id }: iCommentsProps) 
                     {calculateElapsedTime(new Date(created_at))}
                 </span>
                 <div className='flex gap-5'>
-                    <PencilIcon
-                        className='w-5 h-5 cursor-pointer'
-                        onClick={() => setOpenEditComment(true)}
-                    />
+                    <PencilIcon className='w-5 h-5 cursor-pointer' onClick={handleClick} />
                     <TrashIcon className='w-5 h-5 cursor-pointer' onClick={delComment} />
                 </div>
             </div>
-            <p className='font-normal text-grey-2 text-sm'>{comments}</p>
+            {editing ? (
+                <textarea
+                    className='border-2 border-brand4 p-2 rounded-2'
+                    defaultValue={comments}
+                    onChange={(e) => setComment(e.target.value)}
+                ></textarea>
+            ) : (
+                <p className='font-normal text-grey-2 text-sm'>{comments}</p>
+            )}
+            {editing ? (
+                <div className='flex gap-3'>
+                    <Button
+                        text='Salvar alterações'
+                        size='big'
+                        variant='brand4'
+                        onClick={() => handleNewComment(id, comment)}
+                    ></Button>
+                    <Button
+                        text='Cancelar'
+                        size='big'
+                        variant='greyDisable'
+                        onClick={handleClick}
+                    ></Button>
+                </div>
+            ) : null}
         </li>
     );
 };
