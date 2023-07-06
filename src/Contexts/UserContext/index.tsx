@@ -1,10 +1,12 @@
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import { iUserContext, iUserProviderProps } from "./@types";
 import { toast } from "react-toastify";
 import { api, carsApi } from "../../Services";
 import { parseCookies } from "nookies";
 import { iFormEditAnnouncement } from "../../Components/Form/FormEditAnnouncement/@types";
 import { iFormAnnouncement } from "../../Components/Form/FormRegisterAnnouncement/@types";
+import { AuthContext } from "../AuthContext";
+import { iAnnouncementProps } from "../AuthContext/@types";
 
 export const UserContext = createContext({} as iUserContext);
 
@@ -13,6 +15,8 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
   const [models, setModels] = useState([]);
   const [brands, setBrands] = useState<string[] | []>([]);
   const [modelSelected, setModelSelected] = useState(null);
+
+  const { setUserAnnouncements } = useContext(AuthContext);
 
   const cookies = parseCookies();
   const { user_token } = cookies;
@@ -25,7 +29,7 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
       setBrands(Object.keys(request.data));
       getModels(Object.keys(request.data)[0]);
       return request.data;
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.response.data.message);
     }
   };
@@ -35,7 +39,7 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
       const request = await carsApi.get(`cars/?brand=${brand}`);
       setModels(request.data);
       return request.data;
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.response.data.message);
     }
   };
@@ -52,7 +56,7 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
       );
 
       return request.data;
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.response.data.message);
     }
   };
@@ -65,8 +69,13 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
         { headers: { Authorization: `Bearer ${user_token}` } }
       );
       toast.success("Anúncio criado com sucesso");
+
+      console.log("post", request.data);
+
+      setUserAnnouncements((announcements) => [...announcements, request.data]);
+
       return request.status;
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.response.data.message);
     }
   };
@@ -82,8 +91,16 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
         { headers: { Authorization: `Bearer ${user_token}` } }
       );
       toast.success("Anúncio editado com sucesso");
+
+      setUserAnnouncements((announcements: any) => {
+        const index = announcements.findIndex(
+          (elem: iAnnouncementProps) => elem.id === announcementId
+        );
+        announcements[index] = request.data;
+        return [...announcements];
+      });
       return request.status;
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.response.data.message);
     }
   };
@@ -96,7 +113,7 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
       console.log(request.data);
       toast.success("Comentário deletado com sucesso");
       return request.status;
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error.response.data.message);
     }
   };

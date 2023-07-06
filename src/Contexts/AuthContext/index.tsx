@@ -58,6 +58,8 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
           isLoading: false,
           autoClose: 1000,
         });
+        destroyCookie(null, "user_token");
+        destroyCookie(null, "user_email");
         setCookie(null, "user_token", request.data.token);
         setCookie(null, "user_email", data.email);
         navigate("");
@@ -177,8 +179,15 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
         (el: iUserProps) => el.email === user_email
       );
       return setUser(find_user[0]);
-    } catch (error) {
-      console.error(error);
+    } catch (error: any) {
+      toast(error.response.data.message);
+      console.log(error);
+      if (error.response.data.status === 401) {
+        setUser(null);
+        destroyCookie(null, "user_token");
+        destroyCookie(null, "user_email");
+        navigate("/login");
+      }
     }
   };
 
@@ -387,6 +396,7 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
         userLogout,
         getUserAnnouncement,
         userAnnouncements,
+        setUserAnnouncements,
         getAllAnnouncement,
         allAnnouncements,
         getAnnouncementById,
