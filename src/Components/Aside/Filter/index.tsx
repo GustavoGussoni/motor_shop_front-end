@@ -102,7 +102,6 @@ const AsideFilter = ({ className }: any) => {
       });
       filterData.price = filterPrice;
 
-      console.log(filterModels);
       setFilter(filterData);
       setAnnouncementsFiltered(announcements);
     }
@@ -161,7 +160,6 @@ const AsideFilter = ({ className }: any) => {
       });
       filterData.price = filterPrice;
 
-      // console.log()filterModels;
       setFilter(filterData);
       setAnnouncementsFiltered(announcements);
     }
@@ -220,7 +218,6 @@ const AsideFilter = ({ className }: any) => {
       });
       filterData.price = filterPrice;
 
-      // console.log()filterModels;
       setFilter(filterData);
       setAnnouncementsFiltered(announcements);
     }
@@ -279,7 +276,6 @@ const AsideFilter = ({ className }: any) => {
       });
       filterData.price = filterPrice;
 
-      console.log(filterModels);
       setFilter(filterData);
       setAnnouncementsFiltered(announcements);
     }

@@ -8,8 +8,7 @@ interface iCard {
 }
 
 const Card = ({ data }: iCard) => {
-  console.log(data.userId);
-  const { navigate, getAnnouncementById } = useContext(AuthContext);
+  const { navigate, setAnnouncementId } = useContext(AuthContext);
 
   const getFirstLetterOfEachWord = (username: string) => {
     const words = username.split(" ");
@@ -42,7 +41,10 @@ const Card = ({ data }: iCard) => {
   };
 
   const handleProduct = async (announcementId: string) => {
-    await getAnnouncementById(announcementId);
+    setAnnouncementId(announcementId)
+    const dataString = JSON.stringify(data)
+
+    setCookie(null, 'announcement_data', dataString)
 
     navigate("/product");
   };

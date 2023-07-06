@@ -10,7 +10,6 @@ export const ProtectRoute = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(user_token);
     if (!user_token) {
       setUser(null);
       return navigate("");

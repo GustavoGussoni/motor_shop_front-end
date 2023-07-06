@@ -26,7 +26,6 @@ export const AdminProfile = () => {
       try {
         await getUserData();
         await getUserAnnouncement(user!.id);
-        console.log(userAnnouncements);
 
         setIsLoading(false);
       } catch (error) {
