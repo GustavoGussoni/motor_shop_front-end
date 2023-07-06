@@ -2,10 +2,11 @@ import { Button } from "../Button";
 import { Menu, Transition } from "@headlessui/react";
 import imgLogo from "../../Assets/Motors shop.png";
 import { AuthContext } from "../../Contexts/AuthContext";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import { parseCookies } from "nookies";
 import { Modal } from "../Modals";
+
 
 export const Header = () => {
   const {
@@ -20,6 +21,7 @@ export const Header = () => {
     setRenderAll,
     getAnnouncementsFiltered,
   } = useContext(AuthContext);
+  const [isLoading, setIsLoading] = useState(true);
   const cookies = parseCookies();
   const { user_token } = cookies;
 
@@ -27,7 +29,9 @@ export const Header = () => {
     const getUser = async () => {
       try {
         await getUserData();
+        setIsLoading(false);
       } catch (error) {
+        setIsLoading(false);
         return error;
       }
     };

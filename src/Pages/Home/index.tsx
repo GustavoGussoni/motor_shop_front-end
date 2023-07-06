@@ -7,7 +7,6 @@ import { Header } from "../../Components/Header";
 import { useContext } from "react";
 import { AuthContext } from "../../Contexts/AuthContext";
 import { Button } from "../../Components/Button";
-import { Modal } from "../../Components/Modals";
 
 export const Home = () => {
   const {
@@ -16,10 +15,6 @@ export const Home = () => {
     setRenderAll,
     getAllAnnouncement,
     allAnnouncements,
-    isOpen,
-    typeModal,
-    setTypeModal,
-    setIsOpen,
   } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -37,12 +32,9 @@ export const Home = () => {
     getAnnoucements();
   }, []);
 
-  console.log(isOpen);
-
   if (isLoading || !allAnnouncements) {
     return (
       <div className="bg-gray-100 max-h-full">
-        {isOpen && <Modal typeModal={typeModal} />}
         <Header />
         <div className="relative z-[1] bg-brand-1 h-[17rem]" />
         <div className="bg-gray-100 absolute top-[78px] h-[100vh] w-full">
@@ -113,10 +105,7 @@ export const Home = () => {
             variant="brand1"
             size="medium"
             text="Filtro"
-            onClick={() => {
-              setIsOpen(true);
-              setTypeModal("asideFilter");
-            }}
+            // onClick={() => ())
             className="max-w-[279px] w-full  sm:hidden "
           />
           {/* <HeadingText tag="heading-5-600" className="text-brand-2">

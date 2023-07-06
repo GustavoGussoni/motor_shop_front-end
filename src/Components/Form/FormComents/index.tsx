@@ -6,6 +6,7 @@ import { api } from "../../../Services";
 export const FormComents = () => {
   const [comment, setComment] = useState("");
   const [selectedOption, setSelectedOption] = useState("");
+  const [isLogged, setIsLogged] = useState(true);
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
   const navigate = useNavigate();
   const { announcement, user, comments, setComments, user_token } =

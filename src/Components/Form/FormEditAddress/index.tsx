@@ -23,7 +23,6 @@ export const EditAddress = () => {
   const onSubmit = (data: iAddressProps) => {
     const { number, ...rest } = data;
     const newObject = { number: Number(number), ...rest };
-    console.log(newObject);
     editAddress(newObject, setLoading);
   };
 

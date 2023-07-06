@@ -1,18 +1,19 @@
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import { iUserContext, iUserProviderProps } from "./@types";
 import { toast } from "react-toastify";
 import { api, carsApi } from "../../Services";
 import { parseCookies } from "nookies";
 import { iFormEditAnnouncement } from "../../Components/Form/FormEditAnnouncement/@types";
 import { iFormAnnouncement } from "../../Components/Form/FormRegisterAnnouncement/@types";
+import { AuthContext } from "../AuthContext";
 
 export const UserContext = createContext({} as iUserContext);
 
 export const UserProvider = ({ children }: iUserProviderProps) => {
-  const [cars, setCars] = useState([]);
-  const [models, setModels] = useState([]);
-  const [brands, setBrands] = useState<string[] | []>([]);
-  const [modelSelected, setModelSelected] = useState(null);
+    const [cars, setCars] = useState([]);
+    const [models, setModels] = useState([]);
+    const [brands, setBrands] = useState<string[] | []>([]);
+    const [modelSelected, setModelSelected] = useState(null);
 
   const cookies = parseCookies();
   const { user_token } = cookies;
@@ -88,37 +89,38 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
     }
   };
 
-  const deleteComment = async (commentId: string) => {
-    try {
-      const request = await api.delete(`/comments/${commentId}`, {
-        headers: { Authorization: `Bearer ${user_token}` },
-      });
-      console.log(request.data);
-      toast.success("Comentário deletado com sucesso");
-      return request.status;
-    } catch (error) {
-      toast.error(error.response.data.message);
-    }
-  };
+    const deleteComment = async (commentId: string) => {
+        try {
+            const request = await api.delete(`/comments/${commentId}`, {
+                headers: { Authorization: `Bearer ${user_token}` },
+            });
+            console.log(request.data)
+            toast.success("Comentário deletado com sucesso");
+            return request.status;
+        } catch (error) {
+            console.log(error,'erro')
+            toast.error(error.response.data.message);
+        }
+    };
 
-  return (
-    <UserContext.Provider
-      value={{
-        cars,
-        setCars,
-        getCars,
-        models,
-        getModels,
-        brands,
-        modelSelected,
-        postAnnouncement,
-        setModelSelected,
-        patchAnnouncement,
-        getOneCar,
-        deleteComment,
-      }}
-    >
-      {children}
-    </UserContext.Provider>
-  );
+    return (
+        <UserContext.Provider
+            value={{
+                cars,
+                setCars,
+                getCars,
+                models,
+                getModels,
+                brands,
+                modelSelected,
+                postAnnouncement,
+                setModelSelected,
+                patchAnnouncement,
+                getOneCar,
+                deleteComment,
+            }}
+        >
+            {children}
+        </UserContext.Provider>
+    );
 };

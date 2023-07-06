@@ -36,6 +36,7 @@ const Card = ({ data }: iCard) => {
   const randomColorClass = getRandomColorClass();
 
   const handleUser = (userId: string) => {
+    console.log(userId);
     setCookie(null, "user_id", userId);
     navigate("/profile/user");
   };

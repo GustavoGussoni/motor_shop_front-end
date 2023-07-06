@@ -8,13 +8,15 @@ import { Card } from "../../Components/Card";
 import { parseCookies } from "nookies";
 
 export const UserProfile = () => {
-  const { userAnnouncements, getUserAnnouncement } = useContext(AuthContext);
+  const { getUserData, user, userAnnouncements, getUserAnnouncement } =
+    useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const getUser = async () => {
       try {
         scrollTo(0, 0);
+        // getUserData();
         const cookies = parseCookies();
         const { user_id } = cookies;
 

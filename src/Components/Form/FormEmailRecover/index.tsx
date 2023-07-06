@@ -27,8 +27,8 @@ export const FormEmailRecover = ({ setOpen }: iFormEmailRecoverProps) => {
       const request = await api.post("users/resetPassword", data);
       toast.success(request.data.message);
       return request;
-    } catch (err: unknown) {
-      toast.error("Erro no servidor");
+    } catch (err) {
+      toast.error(err.response.data.message || "Erro no servidor");
     }
   };
 
