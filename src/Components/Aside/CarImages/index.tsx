@@ -19,7 +19,6 @@ export const CarImages = ({
           onClick={() => {
             setViewImage(data.image);
             setOpenViewImage(true);
-            console.log("clicou");
           }}
         />
       </div>

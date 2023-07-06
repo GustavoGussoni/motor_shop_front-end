@@ -23,10 +23,8 @@ const AsideFilter = ({ className }: any) => {
     const getFilter = async () => {
       try {
         await getAnnouncementsFiltered();
-        console.log(allAnnouncements);
         setIsLoading(false);
       } catch (error) {
-        console.log(error);
         setIsLoading(false);
       }
     };

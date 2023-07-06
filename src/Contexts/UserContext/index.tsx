@@ -70,8 +70,6 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
       );
       toast.success("Anúncio criado com sucesso");
 
-      console.log("post", request.data);
-
       setUserAnnouncements((announcements) => [...announcements, request.data]);
 
       return request.status;
@@ -110,7 +108,6 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
       const request = await api.delete(`/comments/${commentId}`, {
         headers: { Authorization: `Bearer ${user_token}` },
       });
-      console.log(request.data);
       toast.success("Comentário deletado com sucesso");
       return request.status;
     } catch (error: any) {
