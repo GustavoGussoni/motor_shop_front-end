@@ -52,7 +52,6 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
     try {
       const request = await api.post("login", data);
       if (request) {
-        api.defaults.headers.common.authorization = `Bearer ${request.data.token}`;
         toast.update(id, {
           render: "Login realizado com sucesso!",
           type: "success",
@@ -81,7 +80,8 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
     try {
       setLoading(true);
       const request = await api.post("users", data);
-      if (request.statusText === "Created") {
+
+      if (request) {
         setUser(request.data);
         setIsOpen(true);
       }
@@ -95,18 +95,16 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
 
   const userUpdateProfile = async (
     data: iProfileEditProps,
-    setLoading: React.Dispatch<React.SetStateAction<boolean>>,
     userId: string | undefined
   ) => {
     const id = toast.loading("Verificando dados...");
     try {
-      setLoading(true);
       const request = await api.patch(`users/${userId}`, data, {
         headers: {
           Authorization: `Bearer ${user_token}`,
         },
       });
-      if (request.statusText === "OK") {
+      if (request) {
         toast.update(id, {
           render: "Usuário atualizado com sucesso",
           type: "success",
@@ -122,20 +120,18 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
         isLoading: false,
         autoClose: 1000,
       });
-    } finally {
-      setLoading(false);
     }
   };
 
-  const userDeleteProfile = async (
-    userId: string | undefined,
-    setLoading: React.Dispatch<React.SetStateAction<boolean>>
-  ) => {
+  const userDeleteProfile = async (userId: string | undefined) => {
     const id = toast.loading("Verificando dados...");
     try {
-      setLoading(true);
-      const request = await api.delete(`users/${userId}`);
-      if (request.statusText === "No Content") {
+      const request = await api.delete(`users/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${user_token}`,
+        },
+      });
+      if (request) {
         destroyCookie(null, "user_token");
         destroyCookie(null, "user_email");
         toast.update(id, {
@@ -155,8 +151,6 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
         isLoading: false,
         autoClose: 1000,
       });
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -226,7 +220,6 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
 
   const getAnnouncementsFiltered = async () => {
     setRenderAll(true);
-    // setAllAnnouncements(allAnnouncements);
     try {
       let request = await api.get(`announcement?group=brand`);
       let data = await request.data;
@@ -264,7 +257,6 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
       filterData.price = price;
 
       setFilter(filterData);
-      // setAllAnnouncements(data);
     } catch (error) {
       console.log(error);
     }
@@ -286,7 +278,6 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
     try {
       const request = await api.get(`/announcement/${announcementId}`);
       const data = request.data;
-      // localStorage.setItem("cudecurioso", dataString);
       const expirationDate = new Date();
       expirationDate.setDate(expirationDate.getDate() + 1);
       const dataString = JSON.stringify(data);
@@ -308,7 +299,15 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
     const id = toast.loading("Verificando dados...");
     try {
       setLoading(true);
-      const request = await api.patch(`users/${userId}`, { address: data });
+      const request = await api.patch(
+        `users/${userId}`,
+        { address: data },
+        {
+          headers: {
+            Authorization: `Bearer ${user_token}`,
+          },
+        }
+      );
       if (request) {
         toast.update(id, {
           render: "Endereço atualizado com sucesso!",

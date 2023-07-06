@@ -67,7 +67,6 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
       toast.success("Anúncio criado com sucesso");
       return request.status;
     } catch (error) {
-      console.log(error);
       toast.error(error.response.data.message);
     }
   };
@@ -89,6 +88,19 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
     }
   };
 
+  const deleteComment = async (commentId: string) => {
+    try {
+      const request = await api.delete(`/comments/${commentId}`, {
+        headers: { Authorization: `Bearer ${user_token}` },
+      });
+      console.log(request.data);
+      toast.success("Comentário deletado com sucesso");
+      return request.status;
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
+
   return (
     <UserContext.Provider
       value={{
@@ -103,6 +115,7 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
         setModelSelected,
         patchAnnouncement,
         getOneCar,
+        deleteComment,
       }}
     >
       {children}

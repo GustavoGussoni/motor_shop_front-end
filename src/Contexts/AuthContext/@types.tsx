@@ -34,6 +34,7 @@ export interface iUserProps {
 }
 
 export interface iCommentsProps {
+  id: string;
   comments: string;
   created_at: Date;
   user: {
@@ -116,15 +117,11 @@ export interface iAuthContext {
   ) => Promise<void>;
   userUpdateProfile: (
     data: iProfileEditProps,
-    setLoading: React.Dispatch<React.SetStateAction<boolean>>,
     userId: string | undefined
   ) => void;
   typeModal: string;
   setTypeModal: React.Dispatch<React.SetStateAction<string>>;
-  userDeleteProfile: (
-    userId: string | undefined,
-    setLoading: React.Dispatch<React.SetStateAction<boolean>>
-  ) => Promise<void>;
+  userDeleteProfile: (userId: string | undefined) => Promise<void>;
   deleteAnnouncement: (announcementId: string) => Promise<void>;
   setAnnouncement: React.Dispatch<
     React.SetStateAction<iAnnouncementProps | null>
