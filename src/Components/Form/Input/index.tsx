@@ -10,7 +10,6 @@ export const Input = ({
   value,
   className,
   defaultValue,
-  onBlur,
   onChange,
 }: iInputForm) => {
   return (

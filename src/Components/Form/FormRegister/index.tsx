@@ -36,6 +36,7 @@ export const FormRegister = () => {
       const newValue = data.address.number;
       data.address.number = Number(newValue);
     }
+    console.log(data);
     userRegister(data, setLoading);
     setIsOpen(false);
   };
@@ -245,7 +246,6 @@ export const FormRegister = () => {
         disabled={!isValid}
         onClick={() => {
           setTypeModal("registerSuccessfully");
-          setIsOpen(true);
         }}
       />
     </form>
