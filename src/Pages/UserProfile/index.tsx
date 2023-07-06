@@ -1,14 +1,15 @@
-import { Header } from '../../Components/Header';
-import { HeadingText } from '../../Style/HeadingText';
-import { HeadingTextBody } from '../../Style/HeadingBodyText';
-import { Footer } from '../../Components/Footer';
-import { useContext, useEffect, useState } from 'react';
-import { AuthContext } from '../../Contexts/AuthContext';
-import { Card } from '../../Components/Card';
-import { parseCookies } from 'nookies';
+import { Header } from "../../Components/Header";
+import { HeadingText } from "../../Style/HeadingText";
+import { HeadingTextBody } from "../../Style/HeadingBodyText";
+import { Footer } from "../../Components/Footer";
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../Contexts/AuthContext";
+import { Card } from "../../Components/Card";
+import { parseCookies } from "nookies";
 
 export const UserProfile = () => {
-  const { getUserData, user, userAnnouncements, getUserAnnouncement } = useContext(AuthContext);
+  const { getUserData, user, userAnnouncements, getUserAnnouncement } =
+    useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -31,9 +32,9 @@ export const UserProfile = () => {
   }, []);
 
   const GetFirstLetterOfEachWord = (username: string) => {
-    const words = username.split(' ');
+    const words = username.split(" ");
     const firstWords = words.map((word) => word.charAt(0));
-    return firstWords.join('');
+    return firstWords.join("");
   };
   if (isLoading || !userAnnouncements) {
     return (
@@ -61,7 +62,9 @@ export const UserProfile = () => {
               {GetFirstLetterOfEachWord(userAnnouncements[0].user.name)}
             </div>
             <div className="flex gap-3">
-              <HeadingText tag="heading-6-600">{userAnnouncements[0].user.name}</HeadingText>
+              <HeadingText tag="heading-6-600">
+                {userAnnouncements[0].user.name}
+              </HeadingText>
               {userAnnouncements[0].user.is_advertiser ? (
                 <p className="flex items-center h-[32px] bg-brand-4 px-2 py-1 text-brand-1 text-body-2 rounded font-medium">
                   Anunciante
@@ -69,14 +72,19 @@ export const UserProfile = () => {
               ) : null}
             </div>
 
-            <HeadingTextBody tag="body-1-400" className="w-[100%] text-start text-grey-2 sm:max-w-[352px]">
+            <HeadingTextBody
+              tag="body-1-400"
+              className="w-[100%] text-start text-grey-2 sm:max-w-[352px]"
+            >
               {userAnnouncements[0].user.description}
             </HeadingTextBody>
           </div>
         </main>
         <div className="flex bg-gray-100 flex-col sm:justify-between sm:w-full">
           <div className="flex px-14 items-center justify-between w-full">
-            <h1 className="text-heading-5 font-600 font-sans leading-8">Anúncios</h1>
+            <h1 className="text-heading-5 font-600 font-sans leading-8">
+              Anúncios
+            </h1>
           </div>
           <main>
             <ul className="flex flex-nowrap flex-row justify-start gap-[46px] overflow-x-auto sm:w-full sm:gap-2 sm:max-w-full sm:h-full sm:justify-center sm:flex-wrap sm:overflow-x-hidden">
