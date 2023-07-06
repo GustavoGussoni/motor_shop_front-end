@@ -36,15 +36,16 @@ const Card = ({ data }: iCard) => {
   const randomColorClass = getRandomColorClass();
 
   const handleUser = (userId: string) => {
+    console.log(userId);
     setCookie(null, "user_id", userId);
     navigate("/profile/user");
   };
 
   const handleProduct = async (announcementId: string) => {
-    setAnnouncementId(announcementId)
-    const dataString = JSON.stringify(data)
+    setAnnouncementId(announcementId);
+    const dataString = JSON.stringify(data);
 
-    setCookie(null, 'announcement_data', dataString)
+    setCookie(null, "announcement_data", dataString);
 
     navigate("/product");
   };

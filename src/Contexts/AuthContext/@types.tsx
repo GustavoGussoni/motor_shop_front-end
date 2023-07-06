@@ -142,4 +142,5 @@ export interface iAuthContext {
     React.SetStateAction<iAnnouncementProps[] | []>
   >;
   filterData: iGetAnnouncementFilter;
+  getAnnouncementByQuery: (key: string, value: string) => Promise<any>;
 }

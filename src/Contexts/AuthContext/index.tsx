@@ -184,11 +184,7 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
       );
       return setUser(find_user[0]);
     } catch (error) {
-      if (error.response.data.status === 401) {
-        navigate("");
-        setUser(null);
-      }
-      toast.error(error.response.data.message);
+      console.error(error);
     }
   };
 
@@ -196,7 +192,8 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
     try {
       const request = await api.get("announcement");
 
-      const data = await request.data;
+      const data = await request.data.data;
+      console.log(data);
 
       const find_user_announcements = data.filter((el: iAnnouncementProps) => {
         return el.userId === userId;
@@ -212,6 +209,7 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
       const request = await api.get("announcement");
 
       const data = await request.data;
+      console.log(data);
       setAllAnnouncements(data.data);
     } catch (error) {
       console.log(error);
@@ -234,11 +232,13 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
     try {
       let request = await api.get(`announcement?group=brand`);
       let data = await request.data;
+      console.log(data);
       const brand = Object.keys(data);
       filterData.brand = brand;
 
       request = await api.get(`announcement?group=model`);
       data = await request.data;
+      console.log(data);
       const model = Object.keys(data);
       filterData.model = model;
 
@@ -271,6 +271,16 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
       // setAllAnnouncements(data);
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const getAnnouncementByQuery = async (key: string, value: string) => {
+    try {
+      const request = await api.get(`announcement?${key}=${value}`);
+      const data = request.data.data;
+      return data;
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -405,6 +415,7 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
         announcementsFiltered,
         setAnnouncementsFiltered,
         filterData,
+        getAnnouncementByQuery,
       }}
     >
       {children}

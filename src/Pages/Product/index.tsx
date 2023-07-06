@@ -39,7 +39,6 @@ export const Product = () => {
     getAnnouncement();
   }, []);
 
-
   if (!isLoading) {
     return (
       <div className="bg-gray-100 max-h-full">
