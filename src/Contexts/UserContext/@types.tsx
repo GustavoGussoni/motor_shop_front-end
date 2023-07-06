@@ -34,4 +34,5 @@ export interface iUserContext {
     year: string,
     fuel: number
   ) => Promise<iModel | null>;
+  deleteComment: (commentId: string) => Promise<number | undefined>
 }
