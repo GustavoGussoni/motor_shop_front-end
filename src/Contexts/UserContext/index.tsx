@@ -26,7 +26,7 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
       getModels(Object.keys(request.data)[0]);
       return request.data;
     } catch (error) {
-      toast.error("");
+      toast.error(error.response.data.message);
     }
   };
 
@@ -36,7 +36,7 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
       setModels(request.data);
       return request.data;
     } catch (error) {
-      toast.error("");
+      toast.error(error.response.data.message);
     }
   };
 
@@ -53,7 +53,7 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
 
       return request.data;
     } catch (error) {
-      toast.error("");
+      toast.error(error.response.data.message);
     }
   };
 
@@ -67,7 +67,7 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
       toast.success("Anúncio criado com sucesso");
       return request.status;
     } catch (error) {
-      toast.error("");
+      toast.error(error.response.data.message);
     }
   };
 
@@ -84,7 +84,7 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
       toast.success("Anúncio editado com sucesso");
       return request.status;
     } catch (error) {
-      toast.error("");
+      toast.error(error.response.data.message);
     }
   };
 
@@ -97,8 +97,7 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
       toast.success("Comentário deletado com sucesso");
       return request.status;
     } catch (error) {
-      console.log(error, "erro");
-      toast.error("");
+      toast.error(error.response.data.message);
     }
   };
 
