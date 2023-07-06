@@ -31,6 +31,4 @@ export interface iUserContext {
     getOneCar: (brand: string, name: string, year: string, fuel: number) => Promise<iModel | null>;
     deleteComment: (commentId: string) => Promise<number | undefined>;
     editComment: (id: string, data: string) => Promise<void>;
-    setNewComment: React.Dispatch<React.SetStateAction<string>>;
-    newComment: string;
 }
