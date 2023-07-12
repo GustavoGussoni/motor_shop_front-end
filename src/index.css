@@ -47,11 +47,9 @@
   }
 
   .img-cars-product {
-    /* background-image: url(props); */
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    /* background-color: currentColor; */
-    /* object-fit: fill; */
+
   }
 }

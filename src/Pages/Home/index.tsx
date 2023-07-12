@@ -36,13 +36,15 @@ export const Home = () => {
     getAnnoucements();
   }, []);
 
-  const nextPage = async (url: string) => {
+
+  const nextPage = async (url: string | undefined) => {
     scrollTo(0, 0);
     setPageNum(pageNum + 1);
     await getAnnouncementPaginated(url);
   };
 
-  const prevPage = async (url: string) => {
+
+  const prevPage = async (url: string | undefined) => {
     scrollTo(0, 0);
     setPageNum(pageNum - 1);
     await getAnnouncementPaginated(url);
@@ -112,7 +114,9 @@ export const Home = () => {
                 {pagination?.prevPage ? (
                   <button
                     className="text-brand-2 hover:cursor-pointer hover:underline"
-                    onClick={() => prevPage(pagination.prevPage)}
+
+                    onClick={() => prevPage(pagination?.prevPage)}
+
                   >
                     {"< "} Voltar
                   </button>

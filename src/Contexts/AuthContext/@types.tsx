@@ -109,10 +109,13 @@ export interface iAuthContext {
   userLogout: () => void;
   getUserAnnouncement: (userId: string | undefined) => Promise<void>;
   userAnnouncements: iAnnouncementProps[];
+  setUserAnnouncements: React.Dispatch<
+    React.SetStateAction<iAnnouncementProps[]>
+  >;
   getAllAnnouncement: () => Promise<void>;
   allAnnouncements: [] | iAnnouncementProps[];
   getAnnouncementById: (
-    announcementId: string | undefined
+    announcementId: string
   ) => Promise<iAnnouncementProps | void>;
   announcement: iAnnouncementProps | null;
   user_token: string;
@@ -154,6 +157,6 @@ export interface iAuthContext {
     key: string,
     value: string
   ) => Promise<iAnnouncementProps | undefined>;
-  pagination: object | iPaginationProps;
-  getAnnouncementPaginated: (url: string) => Promise<void>;
+  pagination: iPaginationProps;
+  getAnnouncementPaginated: (url: string | undefined) => Promise<void>;
 }
