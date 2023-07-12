@@ -109,11 +109,12 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
       const request = await api.delete(`/comments/${commentId}`, {
         headers: { Authorization: `Bearer ${user_token}` },
       });
-      console.log(request.data);
+      window.location.reload();
       toast.success("Comentário deletado com sucesso");
       return request.status;
-    } catch (error: any) {
-      toast.error(error.response.data.message);
+    } catch (error) {
+      console.log(error, "erro");
+      toast.error("erro");
     }
   };
 
