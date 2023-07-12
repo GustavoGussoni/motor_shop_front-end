@@ -8,9 +8,9 @@ interface iCard {
 }
 
 const Card = ({ data }: iCard) => {
-  const { getUserAnnouncement, navigate, setAnnouncementId } =
-    useContext(AuthContext);
-  const GetFirstLetterOfEachWord = (username: string) => {
+  const { navigate, setAnnouncementId } = useContext(AuthContext);
+
+  const getFirstLetterOfEachWord = (username: string) => {
     const words = username.split(" ");
     const firstWords = words.map((word) => word.charAt(0));
     return firstWords.join("");
@@ -35,15 +35,18 @@ const Card = ({ data }: iCard) => {
 
   const randomColorClass = getRandomColorClass();
 
-  const handleUser = async (userId: string) => {
-    await getUserAnnouncement(userId);
+  const handleUser = (userId: string) => {
+    console.log(userId);
+    setCookie(null, "user_id", userId);
     navigate("/profile/user");
   };
 
-  const handleProduct = (announcementId: string) => {
+  const handleProduct = async (announcementId: string) => {
     setAnnouncementId(announcementId);
     const dataString = JSON.stringify(data);
+
     setCookie(null, "announcement_data", dataString);
+
     navigate("/product");
   };
 
@@ -81,7 +84,7 @@ const Card = ({ data }: iCard) => {
             className={`rounded-full w-8 h-8 ${randomColorClass} flex items-center justify-center`}
           >
             <p className="text-center text-white font-medium text-sm flex items-center justify-center">
-              {GetFirstLetterOfEachWord(data.user.name)}
+              {getFirstLetterOfEachWord(data.user?.name)}
             </p>
           </div>
           <h2 className="text-grey-1 text-sm font-medium">{data.user.name}</h2>

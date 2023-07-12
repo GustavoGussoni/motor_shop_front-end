@@ -5,7 +5,8 @@ interface iButton {
   className?: string;
   type?: "button" | "submit" | "reset" | undefined;
   disabled?: boolean;
-  onClick?: () => void;
+  onClick?: (e: any) => void;
+  register?: object;
 }
 
 const sizeStyle = {
@@ -40,6 +41,7 @@ export const Button = ({
   type,
   disabled,
   onClick,
+  register,
 }: iButton) => {
   return (
     <button
@@ -47,6 +49,7 @@ export const Button = ({
       type={type}
       disabled={disabled}
       onClick={onClick}
+      {...register}
     >
       {text}
     </button>

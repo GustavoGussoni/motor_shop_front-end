@@ -5,28 +5,28 @@ import { HeadingText } from "../../Style/HeadingText";
 import { Card } from "../../Components/Card";
 import { Header } from "../../Components/Header";
 import { useContext } from "react";
-import img from "../../Assets/embargo_23_01_bst_15_july_2020_911_turbo_rear_three_quarter-removebg.png";
 import { AuthContext } from "../../Contexts/AuthContext";
 import { Button } from "../../Components/Button";
 
 export const Home = () => {
   const {
-    setFilter,
     renderAll,
     announcementsFiltered,
     setRenderAll,
-    user,
     getAllAnnouncement,
     allAnnouncements,
-    isOpen,
+    pagination,
+    getAnnouncementPaginated,
   } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(true);
+  const [pageNum, setPageNum] = useState(1);
 
   useEffect(() => {
     const getAnnoucements = async () => {
       setRenderAll(true);
       try {
         await getAllAnnouncement();
+        console.log(pagination);
         setIsLoading(false);
       } catch (error) {
         setIsLoading(false);
@@ -35,6 +35,20 @@ export const Home = () => {
     };
     getAnnoucements();
   }, []);
+
+
+  const nextPage = async (url: string | undefined) => {
+    scrollTo(0, 0);
+    setPageNum(pageNum + 1);
+    await getAnnouncementPaginated(url);
+  };
+
+
+  const prevPage = async (url: string | undefined) => {
+    scrollTo(0, 0);
+    setPageNum(pageNum - 1);
+    await getAnnouncementPaginated(url);
+  };
 
   if (isLoading || !allAnnouncements) {
     return (
@@ -54,12 +68,8 @@ export const Home = () => {
   return (
     <React.Fragment>
       <Header />
-      <div className="bg-gradient-to-b flex relative items-center justify-center  from-brand-4 to-grey-0 to-90% h-1/3">
-        <img
-          src={img}
-          alt="Imagem carro"
-          className="bg-contain aspect-[2/1] "
-        />
+      <div className="bg-gradient-to-b flex relative items-center justify-center h-[40rem]  from-brand-4 to-grey-0 to-90%">
+        <div className="w-full max-w-[1500px] h-full bg-img" />
         <div className="absolute gap-2 flex w-full flex-col items-center justify-center">
           <HeadingText
             tag="heading-2-600"
@@ -79,11 +89,13 @@ export const Home = () => {
       <main className="flex flex-col w-full max-w-full container justify-center items-center sm:mx-auto sm:justify-between sm:w-full">
         <div className="flex w-full flex-row sm:justify-between sm:w-full">
           <AsideFilter className="hidden sm:flex " />
-          <ul className="flex flex-nowrap flex-row gap-[46px] overflow-x-auto max-w-full sm:w-full sm:gap-2 sm:max-w-full sm:h-full sm:items-start sm:justify-start sm:flex-wrap sm:overflow-x-hidden">
+          <ul className="flex flex-nowrap flex-row justify-start gap-[46px] overflow-x-auto max-w-full sm:w-full sm:gap-2 sm:max-w-full sm:h-full sm:items-start sm:justify-start sm:flex-wrap sm:overflow-x-hidden">
             {!isLoading ? (
               renderAll ? (
                 allAnnouncements.map((an) => {
-                  return <Card key={an.id} data={an} />;
+                  if (an !== undefined) {
+                    return <Card key={an.id} data={an} />;
+                  }
                 })
               ) : (
                 announcementsFiltered.map((an) => {
@@ -96,17 +108,55 @@ export const Home = () => {
           </ul>
         </div>
         <div className="flex max-w-[279px] w-[100%] justify-center flex-col self-center sm:flex-row gap-10 mb-11 mt-12">
-          <div className="flex self-center">
-            <HeadingText
-              tag="heading-5-600"
-              className="text-grey-3 mr-1 self-center"
-            >
-              1
-            </HeadingText>
-            <HeadingText tag="heading-5-500" className="text-grey-3">
-              de 1
-            </HeadingText>
-          </div>
+          {pagination.isActive ? (
+            <div>
+              <div className="flex items-center gap-2 self-center">
+                {pagination?.prevPage ? (
+                  <button
+                    className="text-brand-2 hover:cursor-pointer hover:underline"
+
+                    onClick={() => prevPage(pagination?.prevPage)}
+
+                  >
+                    {"< "} Voltar
+                  </button>
+                ) : null}
+                <div className="flex gap-1">
+                  <HeadingText
+                    tag="heading-7-600"
+                    className="text-grey-3 mr-1 self-center"
+                  >
+                    {pageNum}
+                  </HeadingText>
+                  <HeadingText tag="heading-7-500" className="text-grey-3">
+                    de {pagination.pageCount}
+                  </HeadingText>
+                </div>
+
+                {pagination.nextPage ? (
+                  <button
+                    // tag="heading-7-600"
+                    className="text-brand-2 hover:cursor-pointer hover:underline"
+                    onClick={() => nextPage(pagination.nextPage)}
+                  >
+                    Seguinte{" >"}
+                  </button>
+                ) : null}
+              </div>
+            </div>
+          ) : (
+            <div className="flex self-center">
+              <HeadingText
+                tag="heading-5-600"
+                className="text-grey-3 mr-1 self-center"
+              >
+                1
+              </HeadingText>
+              <HeadingText tag="heading-5-500" className="text-grey-3">
+                de 1
+              </HeadingText>
+            </div>
+          )}
           <Button
             variant="brand1"
             size="medium"
@@ -114,9 +164,10 @@ export const Home = () => {
             // onClick={() => ())
             className="max-w-[279px] w-full  sm:hidden "
           />
+
           {/* <HeadingText tag="heading-5-600" className="text-brand-2">
-            {"Seguinte >"}
-          </HeadingText> */}
+            //   {"Seguinte >"}
+            // </HeadingText> */}
         </div>
       </main>
       <Footer />

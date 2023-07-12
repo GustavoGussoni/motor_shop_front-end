@@ -54,8 +54,6 @@ export const FormRegisterAnnouncement = ({
 
     setValue("image_gallery", imageGallery);
 
-    console.log(data);
-
     postAnnouncement(data).then((status) =>
       status === 201 ? setOpen(false) : null
     );
@@ -106,90 +104,11 @@ export const FormRegisterAnnouncement = ({
                 <option value={elem}>{elem}</option>
               ))}
             </select>
-            {/* <Listbox
-              value={brands[0]}
-              as="div"
-              className="w-full"
-              {...register("brand")}
-              onChange={(e) => {
-                setModelSelected({
-                  id: "",
-                  name: "",
-                  brand: "",
-                  year: "",
-                  fuel: 0,
-                  value: 0,
-                });
-                selectModels(e);
-              }}
-            >
-              <Listbox.Button
-                className="py-2 w-full text-center text-body-1 border-[1.5px] border-grey-7 outline-none rounded text-grey-1 placeholder-grey-3"
-              >
-                {brands[0]}
-              </Listbox.Button>
-              <Listbox.Options className=" py-2 w-full text-center text-body-1 border-[1.5px] border-grey-7 outline-none rounded text-grey-1 placeholder-grey-3 flex flex-col items-center w-full  max-h-[250px] overflow-y-scroll">
-                {brands.map((brand: string) => (
-                  <Listbox.Option
-                    className="w-full text-center "
-                    key={brand}
-                    value={brand}
-                  >
-                    {({ active }) => (
-                      <li
-                        className={`w-full h-full py-2 cursor-pointer ${
-                          active
-                            ? "bg-blue-500 text-white"
-                            : "bg-white text-black"
-                        }`}
-                      >
-                        {brand}
-                      </li>
-                    )}
-                  </Listbox.Option>
-                ))}
-              </Listbox.Options>
-            </Listbox> */}
           </fieldset>
           <fieldset className="w-full flex flex-col gap-y-2.5">
             <label className="text-grey-1 text-body-2" htmlFor="">
               Modelos
             </label>
-            {/* <Listbox
-              as="div"
-              className="w-full"
-              {...register("model")}
-              value={models[0]}
-              onChange={(e) => findOneModel(e)}
-            >
-              <Listbox.Button
-                className="py-2 w-full text-center text-body-1 border-[1.5px] border-grey-7 outline-none rounded text-grey-1 placeholder-grey-3"
-                value={models[0]}
-              >
-                {models[0]}
-              </Listbox.Button>
-              <Listbox.Options className="flex flex-col items-center w-full text-center max-h-[250px] overflow-y-scroll">
-                {models.map((elem: iModel) => (
-                  <Listbox.Option
-                    className="w-full text-center "
-                    key={elem.id}
-                    value={elem.id}
-                  >
-                    {({ active }) => (
-                      <li
-                        className={`w-full h-full py-2 cursor-pointer ${
-                          active
-                            ? "bg-blue-500 text-white"
-                            : "bg-white text-black"
-                        }`}
-                      >
-                        {elem.name}
-                      </li>
-                    )}
-                  </Listbox.Option>
-                ))}
-              </Listbox.Options>
-            </Listbox> */}
             <select
               {...register("model")}
               id=""
