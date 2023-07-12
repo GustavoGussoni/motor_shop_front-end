@@ -19,6 +19,9 @@ export const Product = () => {
   const [viewImage, setViewImage] = useState<string>("");
   const [openViewImage, setOpenViewImage] = useState<boolean>(false);
 
+  const [viewImage, setViewImage] = useState<string>("");
+  const [openViewImage, setOpenViewImage] = useState<boolean>(false);
+
   useEffect(() => {
     const getAnnouncement = async () => {
       try {
@@ -44,8 +47,6 @@ export const Product = () => {
     };
     getAnnouncement();
   }, []);
-
-  console.log(announcement);
 
   if (!isLoading) {
     return (
@@ -73,9 +74,11 @@ export const Product = () => {
                     announcement?.image_gallery.map((el) => {
                       return (
                         <CarImages
+                          setViewImage={setViewImage}
+                          setOpenViewImage={setOpenViewImage}
+                          key={el.id}
                           data={el}
-                          setOpen={setOpenViewImage}
-                          setImage={setViewImage}
+
                         />
                       );
                     })
@@ -101,6 +104,9 @@ export const Product = () => {
           </ModalDefault>
           <Footer />
         </div>
+        <ModalDefault open={openViewImage} setOpen={setOpenViewImage}>
+          <ViewImage setOpen={setOpenViewImage} viewImage={viewImage} />
+        </ModalDefault>
       </div>
     );
   }

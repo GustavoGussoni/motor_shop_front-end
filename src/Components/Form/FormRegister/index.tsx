@@ -20,11 +20,10 @@ export const FormRegister = () => {
     setValue,
     formState: { isValid, errors },
   } = useForm<iRegisterFormValues>({
-    mode: "onChange",
+    mode: "onBlur",
     resolver: zodResolver(RegisterSchema),
   });
   const submit: SubmitHandler<iRegisterFormValues> = (data) => {
-    console.log(data);
     delete data.confirmPassword;
     if (data.is_advertiser === "true") {
       data["is_advertiser"] = true;
@@ -196,7 +195,7 @@ export const FormRegister = () => {
         <InputRadio
           id="advertiserFalse"
           value="false"
-          register={register("is_advertiser")}
+          register={register("is_advertiser", { value: false })}
           disabled={loading}
           variant="brand1"
           size="medium"
@@ -207,7 +206,7 @@ export const FormRegister = () => {
         <InputRadio
           id="advertiserTrue"
           value="true"
-          register={register("is_advertiser")}
+          register={register("is_advertiser", { value: true })}
           disabled={loading}
           variant="outline2"
           size="medium"

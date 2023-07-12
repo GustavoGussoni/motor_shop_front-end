@@ -13,6 +13,7 @@ const AsideFilter = ({ className }: any) => {
     allAnnouncements,
     setAnnouncementsFiltered,
     setRenderAll,
+    getAnnouncementByQuery,
   } = useContext(AuthContext);
 
   const [isLoading, setIsLoading] = useState(true);
@@ -22,7 +23,6 @@ const AsideFilter = ({ className }: any) => {
         await getAnnouncementsFiltered();
         setIsLoading(false);
       } catch (error) {
-        console.log(error);
         setIsLoading(false);
       }
     };
@@ -39,7 +39,7 @@ const AsideFilter = ({ className }: any) => {
     price: [],
   };
 
-  const handleFilteredAnnouncements = (
+  const handleFilteredAnnouncements = async (
     brand?: string | null,
     model?: string | null,
     color?: string | null,
@@ -48,9 +48,8 @@ const AsideFilter = ({ className }: any) => {
     setRenderAll(false);
 
     if (brand) {
-      const announcements = allAnnouncements.filter((el) => {
-        return el.brand === brand;
-      });
+      const key = "brand";
+      const announcements = await getAnnouncementByQuery(key, brand);
 
       filterData.brand = [brand];
 
@@ -102,15 +101,12 @@ const AsideFilter = ({ className }: any) => {
       });
       filterData.price = filterPrice;
 
-      console.log(filterModels);
       setFilter(filterData);
       setAnnouncementsFiltered(announcements);
     }
     if (model) {
-      const announcements = allAnnouncements.filter((el) => {
-        return el.model === model;
-      });
-
+      const key = "model";
+      const announcements = await getAnnouncementByQuery(key, model);
       filterData.model = [model];
 
       const findBrand = announcements.map((el) => {
@@ -161,14 +157,12 @@ const AsideFilter = ({ className }: any) => {
       });
       filterData.price = filterPrice;
 
-      // console.log()filterModels;
       setFilter(filterData);
       setAnnouncementsFiltered(announcements);
     }
     if (color) {
-      const announcements = allAnnouncements.filter((el) => {
-        return el.color === color;
-      });
+      const key = "color";
+      const announcements = await getAnnouncementByQuery(key, color);
 
       filterData.color = [color];
 
@@ -220,14 +214,12 @@ const AsideFilter = ({ className }: any) => {
       });
       filterData.price = filterPrice;
 
-      // console.log()filterModels;
       setFilter(filterData);
       setAnnouncementsFiltered(announcements);
     }
     if (year) {
-      const announcements = allAnnouncements.filter((el) => {
-        return el.year === year;
-      });
+      const key = "year";
+      const announcements = await getAnnouncementByQuery(key, year);
 
       filterData.year = [year];
 
@@ -279,7 +271,6 @@ const AsideFilter = ({ className }: any) => {
       });
       filterData.price = filterPrice;
 
-      console.log(filterModels);
       setFilter(filterData);
       setAnnouncementsFiltered(announcements);
     }

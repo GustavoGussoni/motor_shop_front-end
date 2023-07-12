@@ -34,6 +34,7 @@ export interface iUserProps {
 }
 
 export interface iCommentsProps {
+  id: string;
   comments: string;
   created_at: Date;
   user: {
@@ -79,6 +80,13 @@ export interface iGetAnnouncementFilter {
   price: string[];
 }
 
+export interface iPaginationProps {
+  isActive: boolean;
+  pageCount: number;
+  nextPage: string | undefined;
+  prevPage: string | undefined;
+}
+
 export interface iAuthContext {
   cep: iCepProps | null;
   setCep: React.Dispatch<React.SetStateAction<iCepProps | null>>;
@@ -101,6 +109,9 @@ export interface iAuthContext {
   userLogout: () => void;
   getUserAnnouncement: (userId: string | undefined) => Promise<void>;
   userAnnouncements: iAnnouncementProps[];
+  setUserAnnouncements: React.Dispatch<
+    React.SetStateAction<iAnnouncementProps[]>
+  >;
   getAllAnnouncement: () => Promise<void>;
   allAnnouncements: [] | iAnnouncementProps[];
   getAnnouncementById: (
@@ -142,4 +153,10 @@ export interface iAuthContext {
     React.SetStateAction<iAnnouncementProps[] | []>
   >;
   filterData: iGetAnnouncementFilter;
+  getAnnouncementByQuery: (
+    key: string,
+    value: string
+  ) => Promise<iAnnouncementProps | undefined>;
+  pagination: iPaginationProps;
+  getAnnouncementPaginated: (url: string | undefined) => Promise<void>;
 }

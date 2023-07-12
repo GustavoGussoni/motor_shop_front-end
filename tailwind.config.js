@@ -5,6 +5,11 @@ export default {
     fontFamily: {
       sans: ["Lexend", "sans-serif"],
     },
+    exports: {
+      corePlugins: {
+        layers: ["components", "base"],
+      },
+    },
     extend: {
       colors: {
         "brand-1": "#4529E6",

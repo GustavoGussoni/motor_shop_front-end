@@ -76,12 +76,12 @@ const CardAdmin = ({ data }: iCard) => {
           </div>
         </div>
         <div className="flex gap-[16px]">
-          <Button
+          {/* <Button
             variant="alert"
             text="excluir"
             size="medium"
             onClick={() => setOpenDeleteAnnouncement(true)}
-          />
+          /> */}
           <Button
             variant="outline1"
             text="editar"

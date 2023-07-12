@@ -18,6 +18,7 @@ export const TitleProduct = ({
   price,
   model,
 }: iTitleProductProps) => {
+  
   const { user } = useContext(AuthContext);
   const cookies = parseCookies();
   const { user_token } = cookies;

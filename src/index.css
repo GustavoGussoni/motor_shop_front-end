@@ -6,6 +6,15 @@
   * {
     @apply box-border;
   }
+
+  .bg-img {
+    background-image: url("Assets/embargo_23_01_bst_15_july_2020_911_turbo_rear_three_quarter-removebg.png");
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: cover;
+    object-fit: contain;
+  }
+
   main {
     @apply flex flex-col gap-5 px-[8%] py-5;
   }
@@ -14,6 +23,7 @@
     -webkit-appearance: none;
     margin: 0;
   }
+
   #radios label {
     position: relative;
   }
@@ -22,8 +32,9 @@
     position: absolute;
     opacity: 0;
     cursor: pointer;
-    width: 150px;
+    width: 162px;
     height: 48px;
+    z-index: 1;
   }
 }
 
@@ -33,5 +44,12 @@
   }
   .button-big {
     @apply w-fit py-2 px-5 text-body-1 rounded-1 font-600 hover:ease-in duration-300;
+  }
+
+  .img-cars-product {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
   }
 }
