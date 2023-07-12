@@ -26,6 +26,7 @@ export const Home = () => {
       setRenderAll(true);
       try {
         await getAllAnnouncement();
+        console.log(pagination);
         setIsLoading(false);
       } catch (error) {
         setIsLoading(false);
@@ -35,11 +36,13 @@ export const Home = () => {
     getAnnoucements();
   }, []);
 
+
   const nextPage = async (url: string | undefined) => {
     scrollTo(0, 0);
     setPageNum(pageNum + 1);
     await getAnnouncementPaginated(url);
   };
+
 
   const prevPage = async (url: string | undefined) => {
     scrollTo(0, 0);
@@ -111,7 +114,9 @@ export const Home = () => {
                 {pagination?.prevPage ? (
                   <button
                     className="text-brand-2 hover:cursor-pointer hover:underline"
+
                     onClick={() => prevPage(pagination?.prevPage)}
+
                   >
                     {"< "} Voltar
                   </button>
@@ -159,9 +164,10 @@ export const Home = () => {
             // onClick={() => ())
             className="max-w-[279px] w-full  sm:hidden "
           />
+
           {/* <HeadingText tag="heading-5-600" className="text-brand-2">
-            {"Seguinte >"}
-          </HeadingText> */}
+            //   {"Seguinte >"}
+            // </HeadingText> */}
         </div>
       </main>
       <Footer />

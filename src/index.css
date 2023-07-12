@@ -45,9 +45,11 @@
   .button-big {
     @apply w-fit py-2 px-5 text-body-1 rounded-1 font-600 hover:ease-in duration-300;
   }
+
   .img-cars-product {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+
   }
 }

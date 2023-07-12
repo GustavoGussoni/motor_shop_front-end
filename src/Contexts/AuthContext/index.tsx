@@ -39,6 +39,7 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
   const [allAnnouncements, setAllAnnouncements] = useState<
     iAnnouncementProps[] | []
   >([]);
+
   const [pagination, setPagination] = useState<iPaginationProps>({
     isActive: false,
     pageCount: 0,
@@ -225,7 +226,6 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
   const getAllAnnouncement = async () => {
     try {
       const request = await api.get("announcement");
-
       const data = await request.data;
       console.log(data);
       if (data.count > 12) {
@@ -353,7 +353,9 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
     }
   };
 
+
   const getAnnouncementPaginated = async (url: string | undefined) => {
+
     const newApiConnection = axios.create({
       baseURL: ``,
       timeout: 4000,
