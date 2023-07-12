@@ -12,6 +12,7 @@ export const CarImages = ({
   return (
     <>
       <div className="bg-gray-100 flex items-center w-full min-w-[90px] max-w-[108px] h-full min-h-[108px] max-h-[108px]">
+
         <img
           src={data.image}
           alt="Imagem carro"

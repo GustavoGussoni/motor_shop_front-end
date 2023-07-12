@@ -20,6 +20,7 @@ export const ViewImage = ({ setOpen, viewImage }: iViewImage) => {
           src={viewImage}
           alt="Imagem"
           className="object-cover rounded-1 self-center"
+
         />
       </figure>
     </div>

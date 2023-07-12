@@ -16,6 +16,8 @@ export const Product = () => {
   const { announcement, setAnnouncement, setComments, getAllAnnouncement } =
     useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(true);
+  const [viewImage, setViewImage] = useState<string>("");
+  const [openViewImage, setOpenViewImage] = useState<boolean>(false);
 
   const [viewImage, setViewImage] = useState<string>("");
   const [openViewImage, setOpenViewImage] = useState<boolean>(false);
@@ -31,6 +33,8 @@ export const Product = () => {
         const { announcement_data } = cookies;
 
         const data = JSON.parse(announcement_data);
+
+        console.log("announcement", announcement, data);
 
         setComments(data.comments);
         setAnnouncement(data);
@@ -74,6 +78,7 @@ export const Product = () => {
                           setOpenViewImage={setOpenViewImage}
                           key={el.id}
                           data={el}
+
                         />
                       );
                     })
@@ -94,6 +99,9 @@ export const Product = () => {
             </section>
             <section className="flex gap-8 flex-col justify-end self-start z-[1] sm:w-[40%] sm:max-w-[440px]"></section>
           </div>
+          <ModalDefault open={openViewImage} setOpen={setOpenViewImage}>
+            <ViewImage setOpen={setOpenViewImage} viewImage={viewImage} />
+          </ModalDefault>
           <Footer />
         </div>
         <ModalDefault open={openViewImage} setOpen={setOpenViewImage}>
