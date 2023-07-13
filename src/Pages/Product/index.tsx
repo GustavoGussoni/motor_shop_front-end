@@ -66,7 +66,7 @@ export const Product = () => {
             <section className="flex gap-8 w-[100%] flex-col justify-end self-start z-[1] sm:w-[40%] sm:max-w-[440px]">
               <aside className="bg-white max-h-[351px] rounded-2 flex flex-col items-center gap-4 w-full p-[25px] pt-[21px] h-auto sm:flex sm:items-center sm:justify-center">
                 <h1 className="self-center text-heading-6 font-600">Fotos</h1>
-                <div className="flex gap-[15px] flex-wrap items-center gap-y-[25px] sm:gap-[4px] justify-center overflow-auto">
+                <div className="flex gap-[68px] flex-wrap items-center gap-y-[25px] sm:gap-[34px] justify-center overflow-auto">
                   {announcement?.image_gallery ? (
                     announcement?.image_gallery.map((el) => {
                       return (
@@ -90,7 +90,7 @@ export const Product = () => {
             </section>
           </main>
           <div className="px-14 w-full flex items-center gap-[1.5rem] justify-center sm:justify-center flex-col sm:flex-row">
-            <section className="z-[1] flex flex-col max-w-[752px] sm:w-[60%] gap-5 self-start ">
+            <section className="z-[1] w-full flex flex-col max-w-[752px] sm:w-[60%] gap-5 self-start ">
               <Coments />
             </section>
             <section className="flex gap-8 flex-col justify-end self-start z-[1] sm:w-[40%] sm:max-w-[440px]"></section>

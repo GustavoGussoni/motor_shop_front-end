@@ -46,7 +46,7 @@ export const AdminProfile = () => {
 
   if (isLoading || !user || !userAnnouncements) {
     return (
-      <div className="bg-gray-100 max-h-full">
+      <div className="bg-gray-100 h-[100vh] max-h-full">
         <Header />
         <div className="relative z-[1] bg-brand-1 h-[17rem]" />
         <div className="bg-gray-100 absolute top-[78px] h-[100vh] w-full">
@@ -61,7 +61,7 @@ export const AdminProfile = () => {
   }
   return (
     <>
-      <div className="bg-gray-100 max-h-full">
+      <div className="bg-gray-100 h-[100vh] max-h-full">
         <Header />
         <div className="relative z-[1] bg-brand-1 h-[17rem]" />
         <div className="bg-gray-100 absolute top-[78px] h-[100vh] w-full">

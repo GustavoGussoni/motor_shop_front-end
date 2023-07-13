@@ -18,12 +18,11 @@ export const TitleProduct = ({
   price,
   model,
 }: iTitleProductProps) => {
-  
   const { user } = useContext(AuthContext);
   const cookies = parseCookies();
   const { user_token } = cookies;
   const redirectApp = (url: string) => {
-    window.location.href = url;
+    window.open(url, "_blank");
   };
   return (
     <div className="p-6 bg-white-fixed flex flex-col gap-6 rounded-2 md:relative">
@@ -43,16 +42,18 @@ export const TitleProduct = ({
         R$ {price}
       </p>
       {user && user_token && (
-        <Button
-          variant="brand1"
-          size="medium"
-          text="Comprar"
-          onClick={() =>
-            redirectApp(
-              "https://wa.me/+55011941652963?text=Oi%2C%20tudo%20bem%3F%20Estou%20entrando%20em%20contato%20referente%20ao%20produto%20do%20Motor%20Sports"
-            )
-          }
-        />
+        <>
+          <Button
+            variant="brand1"
+            size="medium"
+            text="Comprar"
+            onClick={() =>
+              redirectApp(
+                "https://wa.me/+55011941652963?text=Oi%2C%20tudo%20bem%3F%20Estou%20entrando%20em%20contato%20referente%20ao%20produto%20do%20Motor%20Sports"
+              )
+            }
+          ></Button>
+        </>
       )}
     </div>
   );

@@ -64,16 +64,18 @@ export const FormComents = () => {
       onSubmit={handleSubmit}
     >
       <div className="flex items-center gap-2">
-        {user && (
-          <div
-            className={`rounded-full w-8 h-8 bg-blue-700 flex items-center justify-center`}
-          >
-            <p className="text-center text-white font-medium text-sm flex items-center justify-center">
-              {GetFirstLetterOfEachWord(user?.name)}
-            </p>
-          </div>
-        )}
-        <h2 className="text-grey-1 text-sm font-medium">{user?.name}</h2>
+        {user ? (
+          <>
+            <div
+              className={`rounded-full w-8 h-8 bg-blue-700 flex items-center justify-center`}
+            >
+              <p className="text-center text-white font-medium text-sm flex items-center justify-center">
+                {GetFirstLetterOfEachWord(user?.name)}
+              </p>
+            </div>
+            <h2 className="text-grey-1 text-sm font-medium">{user?.name}</h2>
+          </>
+        ) : null}
       </div>
       <div className="relative w-full">
         <textarea
