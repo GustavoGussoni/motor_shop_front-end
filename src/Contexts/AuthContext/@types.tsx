@@ -36,6 +36,7 @@ export interface iUserProps {
 export interface iCommentsProps {
   id: string;
   comments: string;
+  userId: string;
   created_at: Date;
   user: {
     name: string;
@@ -71,13 +72,13 @@ export interface iAnnouncementProps {
 }
 
 export interface iGetAnnouncementFilter {
-  brand: string[];
-  model: string[];
-  color: string[];
-  year: string[];
-  fuel: string[];
-  kilometers: string[];
-  price: string[];
+  brand: string[] | undefined;
+  model: string[] | undefined;
+  color: string[] | undefined;
+  year: string[] | undefined;
+  fuel: string[] | undefined;
+  kilometers: string[] | undefined;
+  price: string[] | undefined;
 }
 
 export interface iPaginationProps {
@@ -156,7 +157,7 @@ export interface iAuthContext {
   getAnnouncementByQuery: (
     key: string,
     value: string
-  ) => Promise<iAnnouncementProps | undefined>;
+  ) => Promise<iAnnouncementProps[] | undefined>;
   pagination: iPaginationProps;
   getAnnouncementPaginated: (url: string | undefined) => Promise<void>;
 }

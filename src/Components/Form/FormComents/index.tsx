@@ -2,15 +2,18 @@ import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../Contexts/AuthContext";
 import { api } from "../../../Services";
+import { parseCookies, setCookie } from "nookies";
 
 export const FormComents = () => {
   const [comment, setComment] = useState("");
   const [selectedOption, setSelectedOption] = useState("");
-  const [isLogged, setIsLogged] = useState(true);
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
   const navigate = useNavigate();
   const { announcement, user, comments, setComments, user_token } =
     useContext(AuthContext);
+
+  const cookies = parseCookies();
+  const { user_id } = cookies;
 
   const GetFirstLetterOfEachWord = (username: string) => {
     const words = username.split(" ");
@@ -44,7 +47,7 @@ export const FormComents = () => {
     try {
       const request = await api.post(
         `comments/${announcement?.id}`,
-        { comments: data },
+        { comments: data, userId: user_id },
         {
           headers: {
             Authorization: `Bearer ${user_token}`,
@@ -52,6 +55,8 @@ export const FormComents = () => {
         }
       );
       setComments([...comments, request.data]);
+      const commentsString = JSON.stringify(comments);
+      setCookie(null, "comments_data", commentsString);
       setComment("");
       setSelectedOption("");
     } catch (error) {
