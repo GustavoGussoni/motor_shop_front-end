@@ -3,7 +3,7 @@ import { typeFuels } from "./annoucement.schema";
 export type iTypeFuels = keyof typeof typeFuels;
 
 export interface FuelTypes {
-  [key: number]: string;
+  [key: string]: string;
 }
 
 export interface iFormAnnouncement {

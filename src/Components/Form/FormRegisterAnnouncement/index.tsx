@@ -43,8 +43,15 @@ export const FormRegisterAnnouncement = ({
 
   const setModel = (model: iModel) => {
     console.log(model);
+    // if (model.fuel === 1) {
+    //   console.log("aqui");
+    //   setValue("fuel", "flex");
+    // }
+    // if (model.fuel === 2) setValue("fuel", "eletrico");
+    // if (model.fuel === 3) setValue("fuel", "hibrido");
     setValue("fuel", model.fuel);
     setValue("year", model.year);
+    console.log(typeof model.value);
     setValue("price_fipe", model.value);
   };
 
@@ -63,6 +70,20 @@ export const FormRegisterAnnouncement = ({
 
   const findOneModel = (modelName: string) => {
     const newModel = models.find((elem) => elem.name === modelName)!;
+    console.log(newModel);
+    if (newModel.fuel === 1) {
+      newModel.fuel = "flex";
+    }
+    if (newModel.fuel === 2) {
+      newModel.fuel = "eletrico";
+    }
+    if (newModel.fuel === 3) {
+      newModel.fuel = "hibrido";
+    }
+    if (newModel.value) {
+      console.log(typeof newModel.value);
+      // newModel.value = newModel.value.toString();
+    }
 
     setModelSelected(newModel);
     setModel(newModel);
@@ -94,7 +115,7 @@ export const FormRegisterAnnouncement = ({
                   name: "",
                   brand: "",
                   year: "",
-                  fuel: 0,
+                  fuel: "",
                   value: 0,
                 });
                 selectModels(e.target.value);
@@ -149,7 +170,7 @@ export const FormRegisterAnnouncement = ({
                 id="fuel"
                 label="Combustível"
                 type="text"
-                placeholder="diesel"
+                placeholder="flex"
                 disabled={false}
                 className="max-w-full"
                 register={register("fuel")}
@@ -201,12 +222,12 @@ export const FormRegisterAnnouncement = ({
               <Input
                 id="price_fipe"
                 label="Preço tabela FIPE"
-                type="number"
+                type="text"
                 placeholder="R$ 48.000,00"
                 disabled={false}
                 className="max-w-full"
                 value={modelSelected?.value}
-                register={register("price_fipe")}
+                register={register("price_fipe", { valueAsNumber: true })}
               />
               {errors?.price_fipe && (
                 <span className="text-body-2 text-random-2">
@@ -288,7 +309,10 @@ export const FormRegisterAnnouncement = ({
             text="Adicionar campo para imagem da galeria"
             size="medium"
             variant="brand1"
-            onClick={() => setImage((array) => [...array, array.length])}
+            onClick={(e) => {
+              e.preventDefault();
+              setImage((array) => [...array, array.length]);
+            }}
           ></Button>
           <div className="flex gap-3 self-end">
             <Button

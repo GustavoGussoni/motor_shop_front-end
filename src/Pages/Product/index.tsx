@@ -19,9 +19,6 @@ export const Product = () => {
   const [viewImage, setViewImage] = useState<string>("");
   const [openViewImage, setOpenViewImage] = useState<boolean>(false);
 
-  const [viewImage, setViewImage] = useState<string>("");
-  const [openViewImage, setOpenViewImage] = useState<boolean>(false);
-
   useEffect(() => {
     const getAnnouncement = async () => {
       try {
@@ -78,7 +75,6 @@ export const Product = () => {
                           setOpenViewImage={setOpenViewImage}
                           key={el.id}
                           data={el}
-
                         />
                       );
                     })
