@@ -5,6 +5,7 @@ import { AuthContext } from "../../Contexts/AuthContext";
 import { ModalDefault } from "../ModalDefault";
 import { FormEditAnnouncement } from "../Form/FormEditAnnouncement";
 import { DeleteAnnouncement } from "../DeleteAnnouncement";
+import { setCookie } from "nookies";
 
 interface iCard {
   data: iAnnouncementProps;
@@ -16,7 +17,10 @@ const CardAdmin = ({ data }: iCard) => {
   const [openEditAnnouncement, setOpenEditAnnouncement] = useState(false);
 
   const handleProduct = async (announcementId: string) => {
-    await setAnnouncementId(announcementId);
+    setAnnouncementId(announcementId);
+    const dataString = JSON.stringify(data);
+
+    setCookie(null, "announcement_data", dataString);
     navigate("/product");
   };
   return (

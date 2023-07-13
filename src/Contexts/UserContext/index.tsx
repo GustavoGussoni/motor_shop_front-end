@@ -15,9 +15,9 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
   const [models, setModels] = useState([]);
   const [brands, setBrands] = useState<string[] | []>([]);
   const [modelSelected, setModelSelected] = useState(null);
-  const { comments, setComments } = useContext(AuthContext);
 
-  const { setUserAnnouncements } = useContext(AuthContext);
+  const { setUserAnnouncements, comments, setComments } =
+    useContext(AuthContext);
 
   const cookies = parseCookies();
   const { user_token } = cookies;
@@ -39,6 +39,7 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
     try {
       const request = await carsApi.get(`cars/?brand=${brand}`);
       setModels(request.data);
+      console.log(request.data);
       return request.data;
     } catch (error: any) {
       toast.error(error.response.data.message);
@@ -55,6 +56,7 @@ export const UserProvider = ({ children }: iUserProviderProps) => {
       const request = await carsApi.get(
         `cars/unique?brand=${brand}?name=${name}?year=${year}?fuel=${fuel}`
       );
+      console.log(request);
 
       return request.data;
     } catch (error: any) {

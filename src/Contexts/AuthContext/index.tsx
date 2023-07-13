@@ -94,6 +94,7 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
       const request = await api.post("users", data);
       if (request.statusText === "Created") {
         setUser(request.data);
+        setTypeModal("registerSuccessfully");
         setIsOpen(true);
       }
       return request.data;
@@ -256,18 +257,15 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
 
   const getAnnouncementsFiltered = async () => {
     setRenderAll(true);
-    // setAllAnnouncements(allAnnouncements);
     await getAllAnnouncement();
     try {
       let request = await api.get(`announcement?group=brand`);
       let data = await request.data;
-      console.log(data);
       const brand = Object.keys(data);
       filterData.brand = brand;
 
       request = await api.get(`announcement?group=model`);
       data = await request.data;
-      console.log(data);
       const model = Object.keys(data);
       filterData.model = model;
 
@@ -353,9 +351,7 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
     }
   };
 
-
   const getAnnouncementPaginated = async (url: string | undefined) => {
-
     const newApiConnection = axios.create({
       baseURL: ``,
       timeout: 4000,

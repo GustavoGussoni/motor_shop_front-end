@@ -38,12 +38,14 @@ export const Header = () => {
   }, []);
 
   const handleLogin = () => {
+    console.log("aqui");
     navigate("/login");
   };
 
   const handleRegister = () => {
     navigate("register");
   };
+
   const handleHome = () => {
     setRenderAll(true);
 

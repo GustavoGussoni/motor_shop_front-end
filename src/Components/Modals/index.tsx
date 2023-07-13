@@ -55,7 +55,10 @@ export const Modal = ({ typeModal }: iModalProps) => {
                   variant="brand1"
                   text="Ir para o login"
                   className="outline-none px-[24px] py-[6px]"
-                  onClick={() => navigate("/login")}
+                  onClick={() => {
+                    setIsOpen(false);
+                    navigate("/login");
+                  }}
                 />
               </div>
             </div>
