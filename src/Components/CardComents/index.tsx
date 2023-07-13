@@ -26,8 +26,10 @@ export const CardComents = ({
   const [comment, setComment] = useState("");
   const cookies = parseCookies();
   const { user_token } = cookies;
-  const decoded: any = jwtDecode(user_token);
-  console.log(user);
+  let decoded: any = null;
+  if (user_token) {
+    decoded = jwtDecode(user_token);
+  }
 
   const handleClick = () => {
     if (!editing) {
@@ -114,17 +116,19 @@ export const CardComents = ({
           <div className="rounded-full w-1 h-1 text-center font-normal bg-grey-3"></div>
           {calculateElapsedTime(new Date(created_at))}
         </span>
-        {decoded.sub && user.name === decoded.name ? (
-          <div className="flex gap-5">
-            <PencilIcon
-              className="w-5 h-5 cursor-pointer"
-              onClick={handleClick}
-            />
-            <TrashIcon
-              className="w-5 h-5 cursor-pointer"
-              onClick={delComment}
-            />
-          </div>
+        {decoded ? (
+          decoded.sub && user.name === decoded.name ? (
+            <div className="flex gap-5">
+              <PencilIcon
+                className="w-5 h-5 cursor-pointer"
+                onClick={handleClick}
+              />
+              <TrashIcon
+                className="w-5 h-5 cursor-pointer"
+                onClick={delComment}
+              />
+            </div>
+          ) : null
         ) : null}
       </div>
       {editing ? (

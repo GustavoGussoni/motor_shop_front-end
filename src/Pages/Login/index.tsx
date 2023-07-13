@@ -26,9 +26,9 @@ export const Login = () => {
   }
 
   return (
-    <div className="w-screen bg-grey-8 flex flex-col justify-between">
+    <div className="w-screen h-[100vh] bg-grey-8 flex flex-col justify-between">
       <Header />
-      <main className="flex items-center">
+      <main className="flex mt-[66px] items-center">
         {formRecover ? (
           <FormPasswordRecover
             setOpen={setFormRecover}

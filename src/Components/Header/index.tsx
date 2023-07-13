@@ -87,7 +87,7 @@ export const Header = () => {
 
   const randomColorClass = getRandomColorClass();
   return (
-    <header className="bg-white-fixed">
+    <header className="bg-white-fixed w-full fixed z-10">
       <div className="flex px-14 items-center justify-between w-full">
         <img
           onClick={() => handleHome()}
