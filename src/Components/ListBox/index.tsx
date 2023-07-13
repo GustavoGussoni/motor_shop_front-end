@@ -1,5 +1,4 @@
 import { Listbox } from "@headlessui/react";
-import { CheckIcon } from "@heroicons/react/24/outline";
 import { ElementType, Fragment } from "react";
 
 export interface iListBox {
@@ -16,7 +15,6 @@ export const MyListBox = ({
   register,
   selected,
   setSelected,
-  as,
 }: iListBox) => {
   return (
     <Listbox {...register} onChange={setSelected}>

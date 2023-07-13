@@ -160,4 +160,8 @@ export interface iAuthContext {
   ) => Promise<iAnnouncementProps[] | undefined>;
   pagination: iPaginationProps;
   getAnnouncementPaginated: (url: string | undefined) => Promise<void>;
+  loading: boolean;
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  isLoading: boolean;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
