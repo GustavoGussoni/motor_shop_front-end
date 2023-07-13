@@ -3,7 +3,6 @@ import { useContext, useState } from "react";
 import { UserContext } from "../../Contexts/UserContext";
 import { Button } from "../Button";
 import { parseCookies } from "nookies";
-import { AuthContext } from "../../Contexts/AuthContext";
 import jwtDecode from "jwt-decode";
 
 interface iCommentsCardProps {

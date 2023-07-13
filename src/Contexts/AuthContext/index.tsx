@@ -29,6 +29,8 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
   const [announcement, setAnnouncement] = useState<iAnnouncementProps | null>(
     null
   );
+  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [renderAll, setRenderAll] = useState(true);
   const [announcementsFiltered, setAnnouncementsFiltered] = useState<
     iAnnouncementProps[] | []
@@ -445,6 +447,8 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
         setCep,
         user,
         setUser,
+        loading,
+        setLoading,
         userRegister,
         userLogin,
         navigate,
@@ -455,6 +459,8 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
         isOpen,
         setIsOpen,
         userLogout,
+        isLoading,
+        setIsLoading,
         getUserAnnouncement,
         userAnnouncements,
         setUserAnnouncements,

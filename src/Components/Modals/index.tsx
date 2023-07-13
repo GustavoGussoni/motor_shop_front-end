@@ -4,7 +4,6 @@ import { AuthContext } from "../../Contexts/AuthContext";
 import { iModalProps } from "./@types";
 import { EditAddress } from "../Form/FormEditAddress";
 import { FormProfileEdit } from "../Form/FromProfileEdit";
-import { HeadingText } from "../../Style/HeadingText";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../Button";
 
@@ -14,10 +13,6 @@ export const Modal = ({ typeModal }: iModalProps) => {
 
   const closeModal = () => {
     setIsOpen(false);
-  };
-
-  const openModal = () => {
-    setIsOpen(true);
   };
 
   const switchModal = () => {

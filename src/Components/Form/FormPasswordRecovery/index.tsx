@@ -35,7 +35,7 @@ export const FormPasswordRecover = ({
       toast.success("Senha alterada com sucesso");
 
       return request;
-    } catch (err) {
+    } catch (err: any) {
       console.log(err);
       toast.error(`${err.response.data.message}, token expired`);
     }

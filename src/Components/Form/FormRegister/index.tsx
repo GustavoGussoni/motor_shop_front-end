@@ -12,8 +12,7 @@ import { InputRadio } from "../InputRadio";
 
 export const FormRegister = () => {
   const [loading, setLoading] = useState(false);
-  const { authCep, cep, userRegister, setIsOpen, setTypeModal } =
-    useContext(AuthContext);
+  const { authCep, cep, userRegister, setIsOpen } = useContext(AuthContext);
 
   const {
     register,

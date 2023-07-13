@@ -298,7 +298,7 @@ const AsideFilter = ({ className }: any) => {
               Marca
             </HeadingText>
             <div className="flex flex-col ml-2 mt-5">
-              {filter.brand.map((el) => {
+              {filter.brand?.map((el) => {
                 return (
                   <HeadingText
                     key={el}
@@ -322,7 +322,7 @@ const AsideFilter = ({ className }: any) => {
               Modelo
             </HeadingText>
             <div className="flex flex-col ml-2 mt-5">
-              {filter.model.map((el) => {
+              {filter.model?.map((el) => {
                 return (
                   <HeadingText
                     key={el}
@@ -346,7 +346,7 @@ const AsideFilter = ({ className }: any) => {
               Cor
             </HeadingText>
             <div className="flex flex-col ml-2 mt-5">
-              {filter.color.map((el) => {
+              {filter.color?.map((el) => {
                 return (
                   <HeadingText
                     key={el}
@@ -370,7 +370,7 @@ const AsideFilter = ({ className }: any) => {
               Ano
             </HeadingText>
             <div className="flex flex-col ml-2 mt-5">
-              {filter.year.map((el) => {
+              {filter.year?.map((el) => {
                 return (
                   <HeadingText
                     key={el}
@@ -394,15 +394,15 @@ const AsideFilter = ({ className }: any) => {
               Combustível
             </HeadingText>
             <div className="flex flex-col ml-2 mt-5">
-              {filter.fuel.map((el) => {
+              {filter.fuel?.map((el) => {
                 return (
                   <HeadingText
                     key={el}
                     tag="heading-6-500"
                     className="text-grey-3 cursor-pointer"
-                    onClick={(event) =>
-                      setFilter((event.target as HTMLElement).innerText)
-                    }
+                    // onClick={(event) =>
+                    //   setFilter((event.target as HTMLElement).innerText)
+                    // }
                   >
                     {el}
                   </HeadingText>

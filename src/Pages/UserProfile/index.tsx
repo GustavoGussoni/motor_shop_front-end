@@ -8,8 +8,7 @@ import { Card } from "../../Components/Card";
 import { parseCookies } from "nookies";
 
 export const UserProfile = () => {
-  const { getUserData, user, userAnnouncements, getUserAnnouncement } =
-    useContext(AuthContext);
+  const { userAnnouncements, getUserAnnouncement } = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
