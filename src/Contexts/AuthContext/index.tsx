@@ -99,7 +99,7 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
       }
       return request.data;
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       setLoading(false);
     }
@@ -198,7 +198,7 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
       return setUser(find_user[0]);
     } catch (error: any) {
       toast(error.response.data.message);
-      console.log(error);
+      console.error(error);
       if (error.response.data.status === 401) {
         setUser(null);
         destroyCookie(null, "user_token");
@@ -213,14 +213,13 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
       const request = await api.get("announcement");
 
       const data = await request.data.data;
-      console.log(data);
 
       const find_user_announcements = data.filter((el: iAnnouncementProps) => {
         return el.userId === userId;
       });
       setUserAnnouncements(find_user_announcements);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -228,9 +227,7 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
     try {
       const request = await api.get("announcement");
       const data = await request.data;
-      console.log(data);
       if (data.count > 12) {
-        console.log(data.data.length);
         const newPagination = {
           isActive: true,
           pageCount: Math.ceil(data.count / data.data.length),
@@ -241,7 +238,7 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
       }
       setAllAnnouncements(data.data);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -297,14 +294,14 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
       setFilter(filterData);
       // setAllAnnouncements(data);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
   const getAnnouncementByQuery = async (
     key: string,
     value: string
-  ): Promise<iAnnouncementProps | undefined> => {
+  ): Promise<iAnnouncementProps[] | undefined> => {
     try {
       const request = await api.get(`announcement?${key}=${value}`);
       const data = request.data;
@@ -337,7 +334,6 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
     try {
       const request = await api.get(`/announcement/${announcementId}`);
       const data = request.data;
-      // localStorage.setItem("cudecurioso", dataString);
       const expirationDate = new Date();
       expirationDate.setDate(expirationDate.getDate() + 1);
       const dataString = JSON.stringify(data);
@@ -347,7 +343,7 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
       setAnnouncement(data);
       setComments(data.comments);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -360,14 +356,11 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
       const request = await newApiConnection.get(`${url}`);
       const data = request.data;
       if (data.count > 12) {
-        console.log(data);
-        console.log(data.data.length);
         const newPagination = {
           isActive: true,
           nextPage: data.nextPage ? `${data.nextPage}` : undefined,
           prevPage: data.prevPage ? `${data.prevPage}` : undefined,
         };
-        console.log(newPagination);
         setPagination({ ...pagination, ...newPagination });
       }
       setAllAnnouncements(data.data);
@@ -424,7 +417,7 @@ export const AuthProvider = ({ children }: iAuthProviderProps) => {
       setUserAnnouncements(findAnnouncements);
       toast.success("Anúncio excluído com sucesso!");
     } catch (error) {
-      console.log(error);
+      console.error(error);
       toast.error("Erro ao excluir o anúncio.");
     }
   };

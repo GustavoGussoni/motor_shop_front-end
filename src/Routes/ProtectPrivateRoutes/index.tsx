@@ -6,8 +6,7 @@ import { AuthContext } from "../../Contexts/AuthContext";
 export const ProtectPrivateRoutes = () => {
   const cookies = parseCookies();
   const { user_token } = cookies;
-  const { user, setUser } = useContext(AuthContext);
-  const navigate = useNavigate();
+  const { user, setUser, navigate } = useContext(AuthContext);
 
   useEffect(() => {
     if (!user_token) {

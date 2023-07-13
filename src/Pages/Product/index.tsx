@@ -28,18 +28,14 @@ export const Product = () => {
 
         const cookies = parseCookies();
         const { announcement_data } = cookies;
-
         const data = JSON.parse(announcement_data);
-
-        console.log("announcement", announcement, data);
 
         setComments(data.comments);
         setAnnouncement(data);
-
         setIsLoading(false);
       } catch (error) {
         setIsLoading(false);
-        console.log(error);
+        console.error(error);
       }
     };
     getAnnouncement();

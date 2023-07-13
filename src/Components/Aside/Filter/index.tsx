@@ -10,7 +10,6 @@ const AsideFilter = ({ className }: any) => {
     setFilter,
     renderAll,
     getAnnouncementsFiltered,
-    allAnnouncements,
     setAnnouncementsFiltered,
     setRenderAll,
     getAnnouncementByQuery,
@@ -53,112 +52,112 @@ const AsideFilter = ({ className }: any) => {
 
       filterData.brand = [brand];
 
-      const findModels = announcements.map((el) => {
+      const findModels = announcements?.map((el) => {
         return el.model;
       });
-      const filterModels = findModels.filter((val, i, arr) => {
+      const filterModels = findModels?.filter((val, i, arr) => {
         return arr.indexOf(val) === i;
       });
       filterData.model = filterModels;
 
-      const findColor = announcements.map((el) => {
+      const findColor = announcements?.map((el) => {
         return el.color;
       });
-      const filterColor = findColor.filter((val, i, arr) => {
+      const filterColor = findColor?.filter((val, i, arr) => {
         return arr.indexOf(val) === i;
       });
       filterData.color = filterColor;
 
-      const findYear = announcements.map((el) => {
+      const findYear = announcements?.map((el) => {
         return el.year.toString();
       });
-      const filterYear = findYear.filter((val, i, arr) => {
+      const filterYear = findYear?.filter((val, i, arr) => {
         return arr.indexOf(val) === i;
       });
       filterData.year = filterYear;
 
-      const findFuel = announcements.map((el) => {
+      const findFuel = announcements?.map((el) => {
         return el.fuel.toString();
       });
-      const filterFuel = findFuel.filter((val, i, arr) => {
+      const filterFuel = findFuel?.filter((val, i, arr) => {
         return arr.indexOf(val) === i;
       });
       filterData.fuel = filterFuel;
 
-      const findKm = announcements.map((el) => {
+      const findKm = announcements?.map((el) => {
         return el.kilometers.toString();
       });
-      const filterKm = findKm.filter((val, i, arr) => {
+      const filterKm = findKm?.filter((val, i, arr) => {
         return arr.indexOf(val) === i;
       });
       filterData.kilometers = filterKm;
 
-      const findPrice = announcements.map((el) => {
+      const findPrice = announcements?.map((el) => {
         return el.fuel.toString();
       });
-      const filterPrice = findPrice.filter((val, i, arr) => {
+      const filterPrice = findPrice?.filter((val, i, arr) => {
         return arr.indexOf(val) === i;
       });
       filterData.price = filterPrice;
 
       setFilter(filterData);
-      setAnnouncementsFiltered(announcements);
+      setAnnouncementsFiltered(announcements || []);
     }
     if (model) {
       const key = "model";
       const announcements = await getAnnouncementByQuery(key, model);
       filterData.model = [model];
 
-      const findBrand = announcements.map((el) => {
+      const findBrand = announcements?.map((el) => {
         return el.brand;
       });
-      const filterBrands = findBrand.filter((val, i, arr) => {
+      const filterBrands = findBrand?.filter((val, i, arr) => {
         return arr.indexOf(val) === i;
       });
       filterData.brand = filterBrands;
 
-      const findColor = announcements.map((el) => {
+      const findColor = announcements?.map((el) => {
         return el.color;
       });
-      const filterColor = findColor.filter((val, i, arr) => {
+      const filterColor = findColor?.filter((val, i, arr) => {
         return arr.indexOf(val) === i;
       });
       filterData.color = filterColor;
 
-      const findYear = announcements.map((el) => {
+      const findYear = announcements?.map((el) => {
         return el.year.toString();
       });
-      const filterYear = findYear.filter((val, i, arr) => {
+      const filterYear = findYear?.filter((val, i, arr) => {
         return arr.indexOf(val) === i;
       });
       filterData.year = filterYear;
 
-      const findFuel = announcements.map((el) => {
+      const findFuel = announcements?.map((el) => {
         return el.fuel.toString();
       });
-      const filterFuel = findFuel.filter((val, i, arr) => {
+      const filterFuel = findFuel?.filter((val, i, arr) => {
         return arr.indexOf(val) === i;
       });
       filterData.fuel = filterFuel;
 
-      const findKm = announcements.map((el) => {
+      const findKm = announcements?.map((el) => {
         return el.kilometers.toString();
       });
-      const filterKm = findKm.filter((val, i, arr) => {
+      const filterKm = findKm?.filter((val, i, arr) => {
         return arr.indexOf(val) === i;
       });
       filterData.kilometers = filterKm;
 
-      const findPrice = announcements.map((el) => {
+      const findPrice = announcements?.map((el) => {
         return el.fuel.toString();
       });
-      const filterPrice = findPrice.filter((val, i, arr) => {
+      const filterPrice = findPrice?.filter((val, i, arr) => {
         return arr.indexOf(val) === i;
       });
       filterData.price = filterPrice;
 
       setFilter(filterData);
-      setAnnouncementsFiltered(announcements);
+      setAnnouncementsFiltered(announcements || []);
     }
     if (color) {
       const key = "color";
@@ -166,56 +165,56 @@ const AsideFilter = ({ className }: any) => {
 
       filterData.color = [color];
 
-      const findBrand = announcements.map((el) => {
+      const findBrand = announcements?.map((el) => {
         return el.brand;
       });
-      const filterBrands = findBrand.filter((val, i, arr) => {
+      const filterBrands = findBrand?.filter((val, i, arr) => {
         return arr.indexOf(val) === i;
       });
       filterData.brand = filterBrands;
 
-      const findModels = announcements.map((el) => {
+      const findModels = announcements?.map((el) => {
         return el.model;
       });
-      const filterModels = findModels.filter((val, i, arr) => {
+      const filterModels = findModels?.filter((val, i, arr) => {
         return arr.indexOf(val) === i;
       });
       filterData.model = filterModels;
 
-      const findYear = announcements.map((el) => {
+      const findYear = announcements?.map((el) => {
         return el.year.toString();
       });
-      const filterYear = findYear.filter((val, i, arr) => {
+      const filterYear = findYear?.filter((val, i, arr) => {
         return arr.indexOf(val) === i;
       });
       filterData.year = filterYear;
 
-      const findFuel = announcements.map((el) => {
+      const findFuel = announcements?.map((el) => {
         return el.fuel.toString();
       });
-      const filterFuel = findFuel.filter((val, i, arr) => {
+      const filterFuel = findFuel?.filter((val, i, arr) => {
         return arr.indexOf(val) === i;
       });
       filterData.fuel = filterFuel;
 
-      const findKm = announcements.map((el) => {
+      const findKm = announcements?.map((el) => {
         return el.kilometers.toString();
       });
-      const filterKm = findKm.filter((val, i, arr) => {
+      const filterKm = findKm?.filter((val, i, arr) => {
         return arr.indexOf(val) === i;
       });
       filterData.kilometers = filterKm;
 
-      const findPrice = announcements.map((el) => {
+      const findPrice = announcements?.map((el) => {
         return el.fuel.toString();
       });
-      const filterPrice = findPrice.filter((val, i, arr) => {
+      const filterPrice = findPrice?.filter((val, i, arr) => {
         return arr.indexOf(val) === i;
       });
       filterData.price = filterPrice;
 
       setFilter(filterData);
-      setAnnouncementsFiltered(announcements);
+      setAnnouncementsFiltered(announcements || []);
     }
     if (year) {
       const key = "year";
@@ -223,56 +222,56 @@ const AsideFilter = ({ className }: any) => {
 
       filterData.year = [year];
 
-      const findBrand = announcements.map((el) => {
+      const findBrand = announcements?.map((el) => {
         return el.brand;
       });
-      const filterBrands = findBrand.filter((val, i, arr) => {
+      const filterBrands = findBrand?.filter((val, i, arr) => {
         return arr.indexOf(val) === i;
       });
       filterData.brand = filterBrands;
 
-      const findModels = announcements.map((el) => {
+      const findModels = announcements?.map((el) => {
         return el.model;
       });
-      const filterModels = findModels.filter((val, i, arr) => {
+      const filterModels = findModels?.filter((val, i, arr) => {
         return arr.indexOf(val) === i;
       });
       filterData.model = filterModels;
 
-      const findColor = announcements.map((el) => {
+      const findColor = announcements?.map((el) => {
         return el.color;
       });
-      const filterColor = findColor.filter((val, i, arr) => {
+      const filterColor = findColor?.filter((val, i, arr) => {
         return arr.indexOf(val) === i;
       });
       filterData.color = filterColor;
 
-      const findFuel = announcements.map((el) => {
+      const findFuel = announcements?.map((el) => {
         return el.fuel.toString();
       });
-      const filterFuel = findFuel.filter((val, i, arr) => {
+      const filterFuel = findFuel?.filter((val, i, arr) => {
         return arr.indexOf(val) === i;
       });
       filterData.fuel = filterFuel;
 
-      const findKm = announcements.map((el) => {
+      const findKm = announcements?.map((el) => {
         return el.kilometers.toString();
       });
-      const filterKm = findKm.filter((val, i, arr) => {
+      const filterKm = findKm?.filter((val, i, arr) => {
         return arr.indexOf(val) === i;
       });
       filterData.kilometers = filterKm;
 
-      const findPrice = announcements.map((el) => {
+      const findPrice = announcements?.map((el) => {
         return el.fuel.toString();
       });
-      const filterPrice = findPrice.filter((val, i, arr) => {
+      const filterPrice = findPrice?.filter((val, i, arr) => {
         return arr.indexOf(val) === i;
       });
       filterData.price = filterPrice;
 
       setFilter(filterData);
-      setAnnouncementsFiltered(announcements);
+      setAnnouncementsFiltered(announcements || []);
     }
   };
 
