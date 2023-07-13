@@ -34,7 +34,7 @@
 
 <h2 id="comoAcessar"> :computer_mouse: Como acessar?</h2>
 
-<a href="LINK DO VERCEL DO FRONT">Teste a aplicação clicando aqui!</a>.
+<a href="">Site em construção, em breve: teste a aplicação clicando aqui!</a>.
 
 <h2 id="descricao">:pencil2: Descrição</h2>
 <p>
@@ -74,6 +74,7 @@ Em resumo, nossa aplicação é uma solução abrangente e amigável para quem d
 <h2 id="funcionalidades">:hammer: Funcionalidades</h2>
 
 ### Gerais
+
 - Consumo de uma <a href="">API</a> para efetuar os envios e recebimentos de dados
 - Cadastro e login de usuários (vendedor ou comprador)
 - Cadastro de veículos na plataforma
@@ -81,9 +82,11 @@ Em resumo, nossa aplicação é uma solução abrangente e amigável para quem d
 - Comentários em publicações
 
 ### Usuário deslogado:
+
 - Listagem de todos os veículos disponíveis para venda
 
 ### Usuário logado:
+
 - Cadastramento de anúncio
 - Edição de anúncios cadastrados do usuário logado
 - Exclusão de anúncios cadastrados do usuário logado
@@ -97,9 +100,10 @@ Em resumo, nossa aplicação é uma solução abrangente e amigável para quem d
 <h2 id="interacao">:computer: Como interagir com o projeto? </h2>
 
 ### Repositório da API
- ><a href="LINK DO REPOSITÓRIO">Clique aqui</a> para acessar o repositório.
 
- >Interagir com o site por meio<a href="https://reciclarte-rho.vercel.app/"> da Vercel</a>.
+> <a href="LINK DO REPOSITÓRIO">Clique aqui</a> para acessar o repositório.
+
+> Interagir com o site por meio<a href="https://reciclarte-rho.vercel.app/"> da Vercel</a>.
 
 <h2 id="doc">:page_facing_up: Documentação da API </h2>
 <a href="LINK DO REPOSITÓRIO DA API">Clique aqui para acessar a documentação</a>.
@@ -125,4 +129,3 @@ Em resumo, nossa aplicação é uma solução abrangente e amigável para quem d
 <a href="https://github.com/GustavoGussoni">
   <img width="120px" src="https://avatars.githubusercontent.com/u/110189029?v=4">
 </a>
- 
