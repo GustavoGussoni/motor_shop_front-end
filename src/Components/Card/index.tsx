@@ -40,14 +40,15 @@ const Card = ({ data }: iCard) => {
     navigate("/profile/user");
   };
 
-  const handleProduct = async (announcementId: string) => {
+  const handleProduct = (announcementId: string) => {
     setAnnouncementId(announcementId);
     const comments = data.comments;
-    const dataString = JSON.stringify(data);
     const commentsString = JSON.stringify(comments);
+    const dataString = JSON.stringify(data);
+    console.log(dataString);
 
-    setCookie(null, "announcement_data", dataString);
     setCookie(null, "comments_data", commentsString);
+    setCookie(null, "announcement_data", dataString);
 
     navigate("/product");
   };

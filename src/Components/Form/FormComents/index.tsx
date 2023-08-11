@@ -45,15 +45,19 @@ export const FormComents = () => {
 
   const registerComments = async (data: string) => {
     try {
+      console.log(user_token);
+      console.log(data);
+      console.log(user_id);
       const request = await api.post(
         `comments/${announcement?.id}`,
-        { comments: data, userId: user_id },
+        { comments: data, user_id: user_id },
         {
           headers: {
             Authorization: `Bearer ${user_token}`,
           },
         }
       );
+      console.log(await request);
       setComments([...comments, request.data]);
       const commentsString = JSON.stringify(comments);
       setCookie(null, "comments_data", commentsString);

@@ -24,7 +24,7 @@ export const Product = () => {
       try {
         scrollTo(0, 0);
 
-        await getAllAnnouncement();
+        // await getAllAnnouncement();
 
         const cookies = parseCookies();
         const { announcement_data } = cookies;
