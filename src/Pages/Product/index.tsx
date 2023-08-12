@@ -13,7 +13,7 @@ import { ModalDefault } from "../../Components/ModalDefault";
 import { ViewImage } from "../../Components/ViewImage";
 
 export const Product = () => {
-  const { announcement, setAnnouncement, setComments, getAllAnnouncement } =
+  const { announcement, setAnnouncement, setComments } =
     useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(true);
   const [viewImage, setViewImage] = useState<string>("");

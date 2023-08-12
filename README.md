@@ -34,7 +34,7 @@
 
 <h2 id="comoAcessar"> :computer_mouse: Como acessar?</h2>
 
-<a href="">Site em construção, em breve: teste a aplicação clicando aqui!</a>.
+<a href="">Teste a aplicação clicando aqui!</a>.
 
 <h2 id="descricao">:pencil2: Descrição</h2>
 <p>
@@ -101,12 +101,14 @@ Em resumo, nossa aplicação é uma solução abrangente e amigável para quem d
 
 ### Repositório da API
 
-> <a href="LINK DO REPOSITÓRIO">Clique aqui</a> para acessar o repositório.
+"
+
+> <a href="LINK DO REPOSITÓRIO>Clique aqui</a> para acessar o repositório.
 
 > Interagir com o site por meio<a href="https://reciclarte-rho.vercel.app/"> da Vercel</a>.
 
 <h2 id="doc">:page_facing_up: Documentação da API </h2>
-<a href="LINK DO REPOSITÓRIO DA API">Clique aqui para acessar a documentação</a>.
+<a href="https://motor-shop-back-end.onrender.com/api">Clique aqui para acessar a documentação</a>.
 
 <h2 id="Desenvolvedores">:construction_worker: Pessoas contribuidoras</h2>
 
