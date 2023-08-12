@@ -57,7 +57,6 @@ export const FormComents = () => {
           },
         }
       );
-      console.log(await request);
       setComments([...comments, request.data]);
       const commentsString = JSON.stringify(comments);
       setCookie(null, "comments_data", commentsString);

@@ -1,8 +1,8 @@
 import axios from "axios";
 
 export const api = axios.create({
-  baseURL: "http://localhost:3000/",
-  timeout: 4000,
+  baseURL: "https://motor-shop-back-end.onrender.com/",
+  timeout: 30000,
 });
 
 // api.interceptors.request.use((config) => {
