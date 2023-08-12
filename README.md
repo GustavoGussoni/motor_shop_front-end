@@ -34,7 +34,7 @@
 
 <h2 id="comoAcessar"> :computer_mouse: Como acessar?</h2>
 
-<a href="">Teste a aplicação clicando aqui!</a>.
+<a href="https://motors-shop-front-end-gustavogussoni.vercel.app/">Teste a aplicação clicando aqui!</a>.
 
 <h2 id="descricao">:pencil2: Descrição</h2>
 <p>
@@ -75,7 +75,7 @@ Em resumo, nossa aplicação é uma solução abrangente e amigável para quem d
 
 ### Gerais
 
-- Consumo de uma <a href="">API</a> para efetuar os envios e recebimentos de dados
+- Consumo de uma <a href="https://motor-shop-back-end.onrender.com/api">API</a> para efetuar os envios e recebimentos de dados
 - Cadastro e login de usuários (vendedor ou comprador)
 - Cadastro de veículos na plataforma
 - Filtragem de veículos a partir das suas categorias
@@ -101,11 +101,9 @@ Em resumo, nossa aplicação é uma solução abrangente e amigável para quem d
 
 ### Repositório da API
 
-"
+<a href="https://github.com/GustavoGussoni/motor_shop_api">Clique aqui</a> para acessar o repositório.
 
-> <a href="LINK DO REPOSITÓRIO>Clique aqui</a> para acessar o repositório.
-
-> Interagir com o site por meio<a href="https://reciclarte-rho.vercel.app/"> da Vercel</a>.
+<a href="https://motors-shop-front-end-gustavogussoni.vercel.app/"> Interagir com o site por meio da Vercel</a>.
 
 <h2 id="doc">:page_facing_up: Documentação da API </h2>
 <a href="https://motor-shop-back-end.onrender.com/api">Clique aqui para acessar a documentação</a>.
